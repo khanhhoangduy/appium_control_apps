@@ -8,21 +8,21 @@
         <parameters version="24.3.0.202403311053">
             <parameters escape="true">
                 <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
-                    <DeviceAndroidVersion>12</DeviceAndroidVersion>
-                    <DeviceAndroidName>sdk_gphone64_x86_64a</DeviceAndroidName>
-                    <DeviceAndroidId>emulator-5554</DeviceAndroidId>
-                    <AppiumDriverName>UiAutomator2</AppiumDriverName>
-                    <AppiumServerHost>localhost</AppiumServerHost>
-                    <AppiumServerPort pt:datatype="INTEGER">4723</AppiumServerPort>
-                    <VideoURL>https://vt.tiktok.com/ZSFsSBocS/</VideoURL>
-                    <PackageName>com.zhiliaoapp.musically</PackageName>
-                    <ADBPath>D:/Document/AndroidSDK/platform-tools/adb</ADBPath>
-                    <username/>
-                    <password>TikTok@21513</password>
-                    <allowAccess pt:datatype="BOOLEAN">false</allowAccess>
-                    <clearAppData pt:datatype="BOOLEAN">true</clearAppData>
-                    <waitForComplete pt:datatype="BOOLEAN">true</waitForComplete>
-                    <terminateApp pt:datatype="BOOLEAN">true</terminateApp>
+                    <DeviceAndroidVersion pt:description="OS version of Android device. Default support: 12">12</DeviceAndroidVersion>
+                    <DeviceAndroidName pt:description="Name of Android device">sdk_gphone64_x86_64a</DeviceAndroidName>
+                    <DeviceAndroidId pt:description="ID of Android device">emulator-5554</DeviceAndroidId>
+                    <AppiumDriverName pt:description="Appium Driver Name. Default: UiAutomator2">UiAutomator2</AppiumDriverName>
+                    <AppiumServerHost pt:description="Appium Server Host. Default: localhost">localhost</AppiumServerHost>
+                    <AppiumServerPort pt:datatype="INTEGER" pt:description="Appium Server Port. Default: 4723">4723</AppiumServerPort>
+                    <VideoURL pt:description="The URL to the video">https://vt.tiktok.com/ZSFsSBocS/</VideoURL>
+                    <ADBPath pt:description="The path to ADB. Required when clear App Data">D:/Document/AndroidSDK/platform-tools/adb</ADBPath>
+                    <packageName pt:description="Optional. Tiktok package name - base on Tiktok version">com.zhiliaoapp.musically</packageName>
+                    <username pt:description="Optional. Tiktok username"/>
+                    <password pt:description="Optional. Tiktok password"/>
+                    <allowAccess pt:datatype="BOOLEAN" pt:description="Optional. Allow Tiktok access or not. Default: false">false</allowAccess>
+                    <clearAppData pt:datatype="BOOLEAN" pt:description="Optional. Clear Tiktok data. Default: true">true</clearAppData>
+                    <waitForComplete pt:datatype="BOOLEAN" pt:description="Optional. Waiting for video complete and get actual time. Default: true">true</waitForComplete>
+                    <terminateApp pt:datatype="BOOLEAN" pt:description="Optional. Terminate Tiktok after complete. Default: true">true</terminateApp>
                 </parameters>
             </parameters>
         </parameters>
@@ -55,7 +55,7 @@
                         </item>
                         <item guid="c90bb567-be17-496a-9ac7-e308846420bc" action="eval" useFieldsInCommand="false">
                             <command>
-                                <body>packageName = param(&apos;PackageName&apos;, &apos;com.zhiliaoapp.musically&apos;)</body>
+                                <body>packageName = param(&apos;packageName&apos;, &apos;com.zhiliaoapp.musically&apos;)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
@@ -855,7 +855,7 @@
                 </item>
             </steps>
         </item>
-        <item name="get_video_information" isPublic="true" blockResponseType="JSON">
+        <item name="get_video_information" isPublic="true">
             <steps>
                 <item guid="a3855ae9-7fa9-42f8-b27c-4992db185563" action="eval" useFieldsInCommand="false">
                     <command>
@@ -1650,6 +1650,21 @@
                                                 <query>responseLine()</query>
                                             </extractorProperties>
                                         </extractorInfo>
+                                        <processorInfo ruleType="store">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                <query>Actual_Played_Time</query>
+                                                <responseValue type="com.fnfr.documents.PropertyBoolean">true</responseValue>
+                                                <variable type="com.fnfr.documents.PropertyBoolean">false</variable>
+                                                <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                    <item>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                <query>responseLine()</query>
+                                            </extractorProperties>
+                                        </extractorInfo>
                                         <processorInfo ruleType="message">
                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
                                                 <message>Actual played time: {value}</message>
@@ -1705,6 +1720,14 @@
                                     <command>
                                         <body>[remainingTime]</body>
                                     </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="65b02100-65ce-4e13-bd1e-1c7d790d2b2a" action="else" useFieldsInCommand="false">
+                            <nestedSteps>
+                                <item guid="e2dd04ab-1e01-40d1-b003-c7c45cadc205" action="return">
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
                             </nestedSteps>

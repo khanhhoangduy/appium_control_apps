@@ -1,17 +1,18 @@
 <?xml version="1.0"?>
-<SessionTemplate version="9.5.0.202402062035">
+<SessionTemplate version="24.3.0.202403311053">
     <baseApplication>com.spirent.itest.applications.appium</baseApplication>
     <sessionProperties type="com.spirent.itest.applications.appium.properties.AppiumSessionProperties">
         <AppiumProperties>
             <SERVER>
-                <HOST inherit="false">[param(&apos;AppiumServerHost&apos;)]</HOST>
-                <PORT inherit="false">[param(&apos;AppiumServerPort&apos;)]</PORT>
+                <HOST inherit="false">[param(&apos;AppiumServerHost&apos;, &apos;localhost&apos;)]</HOST>
+                <PORT inherit="false">[param(&apos;AppiumServerPort&apos;, &apos;4723&apos;)]</PORT>
             </SERVER>
             <PLATFORM>
                 <NAME inherit="false">Android</NAME>
-                <VERSION inherit="false">[param(&apos;DeviceAndroidVersion&apos;)]</VERSION>
-                <DRIVER inherit="false">UiAutomator2</DRIVER>
-                <DEVICE inherit="false">[param(&apos;DeviceAndroidName&apos;)]</DEVICE>
+                <VERSION inherit="false">[param(&apos;DeviceAndroidVersion&apos;, &apos;12&apos;)]</VERSION>
+                <DRIVER inherit="false">[param(&apos;AppiumDriverName&apos;, &apos;UiAutomator2&apos;)]</DRIVER>
+                <DEVICE inherit="false">[param(&apos;DeviceAndroidName&apos;, &apos;&apos;)]</DEVICE>
+                <UDID inherit="false">[param(&apos;DeviceAndroidId&apos;, &apos;&apos;)]</UDID>
             </PLATFORM>
             <APPLICATION>
                 <TYPE inherit="false" defaultValue=""/>
