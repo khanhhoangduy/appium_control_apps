@@ -2968,9 +2968,9 @@
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="fbd7684c-ca94-4974-b764-ce0d5e9fbc66" action="eval" useFieldsInCommand="false">
+                        <item guid="ae76c15e-f176-4f17-bc62-1daa8d5a82f6" action="eval" useFieldsInCommand="false">
                             <command>
-                                <body>alreadyWait = False</body>
+                                <body>alreadyWait = 5</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
@@ -3448,17 +3448,23 @@
                                                 <body>notRespondingFound == &apos;true&apos;:</body>
                                             </command>
                                             <nestedSteps>
-                                                <item guid="7c4d6309-8de0-4cef-981c-ecadc6fc0731" action="if" useFieldsInCommand="false">
+                                                <item guid="b7f00154-736c-49c5-9f26-6f5db4a64c52" action="if" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>not alreadyWait:</body>
+                                                        <body>alreadyWait &gt; 0:</body>
                                                     </command>
                                                     <nestedSteps>
+                                                        <item guid="9f4ac7cc-970a-4461-9aea-024e1c1e40b5" action="eval" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>alreadyWait -= 1</body>
+                                                            </command>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
                                                         <item guid="595557bd-4898-49d0-b018-10ac1bbb73b6" action="message" useFieldsInCommand="false">
                                                             <command>
-                                                                <body>Information:Waiting for Tiktok responding.</body>
+                                                                <body>Information:Waiting for Tiktok responding. (remaining time: [alreadyWait])</body>
                                                             </command>
                                                             <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
-                                                                <message inherit="false">Waiting for Tiktok responding.</message>
+                                                                <message inherit="false">Waiting for Tiktok responding. (remaining time: [alreadyWait])</message>
                                                             </applicationProperties>
                                                         </item>
                                                         <item guid="70beac33-1619-47d5-94d2-d67b27bc7440" action="call" useFieldsInCommand="false">
@@ -3500,11 +3506,6 @@
                                                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
                                                                                 <expression>value == &quot;true&quot;</expression>
                                                                                 <actionsWhenTrue>
-                                                                                    <item actionId="CallProcedure">
-                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                                                            <command>_screenshot()</command>
-                                                                                        </actionProperties>
-                                                                                    </item>
                                                                                     <item actionId="FailTest">
                                                                                         <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                                     </item>
