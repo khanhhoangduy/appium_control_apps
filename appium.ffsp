@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<SessionTemplate version="9.5.0.202402062035">
+    <baseApplication>com.spirent.itest.applications.appium</baseApplication>
+    <sessionProperties type="com.spirent.itest.applications.appium.properties.AppiumSessionProperties">
+        <AppiumProperties>
+            <SERVER>
+                <HOST inherit="false">[param(&apos;AppiumServerHost&apos;)]</HOST>
+                <PORT inherit="false">[param(&apos;AppiumServerPort&apos;)]</PORT>
+            </SERVER>
+            <PLATFORM>
+                <NAME inherit="false">Android</NAME>
+                <VERSION inherit="false">[param(&apos;DeviceAndroidVersion&apos;)]</VERSION>
+                <DRIVER inherit="false">UiAutomator2</DRIVER>
+                <DEVICE inherit="false">[param(&apos;DeviceAndroidName&apos;)]</DEVICE>
+            </PLATFORM>
+            <APPLICATION>
+                <TYPE inherit="false" defaultValue=""/>
+                <ID inherit="false">com.google.android.youtube</ID>
+            </APPLICATION>
+        </AppiumProperties>
+    </sessionProperties>
+    <responseLibrary inherit="false">project://appium_control_apps/</responseLibrary>
+    <formMapLibrary inherit="false">project://appium_control_apps/</formMapLibrary>
+    <language>Python</language>
+</SessionTemplate>
