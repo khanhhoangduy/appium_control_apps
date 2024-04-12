@@ -3473,12 +3473,6 @@
                                                             </command>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
-                                                        <item guid="4080a55f-93cf-489b-9b84-7e5600da7ea8" action="eval" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>alreadyWait = True</body>
-                                                            </command>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
                                                         <item guid="5c9cb467-64c6-4b6d-be52-525a5dde587b" action="sleep">
                                                             <command>
                                                                 <body>10</body>
