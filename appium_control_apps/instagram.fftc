@@ -23,7 +23,7 @@
             <steps>
                 <item guid="008b4f49-396b-4a96-94e2-57e74c95cc2d" action="open" session="t1">
                     <command>
-                        <body>project://appium_control_apps/appium_control_apps/appium.ffsp</body>
+                        <body>project://appium_control_apps/appium.ffsp</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.OpenStepPropertyGroup">
                         <stepProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
@@ -1038,12 +1038,6 @@
                             </postProcessing>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="e3be6018-3457-4c19-ad42-1e5c3e4494fd" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>check_element_when_inaccessible(check_got_it_accept=&quot;true&quot;)</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
@@ -1104,38 +1098,93 @@
                                 <body>not is_command_successful:</body>
                             </command>
                             <nestedSteps>
-                                <item guid="2ba8d0f1-9b28-4a5e-930e-eaae221ca943" action="message" useFieldsInCommand="false">
+                                <item guid="4032891a-e3a2-4ba7-877c-ee1dd1d96070" action="call" useFieldsInCommand="false">
                                     <command>
-                                        <body>Error:Failed to get the Expected Duration Timer</body>
+                                        <body>check_element_when_inaccessible(check_got_it_accept=&quot;true&quot;)</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="e868ff2f-5eb4-4eeb-bfd9-9137bcad4584" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>driver_wait_until_with_action(element=xpath_element,expected_action=&quot;is_displayed&quot;,By=&quot;XPATH&quot;)</body>
                                     </command>
                                     <postProcessing>
                                         <analysisRules>
                                             <item>
-                                                <extractorInfo extractorType="none">
-                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                <extractorInfo extractorType="contains">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                        <searchString>Traceback</searchString>
+                                                    </extractorProperties>
                                                 </extractorInfo>
                                                 <processorInfo ruleType="assert">
                                                     <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                        <expression>True</expression>
+                                                        <expression>value == 1</expression>
+                                                        <actionsWhenTrue>
+                                                            <item actionId="Eval">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                    <statement>is_command_successful = False</statement>
+                                                                </actionProperties>
+                                                            </item>
+                                                            <item actionId="RepeatStep">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.RepeatStepPropertyGroup" maxRepeatCount="5" delayBetweenRepeats="5.0"/>
+                                                            </item>
+                                                        </actionsWhenTrue>
                                                         <actionsWhenFalse>
-                                                            <item actionId="FailTest">
-                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                            <item actionId="Eval">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                    <statement>is_command_successful = True</statement>
+                                                                </actionProperties>
                                                             </item>
                                                         </actionsWhenFalse>
                                                     </ruleProperties>
                                                 </processorInfo>
                                             </item>
                                         </analysisRules>
+                                        <storeResponseAt>is_command_successful</storeResponseAt>
+                                        <storeResponseText>true</storeResponseText>
                                     </postProcessing>
-                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
-                                        <severity inherit="false">Error</severity>
-                                        <message inherit="false">Failed to get the Expected Duration Timer</message>
-                                    </applicationProperties>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="e8b61242-f1eb-4b25-917f-d7037ce86aab" action="call" useFieldsInCommand="false">
+                                <item guid="b847472c-c6e7-43c3-8c46-4c26effb59fd" action="if" useFieldsInCommand="false">
                                     <command>
-                                        <body>clean_up()</body>
+                                        <body>not is_command_successful:</body>
                                     </command>
+                                    <nestedSteps>
+                                        <item guid="2ba8d0f1-9b28-4a5e-930e-eaae221ca943" action="message" useFieldsInCommand="false">
+                                            <command>
+                                                <body>Error:Failed to get the Expected Duration Timer</body>
+                                            </command>
+                                            <postProcessing>
+                                                <analysisRules>
+                                                    <item>
+                                                        <extractorInfo extractorType="none">
+                                                            <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                        </extractorInfo>
+                                                        <processorInfo ruleType="assert">
+                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                <expression>True</expression>
+                                                                <actionsWhenFalse>
+                                                                    <item actionId="FailTest">
+                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                    </item>
+                                                                </actionsWhenFalse>
+                                                            </ruleProperties>
+                                                        </processorInfo>
+                                                    </item>
+                                                </analysisRules>
+                                            </postProcessing>
+                                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                <severity inherit="false">Error</severity>
+                                                <message inherit="false">Failed to get the Expected Duration Timer</message>
+                                            </applicationProperties>
+                                        </item>
+                                        <item guid="e8b61242-f1eb-4b25-917f-d7037ce86aab" action="call" useFieldsInCommand="false">
+                                            <command>
+                                                <body>clean_up()</body>
+                                            </command>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
                             </nestedSteps>
@@ -1869,6 +1918,47 @@
                                                     </item>
                                                 </analysisRules>
                                             </postProcessing>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="c3f75f17-d388-4139-ba5e-b9d1c0b5872a" action="else" useFieldsInCommand="false">
+                                    <nestedSteps>
+                                        <item guid="3939b433-fc0f-48bc-bc68-587e2ac7defb" action="eval" useFieldsInCommand="false">
+                                            <command>
+                                                <body>print(True)</body>
+                                            </command>
+                                            <postProcessing>
+                                                <analysisRules>
+                                                    <item>
+                                                        <extractorInfo extractorType="none">
+                                                            <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                        </extractorInfo>
+                                                        <processorInfo ruleType="assert">
+                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                <expression>True</expression>
+                                                                <actionsWhenTrue>
+                                                                    <item actionId="DeclareExecutionIssue">
+                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                                            <message>Failed to get Actual Timer</message>
+                                                                        </actionProperties>
+                                                                    </item>
+                                                                    <item actionId="FailTest">
+                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                    </item>
+                                                                </actionsWhenTrue>
+                                                            </ruleProperties>
+                                                        </processorInfo>
+                                                    </item>
+                                                </analysisRules>
+                                            </postProcessing>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                        <item guid="4e0d3585-bb56-4ae1-9560-abee46b4389b" action="call" useFieldsInCommand="false">
+                                            <command>
+                                                <body>clean_up()</body>
+                                            </command>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
                                     </nestedSteps>
