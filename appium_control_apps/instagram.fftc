@@ -8,12 +8,12 @@
         <parameters version="9.5.0.202402062035">
             <parameters escape="true">
                 <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
-                    <instagram_video_url>https://www.instagram.com/reel/C5lPhXhPNTn/?igsh=Z2dsYzUwMjYybXBq</instagram_video_url>
-                    <adb_path>C:/Users/trung.tran/AppData/Local/Android/Sdk/platform-tools/adb.exe</adb_path>
-                    <DeviceAndroidVersion>14</DeviceAndroidVersion>
-                    <DeviceAndroidName>Phone 8</DeviceAndroidName>
-                    <AppiumServerPort pt:datatype="INTEGER">4723</AppiumServerPort>
-                    <AppiumServerHost>localhost</AppiumServerHost>
+                    <VideoURL>https://www.instagram.com/reel/C5lPhXhPNTn/?igsh=Z2dsYzUwMjYybXBq</VideoURL>
+                    <ADBPath>C:/Users/trung.tran/AppData/Local/Android/Sdk/platform-tools/adb.exe</ADBPath>
+                    <DeviceAndroidName pt:description="Name of Android device">.*S.*</DeviceAndroidName>
+                    <DeviceAndroidVersion pt:description="OS version of Android device. Default support: 12">12</DeviceAndroidVersion>
+                    <AppiumServerHost pt:description="Appium Server Host. Default: localhost">localhost</AppiumServerHost>
+                    <AppiumServerPort pt:description="Appium Server Port. Default: 4723">4723</AppiumServerPort>
                 </parameters>
             </parameters>
         </parameters>
@@ -863,7 +863,7 @@
                     <nestedSteps>
                         <item guid="db6981a2-a42b-4c6a-a3ec-0a844d8db7d9" action="eval" useFieldsInCommand="false">
                             <command>
-                                <body>instagram_video_url=param(&apos;instagram_video_url&apos;)</body>
+                                <body>instagram_video_url=param(&apos;VideoURL&apos;)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
@@ -1350,7 +1350,7 @@
                             <nestedSteps>
                                 <item guid="9c43425f-76b9-4c15-aa6c-1ee2e5304817" action="eval" useFieldsInCommand="false">
                                     <command>
-                                        <body>instagram_video_url=param(&apos;instagram_video_url&apos;)</body>
+                                        <body>instagram_video_url=param(&apos;VideoURL&apos;)</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
@@ -3533,7 +3533,7 @@ find By.Accessibility_ID
                 </item>
                 <item guid="3f3b418c-5be0-4260-a150-b3708f60deac" action="eval" useFieldsInCommand="false">
                     <command>
-                        <body>result = subprocess.check_output(f&apos;{param(&quot;adb_path&quot;)} {command}&apos;, shell=True).decode()</body>
+                        <body>result = subprocess.check_output(f&apos;{param(&quot;ADBPath&quot;)} {command}&apos;, shell=True).decode()</body>
                     </command>
                     <eventHandlers>
                         <item name="OnInterpreterError">
