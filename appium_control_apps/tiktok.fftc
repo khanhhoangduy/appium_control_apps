@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<testCase version="24.3.0.202402281100">
+<testCase version="24.3.0.202403311053">
     <general>
         <language>Python</language>
         <xPathVersion>XPATH31</xPathVersion>
     </general>
     <execution>
-        <parameters version="24.3.0.202402281100">
+        <parameters version="24.3.0.202403311053">
             <parameters escape="true">
                 <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
                     <DeviceAndroidVersion pt:description="OS version of Android device. Default support: 12">12</DeviceAndroidVersion>
@@ -188,7 +188,7 @@
                                                         <expression>str(value) == &quot;Success&quot;</expression>
                                                         <actionsWhenTrue>
                                                             <item actionId="DeclareExecutionIssue">
-                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="OK">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="Information">
                                                                     <message>Clear Tiktok App Data: &quot;{value}&quot;</message>
                                                                 </actionProperties>
                                                             </item>
@@ -1018,7 +1018,7 @@
                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
                                                 <message>Total Expected Duration: {value}</message>
                                                 <extractData>true</extractData>
-                                                <tag sub="false">Total_Expected_Duration</tag>
+                                                <tag sub="false">Video_Expected_Duration</tag>
                                             </ruleProperties>
                                         </processorInfo>
                                     </item>
@@ -1071,26 +1071,11 @@
                                                 <query>responseLine()</query>
                                             </extractorProperties>
                                         </extractorInfo>
-                                        <processorInfo ruleType="store">
-                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
-                                                <query>Actual_Played_Time</query>
-                                                <responseValue type="com.fnfr.documents.PropertyBoolean">true</responseValue>
-                                                <variable type="com.fnfr.documents.PropertyBoolean">false</variable>
-                                                <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
-                                            </ruleProperties>
-                                        </processorInfo>
-                                    </item>
-                                    <item>
-                                        <extractorInfo extractorType="query">
-                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
-                                                <query>responseLine()</query>
-                                            </extractorProperties>
-                                        </extractorInfo>
                                         <processorInfo ruleType="message">
                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
                                                 <message>Actual played time: {value}</message>
                                                 <extractData>true</extractData>
-                                                <tag sub="false">Actual_Played_Time</tag>
+                                                <tag sub="false">Actual_Played_Duration</tag>
                                             </ruleProperties>
                                         </processorInfo>
                                     </item>
@@ -1123,9 +1108,15 @@
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
+                                <item guid="9c1a8252-ab76-419a-8bfe-034e72d54640" action="command" session="t1" skip="true" useFieldsInCommand="false">
+                                    <command>
+                                        <body>time.sleep(2)</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
                                 <item guid="290f6274-4231-46af-a1f3-581c49f80a6e" action="eval" useFieldsInCommand="false">
                                     <command>
-                                        <body>remainingTime = math.ceil(float(duration) - actualPlayed)</body>
+                                        <body>remainingTime = math.ceil(float(duration) - math.floor(actualPlayed))</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
@@ -1137,9 +1128,9 @@
                                         <message inherit="false">Waiting for &quot;[remainingTime]&quot; seconds</message>
                                     </applicationProperties>
                                 </item>
-                                <item guid="4973ec95-6887-4ea5-a989-51c9849fb2bc" action="sleep">
+                                <item guid="77d1f36b-55ef-47d6-addb-6571c67cf51e" action="command" session="t1">
                                     <command>
-                                        <body>[remainingTime]</body>
+                                        <body>time.sleep([remainingTime])</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
@@ -1148,6 +1139,38 @@
                         </item>
                         <item guid="65b02100-65ce-4e13-bd1e-1c7d790d2b2a" action="else" useFieldsInCommand="false">
                             <nestedSteps>
+                                <item guid="43215673-44d6-4cb5-a05c-83dff841eb38" action="comment" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Buffering time</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="8ef97217-5d09-4e0b-8988-be84ac6cd6db" action="eval" useFieldsInCommand="false">
+                                            <command>
+                                                <body>bufferingTime = float(duration) - float(actualPlayed);print(bufferingTime)</body>
+                                            </command>
+                                            <postProcessing>
+                                                <analysisRules>
+                                                    <item>
+                                                        <extractorInfo extractorType="query">
+                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                <query>responseLine()</query>
+                                                            </extractorProperties>
+                                                        </extractorInfo>
+                                                        <processorInfo ruleType="message">
+                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
+                                                                <message>Buffering time: {value}</message>
+                                                                <extractData>true</extractData>
+                                                                <tag sub="false">Buffering_time</tag>
+                                                            </ruleProperties>
+                                                        </processorInfo>
+                                                    </item>
+                                                </analysisRules>
+                                            </postProcessing>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
                                 <item guid="e2dd04ab-1e01-40d1-b003-c7c45cadc205" action="return">
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
@@ -1410,7 +1433,7 @@
                                 </item>
                                 <item guid="7cbdc1b1-d9cc-41a0-b4bd-ab35f023d0f4" action="eval" useFieldsInCommand="false">
                                     <command>
-                                        <body>seekCountAfter = float(seekCountAfter);print()</body>
+                                        <body>seekCountAfter = float(seekCountAfter);print(seekCountAfter)</body>
                                     </command>
                                     <eventHandlers>
                                         <item name="OnInterpreterError">
@@ -1436,7 +1459,7 @@
                                 </item>
                                 <item guid="6b5d47b1-f345-4140-8a81-720e3f114e0f" action="if" useFieldsInCommand="false">
                                     <command>
-                                        <body>seekCountAfter &gt;= float(duration) or seekCountAfter &lt; float(seekCount):</body>
+                                        <body>seekCountAfter &gt;= 10000 or seekCountAfter &lt; float(seekCount):</body>
                                     </command>
                                     <nestedSteps>
                                         <item guid="ae2accfd-cc68-4454-85d2-bf16aaf9e84a" action="eval" useFieldsInCommand="false">
@@ -1455,22 +1478,7 @@
                                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
                                                                 <message>Actual played time after wait: {value}</message>
                                                                 <extractData>true</extractData>
-                                                                <tag sub="false">Actual_Played_Time</tag>
-                                                            </ruleProperties>
-                                                        </processorInfo>
-                                                    </item>
-                                                    <item>
-                                                        <extractorInfo extractorType="query">
-                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
-                                                                <query>responseLine()</query>
-                                                            </extractorProperties>
-                                                        </extractorInfo>
-                                                        <processorInfo ruleType="store">
-                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
-                                                                <query>Actual_Played_Time</query>
-                                                                <responseValue type="com.fnfr.documents.PropertyBoolean">true</responseValue>
-                                                                <variable type="com.fnfr.documents.PropertyBoolean">false</variable>
-                                                                <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                                <tag sub="false">Actual_Played_Duration</tag>
                                                             </ruleProperties>
                                                         </processorInfo>
                                                     </item>
@@ -1518,22 +1526,7 @@
                                                                     <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
                                                                         <message>Actual played time after wait: {value}</message>
                                                                         <extractData>true</extractData>
-                                                                        <tag sub="false">Actual_Played_Time</tag>
-                                                                    </ruleProperties>
-                                                                </processorInfo>
-                                                            </item>
-                                                            <item>
-                                                                <extractorInfo extractorType="query">
-                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
-                                                                        <query>responseLine()</query>
-                                                                    </extractorProperties>
-                                                                </extractorInfo>
-                                                                <processorInfo ruleType="store">
-                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
-                                                                        <query>Actual_Played_Time</query>
-                                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">true</responseValue>
-                                                                        <variable type="com.fnfr.documents.PropertyBoolean">false</variable>
-                                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                                        <tag sub="false">Actual_Played_Duration</tag>
                                                                     </ruleProperties>
                                                                 </processorInfo>
                                                             </item>
@@ -1548,6 +1541,38 @@
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
                             </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="1b78c61b-f9dd-4811-8ffc-913dc10ff943" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Buffering time</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="8ef97217-5d09-4e0b-8988-be84ac6cd6db" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>bufferingTime = float(duration) - float(actualPlayedAfter);print(bufferingTime)</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                <query>responseLine()</query>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="message">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
+                                                <message>Buffering time: {value}</message>
+                                                <extractData>true</extractData>
+                                                <tag sub="false">Buffering_time</tag>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
@@ -2622,7 +2647,7 @@
                             <item>
                                 <extractorInfo extractorType="regex">
                                     <extractorProperties type="com.fnfr.svt.mapping.regex.extractors.RegexExtractorPropertyGroup" useLineMode="true">
-                                        <regex>(&quot;preciseVideoDuration&quot;:\\d+(.\\d+)*)</regex>
+                                        <regex>&quot;height&quot;:\\d+,&quot;width&quot;:\\d+,&quot;duration&quot;:\\d+</regex>
                                     </extractorProperties>
                                 </extractorInfo>
                                 <processorInfo ruleType="store">
@@ -2636,6 +2661,34 @@
                             </item>
                         </analysisRules>
                     </postProcessing>
+                    <eventHandlers>
+                        <item name="OnNoMatchesFound">
+                            <item actionId="DeclareExecutionIssue">
+                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                    <message>No matches found for {type}: {info}</message>
+                                </actionProperties>
+                            </item>
+                            <item actionId="FailTest">
+                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            </item>
+                            <item actionId="ExitProcedure">
+                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                            </item>
+                        </item>
+                        <item name="OnToolError">
+                            <item actionId="DeclareExecutionIssue">
+                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                    <message>{error}</message>
+                                </actionProperties>
+                            </item>
+                            <item actionId="FailTest">
+                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            </item>
+                            <item actionId="ExitProcedure">
+                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                            </item>
+                        </item>
+                    </eventHandlers>
                     <applicationProperties type="com.fnfr.svt.adapter.automation.tools.common.documents.TransferableDocumentObject" transferableToolId="com.fnfr.itest.applications.webservices.restful" transferableType="com.fnfr.itest.applications.webservices.properties.restful.RESTfulInvokeProperties"/>
                 </item>
                 <item guid="3c5b310e-653a-4660-a69a-003e033b4e22" action="eval" useFieldsInCommand="false">
@@ -2647,7 +2700,7 @@
                             <item>
                                 <extractorInfo extractorType="query">
                                     <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
-                                        <query>//Json/preciseVideoDuration</query>
+                                        <query>//Json/duration</query>
                                     </extractorProperties>
                                 </extractorInfo>
                                 <processorInfo ruleType="store">
@@ -2661,6 +2714,21 @@
                             </item>
                         </analysisRules>
                     </postProcessing>
+                    <eventHandlers>
+                        <item name="OnNoMatchesFound">
+                            <item actionId="DeclareExecutionIssue">
+                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                    <message>No matches found for {type}: {info}</message>
+                                </actionProperties>
+                            </item>
+                            <item actionId="FailTest">
+                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                            </item>
+                            <item actionId="ExitProcedure">
+                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                            </item>
+                        </item>
+                    </eventHandlers>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
                 <item guid="98c3b96b-fb30-4f53-b2d6-f4da77160a68" action="close" session="s1">
