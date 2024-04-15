@@ -1508,7 +1508,7 @@
                                                     </postProcessing>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
-                                                <item guid="bddc2902-e4f4-4301-b838-3b348db71392" action="message" useFieldsInCommand="false">
+                                                <item guid="bddc2902-e4f4-4301-b838-3b348db71392" action="message" skip="true" useFieldsInCommand="false">
                                                     <command>
                                                         <body>Information:Waiting for bandwidth (up to [wait_buffering_time]s)...</body>
                                                     </command>
@@ -1523,10 +1523,10 @@
                                             <nestedSteps>
                                                 <item guid="17e51b4a-cd8c-419e-ac35-b40cb20f3743" action="message" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>Information:Video is already buffered with all data. Bandwidth may be reported as 0.0 kbps</body>
+                                                        <body>Information:Video is already buffered with all data. Bandwidth may be reported as 0.00 kbps</body>
                                                     </command>
                                                     <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
-                                                        <message inherit="false">Video is already buffered with all data. Bandwidth may be reported as 0.0 kbps</message>
+                                                        <message inherit="false">Video is already buffered with all data. Bandwidth may be reported as 0.00 kbps</message>
                                                     </applicationProperties>
                                                 </item>
                                             </nestedSteps>
@@ -1540,6 +1540,26 @@
                                         <body>Wait for the bandwidth to be not &quot;0.00 kbps&quot;</body>
                                     </command>
                                     <nestedSteps>
+                                        <item guid="b3cbf78b-fa26-43a9-bc15-1efd74ad7653" action="comment" useFieldsInCommand="false">
+                                            <command>
+                                                <body>Start timer</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="49d3c67c-b7c0-4b39-bdf3-75862ecd91fe" action="eval" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>from datetime import datetime, timedelta</body>
+                                                    </command>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="f356e8b5-09ab-43f8-8357-0f7d4e9bbcb1" action="eval" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>started = datetime.now()</body>
+                                                    </command>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
                                         <item guid="ce4a1ab0-0d23-4d50-918d-35f895ed6cb2" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
                                             <command>
                                                 <body>xpath=&apos;//android.widget.TextView[@resource-id=&quot;com.google.android.youtube:id/bandwidth_estimate&quot;]&apos;, attribute=&apos;text&apos;</body>
@@ -1597,6 +1617,12 @@
                                                 <severity inherit="false">OK</severity>
                                                 <message inherit="false">Bandwidth retrieved with value &quot;[bandwidth_info]&quot;</message>
                                             </applicationProperties>
+                                        </item>
+                                        <item guid="41c4352d-991b-4173-8e44-62a365e308cd" action="eval" useFieldsInCommand="false">
+                                            <command>
+                                                <body>ended = datetime.now()</body>
+                                            </command>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
@@ -1669,7 +1695,7 @@
                                             <nestedSteps>
                                                 <item guid="4cc4f98d-0b61-47d1-8815-43b64697dddc" action="comment" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>Already played full time. Click Close button on the top-right to close the &quot;Suggested next video&quot; view.</body>
+                                                        <body>Already played full duration of the video. Click Close button on the top-right to close the &quot;Suggested next video&quot; view.</body>
                                                     </command>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
@@ -1690,62 +1716,11 @@
                                                     </command>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
-                                                <item guid="e90ffc5e-b95a-4a4b-bd38-4552d0017ef0" action="command" session="s1" estimatedStepExecutionTime="1.662">
+                                                <item guid="b5c6430b-59f8-4216-ba1c-2c04da7e4aa2" action="eval" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>driver.find_element(By.ID, &apos;[video_player_id]&apos;).click()</body>
+                                                        <body>elapsed_time = (ended - started).total_seconds();print(elapsed_time)</body>
                                                     </command>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                                <item guid="3f9156ff-4ce9-4ecb-ad3f-032b5c32cc6a" action="get_attribute" session="s1" normalOffset="181.301" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>xpath=&apos;//android.widget.TextView\\\\[@resource-id=&quot;[current_time_id]&quot;]&apos;, attribute=&apos;text&apos;</body>
-                                                    </command>
-                                                    <postProcessing>
-                                                        <analysisRules>
-                                                            <item>
-                                                                <extractorInfo extractorType="contains">
-                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
-                                                                        <searchString>Traceback (most recent call last):</searchString>
-                                                                    </extractorProperties>
-                                                                </extractorInfo>
-                                                                <processorInfo ruleType="assert">
-                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                        <expression>value == 1</expression>
-                                                                        <actionsWhenTrue>
-                                                                            <item actionId="Eval">
-                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                                                    <statement>actual_played_time_info = total_expected_duration_info</statement>
-                                                                                </actionProperties>
-                                                                            </item>
-                                                                            <item actionId="SkipRemainingRules">
-                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                            </item>
-                                                                        </actionsWhenTrue>
-                                                                    </ruleProperties>
-                                                                </processorInfo>
-                                                            </item>
-                                                            <item>
-                                                                <extractorInfo extractorType="query">
-                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
-                                                                        <query>responseLine()</query>
-                                                                    </extractorProperties>
-                                                                </extractorInfo>
-                                                                <processorInfo ruleType="store">
-                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
-                                                                        <storageLocation>actual_played_time_info</storageLocation>
-                                                                        <query>Actual_Played_Time</query>
-                                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
-                                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
-                                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
-                                                                    </ruleProperties>
-                                                                </processorInfo>
-                                                            </item>
-                                                        </analysisRules>
-                                                    </postProcessing>
-                                                    <applicationProperties type="com.spirent.itest.applications.appium.properties.GetAttributeStepProperties">
-                                                        <target sub="true">//android.widget.TextView\\[@resource-id=&quot;[current_time_id]&quot;]</target>
-                                                        <attribute>text</attribute>
-                                                    </applicationProperties>
                                                 </item>
                                                 <item guid="1e922fc3-d92b-4a32-a712-695b480b8401" action="comment" useFieldsInCommand="false">
                                                     <command>
@@ -1764,7 +1739,7 @@
                                                         </item>
                                                         <item guid="db092960-0b6f-4e2f-8c33-ae84579b9f1c" action="call" useFieldsInCommand="false">
                                                             <command>
-                                                                <body>convert_to_datetime_object(time_str=actual_played_time_info)</body>
+                                                                <body>convert_to_datetime_object(time_str=actual_played_duration_info)</body>
                                                             </command>
                                                             <postProcessing>
                                                                 <storeResponseAt>actual_time_obj</storeResponseAt>
@@ -1774,57 +1749,75 @@
                                                         </item>
                                                         <item guid="e51e877f-39fa-4b97-aef2-4f4847c8254e" action="eval" useFieldsInCommand="false">
                                                             <command>
-                                                                <body>sleep_time = math.ceil((total_time_obj - actual_time_obj).total_seconds())</body>
+                                                                <body>sleep_time = math.ceil((total_time_obj - actual_time_obj - timedelta(seconds=elapsed_time)).total_seconds())</body>
                                                             </command>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
-                                                        <item guid="fd5ed37e-0a51-4f3f-b199-88d8cafa9a64" action="message" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>Information:Waiting [sleep_time]s for the video to play to the end...</body>
-                                                            </command>
-                                                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
-                                                                <message inherit="false">Waiting [sleep_time]s for the video to play to the end...</message>
-                                                            </applicationProperties>
-                                                        </item>
-                                                        <item guid="96622407-7845-45e4-ae97-d2ae04c9f3cc" action="sleep">
-                                                            <command>
-                                                                <body>[sleep_time]</body>
-                                                            </command>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                    </nestedSteps>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                                <item guid="63f5e9cb-b835-4ab7-9064-be31be56defe" action="comment" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>Expect the &quot;suggested next video&quot; view to display when the video is played to an end. Find the close button on the top-right corner</body>
-                                                    </command>
-                                                    <nestedSteps>
-                                                        <item guid="ac0dae33-42e6-4253-aca0-3f40151dcc57" action="eval" useFieldsInCommand="false">
+                                                        <item guid="55d53730-889d-4530-adf4-f4f5930d51b1" action="eval" useFieldsInCommand="false">
                                                             <command>
                                                                 <body>video_ends = True</body>
                                                             </command>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
-                                                        <item guid="2e0f382b-02c7-4fa0-86a9-324008b4f5e2" action="wait_until" session="s1" useFieldsInCommand="false">
+                                                        <item guid="091eb74b-52ce-46ed-8eaf-1a75969dd9ed" action="if" useFieldsInCommand="false">
                                                             <command>
-                                                                <body>condition=&apos;visibility_of_element_located&apos;, id=&apos;[next_video_close_btn_id]&apos;, timeout=10.0</body>
+                                                                <body>sleep_time &gt; 0:</body>
                                                             </command>
-                                                            <eventHandlers>
-                                                                <item name="OnAppiumCommandFailed">
-                                                                    <item actionId="Eval">
-                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                                            <statement>video_ends = False</statement>
-                                                                        </actionProperties>
-                                                                    </item>
+                                                            <nestedSteps>
+                                                                <item guid="fd5ed37e-0a51-4f3f-b199-88d8cafa9a64" action="message" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>Information:Waiting [sleep_time]s for the video to play for the full duration...</body>
+                                                                    </command>
+                                                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                                        <message inherit="false">Waiting [sleep_time]s for the video to play for the full duration...</message>
+                                                                    </applicationProperties>
                                                                 </item>
-                                                            </eventHandlers>
-                                                            <applicationProperties type="com.spirent.itest.applications.appium.properties.WaitUntilStepProperties">
-                                                                <condition>visibility_of_element_located</condition>
-                                                                <selector>id</selector>
-                                                                <target sub="true">[next_video_close_btn_id]</target>
-                                                                <timeout>10.0</timeout>
-                                                            </applicationProperties>
+                                                                <item guid="96622407-7845-45e4-ae97-d2ae04c9f3cc" action="sleep">
+                                                                    <command>
+                                                                        <body>[sleep_time]</body>
+                                                                    </command>
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                </item>
+                                                                <item guid="63f5e9cb-b835-4ab7-9064-be31be56defe" action="comment" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>Expect the &quot;suggested next video&quot; view to display when the video is played to an end. Find the close button on the top-right corner</body>
+                                                                    </command>
+                                                                    <nestedSteps>
+                                                                        <item guid="2e0f382b-02c7-4fa0-86a9-324008b4f5e2" action="wait_until" session="s1" useFieldsInCommand="false">
+                                                                            <command>
+                                                                                <body>condition=&apos;visibility_of_element_located&apos;, id=&apos;[next_video_close_btn_id]&apos;, timeout=5.0</body>
+                                                                            </command>
+                                                                            <eventHandlers>
+                                                                                <item name="OnAppiumCommandFailed">
+                                                                                    <item actionId="Eval">
+                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                            <statement>video_ends = False</statement>
+                                                                                        </actionProperties>
+                                                                                    </item>
+                                                                                </item>
+                                                                            </eventHandlers>
+                                                                            <applicationProperties type="com.spirent.itest.applications.appium.properties.WaitUntilStepProperties">
+                                                                                <condition>visibility_of_element_located</condition>
+                                                                                <selector>id</selector>
+                                                                                <target sub="true">[next_video_close_btn_id]</target>
+                                                                            </applicationProperties>
+                                                                        </item>
+                                                                    </nestedSteps>
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                </item>
+                                                            </nestedSteps>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="41fdbda2-ad4d-44e8-9365-57766c2722f4" action="else" useFieldsInCommand="false">
+                                                            <nestedSteps>
+                                                                <item guid="d422ff1d-d64b-4730-a1a5-63d65f0cd3b5" action="eval" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>video_ends = False</body>
+                                                                    </command>
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                </item>
+                                                            </nestedSteps>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
                                                         <item guid="616b1d56-e2e2-4a85-82fc-a5445c925a5b" action="if" useFieldsInCommand="false">
                                                             <command>
@@ -1844,7 +1837,7 @@
                                                             <nestedSteps>
                                                                 <item guid="1208fde5-0a1c-4c20-b259-572787c44d38" action="comment" useFieldsInCommand="false">
                                                                     <command>
-                                                                        <body>More chances the video is stucked if it gets here</body>
+                                                                        <body>More chance the video is stucked if it gets here</body>
                                                                     </command>
                                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                 </item>
@@ -1856,11 +1849,11 @@
                                                                 </item>
                                                                 <item guid="5a129671-feae-4938-b73c-fbdeded13245" action="message" useFieldsInCommand="false">
                                                                     <command>
-                                                                        <body>Warning:The video may be interrupted and cannot play to the end</body>
+                                                                        <body>Warning:The video may be interrupted and cannot play for full duration</body>
                                                                     </command>
                                                                     <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
                                                                         <severity inherit="false">Warning</severity>
-                                                                        <message inherit="false">The video may be interrupted and cannot play to the end</message>
+                                                                        <message inherit="false">The video may be interrupted and cannot play for full duration</message>
                                                                     </applicationProperties>
                                                                 </item>
                                                                 <item guid="13aae060-40b5-43f5-b3d3-3f5710823ce3" action="screenshot" session="s1" useFieldsInCommand="false">
