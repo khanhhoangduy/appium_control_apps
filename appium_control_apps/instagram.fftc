@@ -9,14 +9,15 @@
             <parameters escape="true">
                 <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
                     <VideoURL pt:description="Instagram Video Link URL.">https://www.instagram.com/reel/C5lPhXhPNTn/?igsh=Z2dsYzUwMjYybXBq</VideoURL>
-                    <ADBPath pt:description="Android Development Brigdge path">C:/Users/trung.tran/AppData/Local/Android/Sdk/platform-tools/adb.exe</ADBPath>
+                    <ADBPath pt:description="Android Development Brigdge path"/>
                     <DeviceAndroidName pt:description="Name of Android device">.*S.*</DeviceAndroidName>
-                    <DeviceAndroidVersion pt:description="OS version of Android device. Default support: 12">14</DeviceAndroidVersion>
+                    <DeviceAndroidVersion pt:description="OS version of Android device. Default support: 12">12</DeviceAndroidVersion>
                     <AppiumServerHost pt:description="Appium Server Host. Default: localhost">localhost</AppiumServerHost>
                     <AppiumServerPort pt:description="Appium Server Port. Default: 4723">4723</AppiumServerPort>
                     <Video_Expected_Duration pt:datatype="INTEGER" pt:description="User input Video_Expected_Duration. Script will auto get the Video_Expected_Duration when user not define">21</Video_Expected_Duration>
-                    <username>datmaidinhnonstop</username>
-                    <password pt:mask="true">9eVs+B8yn98Ib81nNwzmCg==</password>
+                    <username pt:description="Optional. Username to login for fresh start"/>
+                    <password pt:description="Optional. Password to login for fresh start" pt:mask="true">CaK+mWSFs84=</password>
+                    <fresh_start pt:datatype="BOOLEAN" pt:description="Optional. For fresh start with cleaned up user data">false</fresh_start>
                 </parameters>
             </parameters>
         </parameters>
@@ -102,13 +103,7 @@
                     <nestedSteps>
                         <item guid="4a530b71-e0b6-4eac-8d4f-f86506716d7f" action="eval" useFieldsInCommand="false">
                             <command>
-                                <body>fresh_start_required=param(&quot;fresh_start_required&quot;,False)</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="3561f123-7420-4293-9c1f-378899f4780e" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>fresh_start_required=True</body>
+                                <body>fresh_start_required=param(&quot;fresh_start&quot;,False)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
@@ -439,20 +434,6 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="ca9d9f86-5fcc-46ef-8ab5-dfbb853a0a53" action="comment" useFieldsInCommand="false">
-                    <command>
-                        <body>Enable Data Saver</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="76b97640-8967-4682-997d-93915b38c70e" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>enable_data_saver()</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
                 <item guid="da8c1008-7966-48d6-ae54-effe2b0cfc06" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Access and verify the expected Instagram video links</body>
@@ -521,6 +502,20 @@
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
                             </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="ca9d9f86-5fcc-46ef-8ab5-dfbb853a0a53" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Enable Data Saver</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="76b97640-8967-4682-997d-93915b38c70e" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>enable_data_saver()</body>
+                            </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
