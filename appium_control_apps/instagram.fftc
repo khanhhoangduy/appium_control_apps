@@ -15,9 +15,9 @@
                     <AppiumServerHost pt:description="Appium Server Host. Default: localhost">localhost</AppiumServerHost>
                     <AppiumServerPort pt:description="Appium Server Port. Default: 4723">4723</AppiumServerPort>
                     <Video_Expected_Duration pt:datatype="INTEGER" pt:description="User input Video_Expected_Duration. Script will auto get the Video_Expected_Duration when user not define">21</Video_Expected_Duration>
-                    <username pt:description="Optional. Username to login for fresh start"/>
-                    <password pt:description="Optional. Password to login for fresh start" pt:mask="true">CaK+mWSFs84=</password>
-                    <fresh_start pt:datatype="BOOLEAN" pt:description="Optional. For fresh start with cleaned up user data">false</fresh_start>
+                    <Fresh_Start pt:datatype="BOOLEAN" pt:description="Optional. For fresh start with cleaned up user data">false</Fresh_Start>
+                    <Username pt:description="Required if fresh start. Username to login"/>
+                    <Password pt:description="Required if fresh start. Password to login for fresh start" pt:mask="true">CaK+mWSFs84=</Password>
                 </parameters>
             </parameters>
         </parameters>
@@ -103,7 +103,7 @@
                     <nestedSteps>
                         <item guid="4a530b71-e0b6-4eac-8d4f-f86506716d7f" action="eval" useFieldsInCommand="false">
                             <command>
-                                <body>fresh_start_required=param(&quot;fresh_start&quot;,False)</body>
+                                <body>fresh_start_required=param(&quot;Fresh_Start&quot;,False)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
@@ -434,6 +434,20 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
+                <item guid="ca9d9f86-5fcc-46ef-8ab5-dfbb853a0a53" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Enable Data Saver</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="76b97640-8967-4682-997d-93915b38c70e" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>enable_data_saver()</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
                 <item guid="da8c1008-7966-48d6-ae54-effe2b0cfc06" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Access and verify the expected Instagram video links</body>
@@ -502,20 +516,6 @@
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
                             </nestedSteps>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="ca9d9f86-5fcc-46ef-8ab5-dfbb853a0a53" action="comment" useFieldsInCommand="false">
-                    <command>
-                        <body>Enable Data Saver</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="76b97640-8967-4682-997d-93915b38c70e" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>enable_data_saver()</body>
-                            </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
@@ -1161,13 +1161,13 @@
             <steps>
                 <item guid="b29ace27-eecb-4420-a15e-179efc35551b" action="eval" useFieldsInCommand="false">
                     <command>
-                        <body>username=param(&apos;username&apos;, &apos;&apos;)</body>
+                        <body>username=param(&apos;Username&apos;, &apos;missing user name&apos;)</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
                 <item guid="d1337f42-aba6-46aa-b41a-ae76d8abdbcf" action="eval" useFieldsInCommand="false">
                     <command>
-                        <body>password=param(&apos;password&apos;, &apos;&apos;)</body>
+                        <body>password=param(&apos;Password&apos;, &apos;missing password&apos;)</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
@@ -1196,26 +1196,6 @@
                                 <storeResponseAt>is_command_successful</storeResponseAt>
                                 <storeResponseText>true</storeResponseText>
                             </postProcessing>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="62ac5b71-10df-4c2e-87af-38bbd83536e4" action="comment" skip="true" useFieldsInCommand="false">
-                    <command>
-                        <body>Choose login to another account if has previous login info</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="9a12a37f-e486-4151-996c-bf4d8f88f387" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>xpath_log_another_account=&quot;//android.widget.Button[@content-desc=&apos;Log into another account&apos;]&quot;</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="3cbf0e06-aeef-4ca7-80d2-3a734025748b" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>driver_find_with_action(element=xpath_log_another_account, By=&quot;XPATH&quot;,expected_action=&quot;click&quot;)</body>
-                            </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
@@ -1858,7 +1838,7 @@
                                         </item>
                                         <item guid="421ca8fc-f85e-49fc-9fc2-65b154cfc310" action="call" useFieldsInCommand="false">
                                             <command>
-                                                <body>get_actual_timer(url=instagram_video_url,is_init_waitime_required=False)</body>
+                                                <body>get_actual_timer(url=instagram_video_url,is_init_waitime_required=&quot;false&quot;,is_init_waitime_required=True)</body>
                                             </command>
                                             <postProcessing>
                                                 <storeResponseAt>actual_timer</storeResponseAt>
@@ -1886,9 +1866,9 @@
                                                         </extractorInfo>
                                                         <processorInfo ruleType="message">
                                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
-                                                                <message>Actual Played Duration Played: [actual_timer]/[final_expected_duration] seconds</message>
+                                                                <message>Actual Played Duration Played at first checkout: [actual_timer] seconds</message>
                                                                 <extractData>true</extractData>
-                                                                <tag>Actual_Played_Duration</tag>
+                                                                <tag>Video_Expected_Duration_1st_Checkout</tag>
                                                             </ruleProperties>
                                                         </processorInfo>
                                                     </item>
@@ -1910,6 +1890,12 @@
                                             </command>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
+                                        <item guid="6d3d63b7-100c-4f2d-9654-905e2eb9e1a9" action="eval" useFieldsInCommand="false">
+                                            <command>
+                                                <body>time_till_replay=3</body>
+                                            </command>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
                                         <item guid="c41acbe2-cdc4-4a45-94fd-b65257601616" action="comment" useFieldsInCommand="false">
                                             <command>
                                                 <body>Calculate the expected waiting time to check is video fully played</body>
@@ -1917,7 +1903,7 @@
                                             <nestedSteps>
                                                 <item guid="9fbc8bd4-456f-450c-950d-93a8076ec9b3" action="eval" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>expected_wait_time_end_video=math.ceil(float(final_expected_duration)-float(actual_timer) + float(final_expected_duration)/2) if expected_waitime_end_video == &quot;&quot; else expected_waitime_end_video</body>
+                                                        <body>expected_wait_time_end_video=math.ceil(float(final_expected_duration)/2 + time_till_replay) if expected_waitime_end_video == &quot;&quot; else expected_waitime_end_video</body>
                                                     </command>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
@@ -1926,7 +1912,7 @@
                                         </item>
                                         <item guid="4055659b-3611-452a-836e-47fd892a0ce0" action="call" useFieldsInCommand="false">
                                             <command>
-                                                <body>get_actual_timer(url=instagram_video_url,expected_wait_time_end_video=expected_wait_time_end_video,is_init_waitime_required=True)</body>
+                                                <body>get_actual_timer(url=instagram_video_url,expected_wait_time_end_video=expected_wait_time_end_video,is_init_waitime_required=&quot;true&quot;,is_restart_current_video=&quot;false&quot;)</body>
                                             </command>
                                             <postProcessing>
                                                 <storeResponseAt>new_actual_timer</storeResponseAt>
@@ -1941,7 +1927,7 @@
                                             <nestedSteps>
                                                 <item guid="17a33a3a-2741-4941-a45b-a0171db7c1aa" action="if" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>float(new_actual_timer) &lt;= float(final_expected_duration)/2 :</body>
+                                                        <body>float(new_actual_timer) &lt;= float(actual_timer):</body>
                                                     </command>
                                                     <nestedSteps>
                                                         <item guid="819179e5-733d-4fca-b951-23a6296fec54" action="eval" useFieldsInCommand="false">
@@ -1956,9 +1942,9 @@
                                                                         </extractorInfo>
                                                                         <processorInfo ruleType="message">
                                                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
-                                                                                <message>The video is fully played with the timer approximately ~ [final_expected_duration]/[final_expected_duration] seconds</message>
+                                                                                <message>The video is fully played with in expected time:  [final_expected_duration] seconds</message>
                                                                                 <extractData>true</extractData>
-                                                                                <tag>Video_Expected_Duration</tag>
+                                                                                <tag>Video_Expected_Duration_2nd_Checkout</tag>
                                                                             </ruleProperties>
                                                                         </processorInfo>
                                                                     </item>
@@ -1985,7 +1971,7 @@
                                                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
                                                                                 <message>The video is not fully played and the current actual played duration: [new_actual_timer] seconds</message>
                                                                                 <extractData>true</extractData>
-                                                                                <tag>Video_Expected_Duration</tag>
+                                                                                <tag>Video_Expected_Duration_2nd_Checkout</tag>
                                                                             </ruleProperties>
                                                                         </processorInfo>
                                                                     </item>
@@ -2541,14 +2527,22 @@
                         <body>Get the current media playing time stamp (actual timer)</body>
                     </command>
                     <nestedSteps>
-                        <item guid="92034cca-53d1-4303-b534-abe4301c1ca5" action="call" useFieldsInCommand="false">
+                        <item guid="fa890b77-f905-47fb-a985-000439a87ba6" action="if" useFieldsInCommand="false">
                             <command>
-                                <body>driver_execute(deep_link_url=url,execute_script=&quot;deeplink&quot;,no_wait_time=&quot;true&quot;)</body>
+                                <body>str(is_restart_current_video).lower() == &quot;true&quot;:</body>
                             </command>
-                            <postProcessing>
-                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                <storeResponseText>true</storeResponseText>
-                            </postProcessing>
+                            <nestedSteps>
+                                <item guid="92034cca-53d1-4303-b534-abe4301c1ca5" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>driver_execute(deep_link_url=url,execute_script=&quot;deeplink&quot;,no_wait_time=&quot;true&quot;)</body>
+                                    </command>
+                                    <postProcessing>
+                                        <storeResponseAt>is_command_successful</storeResponseAt>
+                                        <storeResponseText>true</storeResponseText>
+                                    </postProcessing>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                         <item guid="b290e48f-0b11-48c6-aaf5-4bfb83d04b42" action="eval" useFieldsInCommand="false">
@@ -2565,7 +2559,7 @@
                         </item>
                         <item guid="e93f5909-3fc1-4373-8c0d-3ca933155a53" action="eval" useFieldsInCommand="false">
                             <command>
-                                <body>final_expected_duration=param(&apos;Video_Expected_Duration&apos;,&quot;5&quot;);print(final_expected_duration)</body>
+                                <body>final_expected_duration=param(&apos;Video_Expected_Duration&apos;,&quot;8&quot;);print(final_expected_duration)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
@@ -2588,7 +2582,7 @@
                             <nestedSteps>
                                 <item guid="b33caadb-3ace-4ade-91b3-b59acfbb4234" action="if" useFieldsInCommand="false">
                                     <command>
-                                        <body>is_init_waitime_required:</body>
+                                        <body>str(is_init_waitime_required).lower()==&quot;true&quot;:</body>
                                     </command>
                                     <nestedSteps>
                                         <item guid="a8fef1af-4022-4ae3-9c61-bb394fecb12a" action="command" session="t1">
@@ -2791,6 +2785,9 @@
                 <item name="url"/>
                 <item name="is_init_waitime_required">
                     <defaultValue>False</defaultValue>
+                </item>
+                <item name="is_restart_current_video">
+                    <defaultValue>true</defaultValue>
                 </item>
                 <item name="expected_wait_time_end_video">
                     <defaultValue>false</defaultValue>
