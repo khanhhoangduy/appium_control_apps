@@ -9,9 +9,9 @@
             <parameters escape="true">
                 <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
                     <VideoURL pt:description="Instagram Video Link URL.">https://www.instagram.com/reel/C5lPhXhPNTn/?igsh=Z2dsYzUwMjYybXBq</VideoURL>
-                    <ADBPath pt:description="Android Development Brigdge path"/>
+                    <ADBPath pt:description="Android Development Brigdge path">C:/Users/trung.tran/AppData/Local/Android/Sdk/platform-tools/adb.exe</ADBPath>
                     <DeviceAndroidName pt:description="Name of Android device">.*S.*</DeviceAndroidName>
-                    <DeviceAndroidVersion pt:description="OS version of Android device. Default support: 12">12</DeviceAndroidVersion>
+                    <DeviceAndroidVersion pt:description="OS version of Android device. Default support: 12">14</DeviceAndroidVersion>
                     <AppiumServerHost pt:description="Appium Server Host. Default: localhost">localhost</AppiumServerHost>
                     <AppiumServerPort pt:description="Appium Server Port. Default: 4723">4723</AppiumServerPort>
                     <Video_Expected_Duration pt:datatype="INTEGER" pt:description="User input Video_Expected_Duration. Script will auto get the Video_Expected_Duration when user not define">21</Video_Expected_Duration>
@@ -273,79 +273,6 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="da8c1008-7966-48d6-ae54-effe2b0cfc06" action="comment" useFieldsInCommand="false">
-                    <command>
-                        <body>Access and verify the expected Instagram video links</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="1658ed41-2298-4bd6-8f26-1d8b383a77f0" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>final_expected_duration=param(&apos;Video_Expected_Duration&apos;,&quot;&quot;);print(final_expected_duration)</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="c6940fb7-94af-4da2-aec0-77fc9fe30ccf" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>unsupport_video_duration_time = 15</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="90a09c3d-497e-4cf7-820e-74abdf749243" action="if" useFieldsInCommand="false">
-                            <command>
-                                <body>float(final_expected_duration) &lt;= unsupport_video_duration_time:</body>
-                            </command>
-                            <nestedSteps>
-                                <item guid="e20eb6a3-0de5-489d-8381-79659237e24e" action="message" useFieldsInCommand="false">
-                                    <command>
-                                        <body>Error:Required The Video Expected Duration timer &gt;= 15 seconds</body>
-                                    </command>
-                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
-                                        <severity inherit="false">Error</severity>
-                                        <message inherit="false">Required The Video Expected Duration timer &gt;= 15 seconds</message>
-                                    </applicationProperties>
-                                </item>
-                                <item guid="f8b3b8ce-7745-4fde-a653-8bdfbb21227b" action="call" useFieldsInCommand="false">
-                                    <command>
-                                        <body>clean_up()</body>
-                                    </command>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                            </nestedSteps>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="18c9349a-3450-4384-9ab5-70782607182e" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>package=&quot;com.instagram.android&quot;</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="0a1def6f-03aa-42ba-8173-8fce238ad6e4" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>verify_and_get_duration_timer(package=package)</body>
-                            </command>
-                            <postProcessing>
-                                <storeResponseAt>is_verified_url</storeResponseAt>
-                                <storeResponseText>true</storeResponseText>
-                            </postProcessing>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="79607a5b-4272-4a3d-a185-e81138cc397d" action="if" useFieldsInCommand="false">
-                            <command>
-                                <body>is_verified_url != True:</body>
-                            </command>
-                            <nestedSteps>
-                                <item guid="37bb0875-f52f-4a6f-b278-6e44aea15e2e" action="call" useFieldsInCommand="false">
-                                    <command>
-                                        <body>clean_up()</body>
-                                    </command>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                            </nestedSteps>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
                 <item guid="e7b0c369-7651-4d1c-9f39-eb3f64ac13c3" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Go to the Main Instagram page</body>
@@ -521,6 +448,79 @@
                             <command>
                                 <body>enable_data_saver()</body>
                             </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="da8c1008-7966-48d6-ae54-effe2b0cfc06" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Access and verify the expected Instagram video links</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="1658ed41-2298-4bd6-8f26-1d8b383a77f0" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>final_expected_duration=param(&apos;Video_Expected_Duration&apos;,&quot;&quot;);print(final_expected_duration)</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="c6940fb7-94af-4da2-aec0-77fc9fe30ccf" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>unsupport_video_duration_time = 15</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="90a09c3d-497e-4cf7-820e-74abdf749243" action="if" useFieldsInCommand="false">
+                            <command>
+                                <body>float(final_expected_duration) &lt;= unsupport_video_duration_time:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="e20eb6a3-0de5-489d-8381-79659237e24e" action="message" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Error:Required The Video Expected Duration timer &gt;= 15 seconds</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                        <severity inherit="false">Error</severity>
+                                        <message inherit="false">Required The Video Expected Duration timer &gt;= 15 seconds</message>
+                                    </applicationProperties>
+                                </item>
+                                <item guid="f8b3b8ce-7745-4fde-a653-8bdfbb21227b" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>clean_up()</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="18c9349a-3450-4384-9ab5-70782607182e" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>package=&quot;com.instagram.android&quot;</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="0a1def6f-03aa-42ba-8173-8fce238ad6e4" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>verify_url(package=package)</body>
+                            </command>
+                            <postProcessing>
+                                <storeResponseAt>is_verified_url</storeResponseAt>
+                                <storeResponseText>true</storeResponseText>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="79607a5b-4272-4a3d-a185-e81138cc397d" action="if" useFieldsInCommand="false">
+                            <command>
+                                <body>is_verified_url != True:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="37bb0875-f52f-4a6f-b278-6e44aea15e2e" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>clean_up()</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
@@ -1874,16 +1874,6 @@
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="3f6c0dd7-fc00-42d6-850d-78201d1a69ed" action="call" skip="true" useFieldsInCommand="false">
-                                    <command>
-                                        <body>get_actual_timer(url=instagram_video_url,is_init_waitime_required=True)</body>
-                                    </command>
-                                    <postProcessing>
-                                        <storeResponseAt>actual_timer</storeResponseAt>
-                                        <storeResponseText>true</storeResponseText>
-                                    </postProcessing>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
                                 <item guid="31a28006-607b-46f6-a22b-aedcdb8376a4" action="if" useFieldsInCommand="false">
                                     <command>
                                         <body>actual_timer !=&quot;&quot;:</body>
@@ -1954,45 +1944,61 @@
                                                 <body>new_actual_timer !=&quot;&quot;:</body>
                                             </command>
                                             <nestedSteps>
-                                                <item guid="17a33a3a-2741-4941-a45b-a0171db7c1aa" action="eval" useFieldsInCommand="false">
+                                                <item guid="17a33a3a-2741-4941-a45b-a0171db7c1aa" action="if" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>fully_played_time= math.ceil((float(new_actual_timer) + float(final_expected_duration)))</body>
+                                                        <body>float(new_actual_timer) &lt;= float(final_expected_duration)/2 :</body>
                                                     </command>
+                                                    <nestedSteps>
+                                                        <item guid="819179e5-733d-4fca-b951-23a6296fec54" action="eval" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>print(new_actual_timer)</body>
+                                                            </command>
+                                                            <postProcessing>
+                                                                <analysisRules>
+                                                                    <item>
+                                                                        <extractorInfo extractorType="none">
+                                                                            <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                                        </extractorInfo>
+                                                                        <processorInfo ruleType="message">
+                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
+                                                                                <message>The video is fully played with the timer approximately ~ [final_expected_duration]/[final_expected_duration] seconds</message>
+                                                                                <extractData>true</extractData>
+                                                                                <tag>Video_Expected_Duration</tag>
+                                                                            </ruleProperties>
+                                                                        </processorInfo>
+                                                                    </item>
+                                                                </analysisRules>
+                                                            </postProcessing>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
-                                                <item guid="6994f57f-4f91-4ab0-8af3-d4d5f6e1cbe1" action="eval" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>print(new_actual_timer)</body>
-                                                    </command>
-                                                    <postProcessing>
-                                                        <analysisRules>
-                                                            <item>
-                                                                <extractorInfo extractorType="none">
-                                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
-                                                                </extractorInfo>
-                                                                <processorInfo ruleType="message">
-                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
-                                                                        <message>The video is fully played and replay with time approximately ~ [fully_played_time]/[final_expected_duration] seconds</message>
-                                                                        <extractData>true</extractData>
-                                                                        <tag>Video_Expected_Duration</tag>
-                                                                    </ruleProperties>
-                                                                </processorInfo>
-                                                                <skip>true</skip>
-                                                            </item>
-                                                            <item>
-                                                                <extractorInfo extractorType="none">
-                                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
-                                                                </extractorInfo>
-                                                                <processorInfo ruleType="message">
-                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
-                                                                        <message>The video is fully played with the timer approximately ~ [final_expected_duration]/[final_expected_duration] seconds</message>
-                                                                        <extractData>true</extractData>
-                                                                        <tag>Video_Expected_Duration</tag>
-                                                                    </ruleProperties>
-                                                                </processorInfo>
-                                                            </item>
-                                                        </analysisRules>
-                                                    </postProcessing>
+                                                <item guid="4b346ba6-2ab0-4c3f-ae83-d50b75d1cf85" action="else" useFieldsInCommand="false">
+                                                    <nestedSteps>
+                                                        <item guid="a010057f-5891-4c3d-91e2-ca52f1441d5e" action="eval" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>print(new_actual_timer)</body>
+                                                            </command>
+                                                            <postProcessing>
+                                                                <analysisRules>
+                                                                    <item>
+                                                                        <extractorInfo extractorType="none">
+                                                                            <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                                        </extractorInfo>
+                                                                        <processorInfo ruleType="message">
+                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
+                                                                                <message>The video is not fully played and the current actual played duration: [new_actual_timer] seconds</message>
+                                                                                <extractData>true</extractData>
+                                                                                <tag>Video_Expected_Duration</tag>
+                                                                            </ruleProperties>
+                                                                        </processorInfo>
+                                                                    </item>
+                                                                </analysisRules>
+                                                            </postProcessing>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
                                             </nestedSteps>
@@ -2089,7 +2095,7 @@
                 </item>
             </steps>
         </item>
-        <item name="verify_and_get_duration_timer" isPublic="true">
+        <item name="verify_url" isPublic="true">
             <steps>
                 <item guid="70054e08-3f41-424e-b604-bf78b100cb6c" action="eval" useFieldsInCommand="false">
                     <command>
