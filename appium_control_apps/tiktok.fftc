@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<testCase version="24.3.0.202403311053">
+<testCase version="24.3.0.202402281100">
     <general>
         <language>Python</language>
         <xPathVersion>XPATH31</xPathVersion>
     </general>
     <execution>
-        <parameters version="24.3.0.202403311053">
+        <parameters version="24.3.0.202402281100">
             <parameters escape="true">
                 <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
                     <DeviceAndroidVersion pt:description="OS version of Android device. Default support: 12">12</DeviceAndroidVersion>
@@ -183,10 +183,34 @@
                                                         <query>responseLine()</query>
                                                     </extractorProperties>
                                                 </extractorInfo>
-                                                <processorInfo ruleType="message">
-                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
-                                                        <message>Clear Tiktok data: &quot;{value}&quot;</message>
-                                                        <tag sub="false" defaultValue=""/>
+                                                <processorInfo ruleType="assert">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                        <expression>str(value) == &quot;Success&quot;</expression>
+                                                        <actionsWhenTrue>
+                                                            <item actionId="DeclareExecutionIssue">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="OK">
+                                                                    <message>Clear Tiktok App Data: &quot;{value}&quot;</message>
+                                                                </actionProperties>
+                                                            </item>
+                                                        </actionsWhenTrue>
+                                                        <actionsWhenFalse>
+                                                            <item actionId="FailTest">
+                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                            </item>
+                                                            <item actionId="DeclareExecutionIssue">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                                    <message>Can not clear Tiktok App Data</message>
+                                                                </actionProperties>
+                                                            </item>
+                                                            <item actionId="CallProcedure">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                    <command>_screenshot()</command>
+                                                                </actionProperties>
+                                                            </item>
+                                                            <item actionId="ExitProcedure">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                            </item>
+                                                        </actionsWhenFalse>
                                                     </ruleProperties>
                                                 </processorInfo>
                                             </item>
