@@ -12,7 +12,7 @@
                 <VERSION inherit="false">[param(&apos;DeviceAndroidVersion&apos;, &apos;12&apos;)]</VERSION>
                 <DRIVER inherit="false">[param(&apos;AppiumDriverName&apos;, &apos;UiAutomator2&apos;)]</DRIVER>
                 <DEVICE inherit="false">[param(&apos;DeviceAndroidName&apos;, &apos;&apos;)]</DEVICE>
-                <UDID inherit="false">[param(&apos;DeviceAndroidId&apos;, &apos;&apos;)]</UDID>
+                <UDID inherit="false">[param(&apos;DeviceAndroidID&apos;, &apos;&apos;)]</UDID>
             </PLATFORM>
             <APPLICATION>
                 <TYPE inherit="false" defaultValue=""/>
