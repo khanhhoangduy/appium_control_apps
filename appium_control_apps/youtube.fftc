@@ -148,7 +148,7 @@
                                                         <actionsWhenTrue>
                                                             <item actionId="DeclareExecutionIssue">
                                                                 <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="OK">
-                                                                    <message>Successfully cleaned the Youtube app storage</message>
+                                                                    <message>Successfully cleared the app storage</message>
                                                                 </actionProperties>
                                                             </item>
                                                         </actionsWhenTrue>
@@ -188,7 +188,7 @@
                     <nestedSteps>
                         <item guid="fa1e071c-4b7b-44b9-a678-8465111dabf2" action="call" useFieldsInCommand="false">
                             <command>
-                                <body>activate_youtube_app()</body>
+                                <body>launch_youtube_app()</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
@@ -300,7 +300,7 @@
                                         </item>
                                         <item guid="c0a99c2d-3fb0-4502-bf46-abaa7cbf0570" action="command" session="s1" useFieldsInCommand="false">
                                             <command>
-                                                <body>time.sleep(1.5)</body>
+                                                <body>time.sleep(1)</body>
                                             </command>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
@@ -1015,12 +1015,6 @@
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="a732ca80-9c80-45e4-a1cd-2ea050a2a8db" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>play_pause_button_id = &apos;com.google.android.youtube:id/player_control_play_pause_replay_button&apos;</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
                         <item guid="fcff62b7-13ef-4a47-8582-222fe20de116" action="for" useFieldsInCommand="false">
                             <command>
                                 <body>i in range(0, 10):</body>
@@ -1032,9 +1026,9 @@
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="5890cb14-7300-44e7-94a2-bd1c424b3330" action="command" session="s1" estimatedStepExecutionTime="1.662">
+                                <item guid="5890cb14-7300-44e7-94a2-bd1c424b3330" action="command" session="s1" estimatedStepExecutionTime="1.662" useFieldsInCommand="false">
                                     <command>
-                                        <body>driver.find_element(By.XPATH, &apos;//android.widget.ImageView\\[@resource-id=&quot;[play_pause_button_id]&quot;]&apos;).click()</body>
+                                        <body>driver.find_element(By.XPATH, &apos;//android.widget.ImageView[@content-desc=&quot;Pause video&quot;]&apos;).click()</body>
                                     </command>
                                     <postProcessing>
                                         <analysisRules>
@@ -1112,17 +1106,20 @@
                         <body>Uncheck &apos;Auto play&apos;</body>
                     </command>
                     <nestedSteps>
-                        <item guid="fa2d3ba9-c058-4ec1-bd2a-b44304ed489e" action="command" session="s1" useFieldsInCommand="false">
-                            <command>
-                                <body>time.sleep(1.5)</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
                         <item guid="8f36de2b-fb81-4692-8d78-2fafea9d3a57" action="eval" estimatedStepExecutionTime="1.662" useFieldsInCommand="false">
                             <command>
                                 <body>xpath_to_auto_play = &apos;//android.widget.Switch[@resource-id=&quot;com.google.android.youtube:id/autonav_toggle_button&quot;]&apos;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="d604f6c3-f9e6-4448-ab7d-d89d72c0d97c" action="wait_until" session="s1" useFieldsInCommand="false">
+                            <command>
+                                <body>condition=&apos;visibility_of_element_located&apos;, xpath=&apos;[xpath_to_auto_play]&apos;, timeout=5.0</body>
+                            </command>
+                            <applicationProperties type="com.spirent.itest.applications.appium.properties.WaitUntilStepProperties">
+                                <condition>visibility_of_element_located</condition>
+                                <target sub="true">[xpath_to_auto_play]</target>
+                            </applicationProperties>
                         </item>
                         <item guid="5ba2c6d5-ad1b-4658-b3b9-47a1860ddc4f" action="get_attribute" session="s1" normalOffset="9.97" useFieldsInCommand="false">
                             <command>
@@ -1354,15 +1351,9 @@
                             <nestedSteps>
                                 <item guid="4610c590-227f-4e19-89fa-4c1163e9b351" action="comment" useFieldsInCommand="false">
                                     <command>
-                                        <body>Check if the script should wait some time for the bandwidth based on the readhead</body>
+                                        <body>The bandwidth only increases during the download of the readahead so we need to check if the script should wait some time for the bandwidth based on the current readhead</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="9f96a980-9d9e-4eda-bad7-761a2287a0a5" action="comment" useFieldsInCommand="false">
-                                            <command>
-                                                <body>The &quot;bandwidth&quot; only increases during the download of the &quot;readahead&quot; so we need to calculate the wait time to get this value</body>
-                                            </command>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
                                         <item guid="39e2d6a5-95ee-4b96-90ca-95ea4c573cd9" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
                                             <command>
                                                 <body>xpath=&apos;//android.widget.TextView[@resource-id=&quot;com.google.android.youtube:id/time_bar_total_time&quot;]&apos;, attribute=&apos;text&apos;</body>
@@ -1452,7 +1443,7 @@
                                         </item>
                                         <item guid="d12c4943-d52b-4872-86a0-2c1d3f107098" action="call" useFieldsInCommand="false">
                                             <command>
-                                                <body>wait_time_for_bandwidth(actual_played_duration=actual_played_duration_info, total_duration=total_expected_duration_info, readahead=readahead_info)</body>
+                                                <body>get_wait_time_for_bandwidth(actual_played_duration=actual_played_duration_info, total_duration=total_expected_duration_info, readahead=readahead_info)</body>
                                             </command>
                                             <postProcessing>
                                                 <storeResponseAt>wait_buffering_time</storeResponseAt>
@@ -1465,49 +1456,49 @@
                                 </item>
                                 <item guid="c6a6ea0e-eccd-43fd-8074-8012160c6133" action="comment" useFieldsInCommand="false">
                                     <command>
-                                        <body>Play the video if grabbing the bandwidth is needed</body>
+                                        <body>Unpause the video</body>
                                     </command>
                                     <nestedSteps>
+                                        <item guid="dea3aba8-785d-4c18-8573-e9eb77584f54" action="command" session="s1" estimatedStepExecutionTime="1.662" useFieldsInCommand="false">
+                                            <command>
+                                                <body>driver.find_element(By.XPATH, &apos;//android.widget.ImageView[@content-desc=&quot;Play video&quot;]&apos;).click()</body>
+                                            </command>
+                                            <postProcessing>
+                                                <analysisRules>
+                                                    <item>
+                                                        <extractorInfo extractorType="contains">
+                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                                <searchString>Traceback (most recent call last):</searchString>
+                                                            </extractorProperties>
+                                                        </extractorInfo>
+                                                        <processorInfo ruleType="assert">
+                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                <expression>value == 1</expression>
+                                                                <actionsWhenTrue>
+                                                                    <item actionId="DeclareExecutionIssue">
+                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                                            <message>Failed to play the video</message>
+                                                                        </actionProperties>
+                                                                    </item>
+                                                                    <item actionId="FailTest">
+                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                    </item>
+                                                                    <item actionId="ExitExecution">
+                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                    </item>
+                                                                </actionsWhenTrue>
+                                                            </ruleProperties>
+                                                        </processorInfo>
+                                                    </item>
+                                                </analysisRules>
+                                            </postProcessing>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
                                         <item guid="5d158376-8268-4262-a6e2-751083f62bf7" action="if" useFieldsInCommand="false">
                                             <command>
                                                 <body>wait_buffering_time &gt; 0:</body>
                                             </command>
                                             <nestedSteps>
-                                                <item guid="cfbe5336-ce62-43bb-a639-d17302a599fd" action="command" session="s1" estimatedStepExecutionTime="1.662">
-                                                    <command>
-                                                        <body>driver.find_element(By.ID, &apos;[play_pause_button_id]&apos;).click()</body>
-                                                    </command>
-                                                    <postProcessing>
-                                                        <analysisRules>
-                                                            <item>
-                                                                <extractorInfo extractorType="contains">
-                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
-                                                                        <searchString>Traceback (most recent call last):</searchString>
-                                                                    </extractorProperties>
-                                                                </extractorInfo>
-                                                                <processorInfo ruleType="assert">
-                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                        <expression>value == 1</expression>
-                                                                        <actionsWhenTrue>
-                                                                            <item actionId="DeclareExecutionIssue">
-                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
-                                                                                    <message>Failed to play the video</message>
-                                                                                </actionProperties>
-                                                                            </item>
-                                                                            <item actionId="FailTest">
-                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                            </item>
-                                                                            <item actionId="ExitExecution">
-                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                            </item>
-                                                                        </actionsWhenTrue>
-                                                                    </ruleProperties>
-                                                                </processorInfo>
-                                                            </item>
-                                                        </analysisRules>
-                                                    </postProcessing>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
                                                 <item guid="bddc2902-e4f4-4301-b838-3b348db71392" action="message" skip="true" useFieldsInCommand="false">
                                                     <command>
                                                         <body>Information:Waiting for bandwidth (up to [wait_buffering_time]s)...</body>
@@ -1523,10 +1514,10 @@
                                             <nestedSteps>
                                                 <item guid="17e51b4a-cd8c-419e-ac35-b40cb20f3743" action="message" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>Information:Video is already buffered with all data. Bandwidth may be reported as 0.00 kbps</body>
+                                                        <body>Information:Video is already buffered with all data. Bandwidth will be reported as 0.00 kbps</body>
                                                     </command>
                                                     <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
-                                                        <message inherit="false">Video is already buffered with all data. Bandwidth may be reported as 0.00 kbps</message>
+                                                        <message inherit="false">Video is already buffered with all data. Bandwidth will be reported as 0.00 kbps</message>
                                                     </applicationProperties>
                                                 </item>
                                             </nestedSteps>
@@ -1537,12 +1528,12 @@
                                 </item>
                                 <item guid="2962aab3-d362-4a28-ba0b-5604b7de76bd" action="comment" useFieldsInCommand="false">
                                     <command>
-                                        <body>Wait for the bandwidth to be not &quot;0.00 kbps&quot;</body>
+                                        <body>Query to get the bandwidth which is not &quot;0.00 kbps&quot;</body>
                                     </command>
                                     <nestedSteps>
                                         <item guid="b3cbf78b-fa26-43a9-bc15-1efd74ad7653" action="comment" useFieldsInCommand="false">
                                             <command>
-                                                <body>Start timer</body>
+                                                <body>Start timer, used to calculate how much wait time was for retrieving the bandwidth</body>
                                             </command>
                                             <nestedSteps>
                                                 <item guid="49d3c67c-b7c0-4b39-bdf3-75862ecd91fe" action="eval" useFieldsInCommand="false">
@@ -1618,12 +1609,6 @@
                                                 <message inherit="false">Bandwidth retrieved with value &quot;[bandwidth_info]&quot;</message>
                                             </applicationProperties>
                                         </item>
-                                        <item guid="41c4352d-991b-4173-8e44-62a365e308cd" action="eval" useFieldsInCommand="false">
-                                            <command>
-                                                <body>ended = datetime.now()</body>
-                                            </command>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
@@ -1632,7 +1617,7 @@
                         </item>
                         <item guid="a2475108-e888-45d5-ab98-eaa5fb893e7e" action="comment" useFieldsInCommand="false">
                             <command>
-                                <body>Check and wait for the video to play its full length</body>
+                                <body>Check and wait to play for the full duration of the video</body>
                             </command>
                             <nestedSteps>
                                 <item guid="222ddc00-61c2-4ef1-9a04-5153962986e1" action="comment" useFieldsInCommand="false">
@@ -1688,6 +1673,12 @@
                                             </postProcessing>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
+                                        <item guid="ac437e75-53e0-41f5-a29c-7267ed41d866" action="eval" useFieldsInCommand="false">
+                                            <command>
+                                                <body>ended = datetime.now()</body>
+                                            </command>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
                                         <item guid="0b15e7c6-4d0f-48d3-8c00-94d72294ae1a" action="if" useFieldsInCommand="false">
                                             <command>
                                                 <body>video_ends:</body>
@@ -1710,18 +1701,6 @@
                                         </item>
                                         <item guid="1281e2ed-0a1d-4b0b-b86d-c1b6bbb60ce1" action="else" useFieldsInCommand="false">
                                             <nestedSteps>
-                                                <item guid="95856bdb-a2d6-4cf3-9527-286e0b718e0e" action="comment" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>Click the player view to get the actual played time</body>
-                                                    </command>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                                <item guid="b5c6430b-59f8-4216-ba1c-2c04da7e4aa2" action="eval" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>elapsed_time = (ended - started).total_seconds();print(elapsed_time)</body>
-                                                    </command>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
                                                 <item guid="1e922fc3-d92b-4a32-a712-695b480b8401" action="comment" useFieldsInCommand="false">
                                                     <command>
                                                         <body>Check the remaining time of the video and wait for that long</body>
@@ -1745,6 +1724,12 @@
                                                                 <storeResponseAt>actual_time_obj</storeResponseAt>
                                                                 <storeResponseText>true</storeResponseText>
                                                             </postProcessing>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="6f7b5b20-884f-4978-85cc-ad3fa486de17" action="eval" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>elapsed_time = (ended - started).total_seconds();print(elapsed_time)</body>
+                                                            </command>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
                                                         <item guid="e51e877f-39fa-4b97-aef2-4f4847c8254e" action="eval" useFieldsInCommand="false">
@@ -2210,7 +2195,7 @@
             </arguments>
             <response>{&quot;Video_URL&quot;:&quot;&quot;,&quot;Actual_Played_Time&quot;:&quot;&quot;,&quot;Total_Expected_Duration&quot;:&quot;&quot;,&quot;Device&quot;:&quot;&quot;,&quot;Video_Format&quot;:&quot;&quot;,&quot;Audio_Format&quot;:&quot;&quot;,&quot;Bandwidth&quot;:&quot;&quot;,&quot;View_Port&quot;:&quot;&quot;,&quot;Dropped_Frames&quot;:&quot;&quot;}</response>
         </item>
-        <item name="wait_time_for_bandwidth" isPublic="true">
+        <item name="get_wait_time_for_bandwidth" isPublic="true">
             <steps>
                 <item guid="4e1c0b41-3971-4950-85d0-fa17a1552345" action="eval" useFieldsInCommand="false">
                     <command>
@@ -2493,11 +2478,11 @@
                 </item>
             </steps>
         </item>
-        <item name="activate_youtube_app" isPublic="true">
+        <item name="launch_youtube_app" isPublic="true">
             <steps>
                 <item guid="a670fbce-a221-4a5f-aa8f-e1f3d02b5e2f" action="comment" useFieldsInCommand="false">
                     <command>
-                        <body>Cannot use the Appium &apos;activate&apos; command since the Android container needs the option &apos;pct-syskeys 0&apos; to launch the app. So we need to use adb command as a workaround</body>
+                        <body>Cannot use the Appium&apos;s &apos;activate&apos; command since the Android container needs the option &apos;pct-syskeys 0&apos; in the adb command to launch the app. So we need to use adb command directly as a workaround</body>
                     </command>
                     <nestedSteps>
                         <item guid="faf8cdb6-345b-4263-a368-dd375838e6ab" action="activate" session="s1" skip="true">
@@ -2556,7 +2541,7 @@
                 </item>
                 <item guid="e6f18f2f-5395-44fb-a50b-711c362916e2" action="comment" useFieldsInCommand="false">
                     <command>
-                        <body>Otherwise, execute adb command</body>
+                        <body>Otherwise, use adb command</body>
                     </command>
                     <nestedSteps>
                         <item guid="67ce5ca5-84ee-4038-a705-7c231e3be319" action="eval" useFieldsInCommand="false">
