@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
-<testCase version="24.3.0.202403311053">
+<testCase version="24.3.0.202402281100">
     <general>
         <language>Python</language>
         <xPathVersion>XPATH31</xPathVersion>
     </general>
     <execution>
-        <parameters version="24.3.0.202403311053">
+        <parameters version="24.3.0.202402281100">
             <parameters escape="true">
                 <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
                     <DeviceAndroidVersion pt:description="OS version of Android device. Default support: 12">12</DeviceAndroidVersion>
                     <DeviceAndroidName pt:description="Name of Android device"/>
-                    <DeviceAndroidId pt:description="ID of Android device"/>
+                    <DeviceAndroidID pt:description="ID of Android device"/>
                     <AppiumDriverName pt:description="Appium Driver Name. Default: UiAutomator2">UiAutomator2</AppiumDriverName>
                     <AppiumServerHost pt:description="Appium Server Host. Default: localhost">localhost</AppiumServerHost>
                     <AppiumServerPort pt:datatype="INTEGER" pt:description="Appium Server Port. Default: 4723">4723</AppiumServerPort>
@@ -85,7 +85,7 @@
                         </item>
                         <item guid="e0fb2f9a-b25b-4d7f-a5c7-bbe9c22c779a" action="eval" useFieldsInCommand="false">
                             <command>
-                                <body>deviceId = param(&apos;DeviceAndroidId&apos;, &apos;&apos;)</body>
+                                <body>deviceId = param(&apos;DeviceAndroidID&apos;, &apos;&apos;)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
