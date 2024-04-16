@@ -8,10 +8,10 @@
         <parameters version="9.5.0.202402062035">
             <parameters escape="true">
                 <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
-                    <VideoURL pt:description="Instagram Video Link URL.">https://www.instagram.com/reel/C4kONHXI0g1/?igsh=Nm9lb201MDBnbzZt</VideoURL>
-                    <Video_Expected_Duration pt:datatype="INTEGER" pt:description="Required. Input a interger number in seconds for the Video_Expected_Duration">25</Video_Expected_Duration>
-                    <Password pt:description="Required while running with fresh start. Password to login for fresh start" pt:mask="true">CaK+mWSFs84=</Password>
+                    <VideoURL pt:description="Instagram Video Link URL."/>
+                    <VideoExpectedDuration pt:datatype="INTEGER" pt:description="Required. Input a interger number in seconds for the Video_Expected_Duration"/>
                     <Username pt:description="Required while running with fresh start. Username to login"/>
+                    <Password pt:description="Required while running with fresh start. Password to login for fresh start" pt:mask="true">CaK+mWSFs84=</Password>
                     <ADBPath pt:description="Required. Android Development Brigdge path"/>
                     <DeviceAndroidID pt:description="Required if more than one device in the enviroment"/>
                     <DeviceAndroidName pt:description="Name of Android device">.*S.*</DeviceAndroidName>
@@ -32,24 +32,24 @@
                     <nestedSteps>
                         <item guid="41ab4c90-904c-4145-81ca-227cb08b43e4" action="comment" useFieldsInCommand="false">
                             <command>
-                                <body>Video_Expected_Duration</body>
+                                <body>VideoExpectedDuration</body>
                             </command>
                             <nestedSteps>
                                 <item guid="82c1d016-fb45-4513-9ae9-700353eba42c" action="eval" useFieldsInCommand="false">
                                     <command>
-                                        <body>final_expected_duration=param(&apos;Video_Expected_Duration&apos;,&quot;&quot;);print(final_expected_duration)</body>
+                                        <body>video_expected_duration_length=param(&apos;VideoExpectedDuration&apos;,&quot;&quot;);print(video_expected_duration_length)</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
                                 <item guid="eb7dee10-b2f3-430c-8545-8efa1a90dd4b" action="eval" useFieldsInCommand="false">
                                     <command>
-                                        <body>unsupport_video_duration_time = 15</body>
+                                        <body>unsupport_video_duration_in_second= 15</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
                                 <item guid="ab717892-d69a-415b-8a43-bbd67158b6b7" action="if" useFieldsInCommand="false">
                                     <command>
-                                        <body>final_expected_duration != &quot;&quot; and float(final_expected_duration) &lt;= unsupport_video_duration_time:</body>
+                                        <body>video_expected_duration_length != &quot;&quot; and float(video_expected_duration_length) &lt;= unsupport_video_duration_in_second:</body>
                                     </command>
                                     <nestedSteps>
                                         <item guid="e20eb6a3-0de5-489d-8381-79659237e24e" action="message" useFieldsInCommand="false">
@@ -80,6 +80,78 @@
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                         <item guid="bb49abfd-2fd4-43ce-8313-8b1d8a7d7efa" action="if" useFieldsInCommand="false">
+                            <command>
+                                <body>param(&apos;Username&apos;) == &apos;&apos;:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="1f51ed8e-f994-4f5b-9d03-35dc27ba8340" action="message" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Error:Please input the Username</body>
+                                    </command>
+                                    <postProcessing>
+                                        <analysisRules>
+                                            <item>
+                                                <extractorInfo extractorType="none">
+                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="assert">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                        <expression>True</expression>
+                                                        <actionsWhenTrue>
+                                                            <item actionId="AbortExecution">
+                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                            </item>
+                                                        </actionsWhenTrue>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                        </analysisRules>
+                                    </postProcessing>
+                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                        <severity inherit="false">Error</severity>
+                                        <message inherit="false">Please input the Username</message>
+                                    </applicationProperties>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="246288e7-983d-4b03-8987-04ce441c46f7" action="if" useFieldsInCommand="false">
+                            <command>
+                                <body>param(&apos;Password&apos;) == &apos;&apos;:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="1f51ed8e-f994-4f5b-9d03-35dc27ba8340" action="message" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Error:Please input the Password</body>
+                                    </command>
+                                    <postProcessing>
+                                        <analysisRules>
+                                            <item>
+                                                <extractorInfo extractorType="none">
+                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="assert">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                        <expression>True</expression>
+                                                        <actionsWhenTrue>
+                                                            <item actionId="AbortExecution">
+                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                            </item>
+                                                        </actionsWhenTrue>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                        </analysisRules>
+                                    </postProcessing>
+                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                        <severity inherit="false">Error</severity>
+                                        <message inherit="false">Please input the Password</message>
+                                    </applicationProperties>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="111b1134-c0dd-428e-a7c7-7563c32c9858" action="if" useFieldsInCommand="false">
                             <command>
                                 <body>param(&apos;VideoURL&apos;) == &apos;&apos;:</body>
                             </command>
@@ -401,13 +473,8 @@
                                                                         <expression>value == 1</expression>
                                                                         <actionsWhenTrue>
                                                                             <item actionId="DeclareExecutionIssue">
-                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="Information">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="OK">
                                                                                     <message>Loggin successful</message>
-                                                                                </actionProperties>
-                                                                            </item>
-                                                                            <item actionId="Eval">
-                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                                                    <statement>clean_up=False</statement>
                                                                                 </actionProperties>
                                                                             </item>
                                                                         </actionsWhenTrue>
@@ -417,13 +484,13 @@
                                                                                     <message>Unable to Login please manual check.</message>
                                                                                 </actionProperties>
                                                                             </item>
-                                                                            <item actionId="Eval">
-                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                                                    <statement>clean_up=True</statement>
-                                                                                </actionProperties>
-                                                                            </item>
                                                                             <item actionId="FailTest">
                                                                                 <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                            </item>
+                                                                            <item actionId="CallProcedure">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                    <command>clean_up()</command>
+                                                                                </actionProperties>
                                                                             </item>
                                                                         </actionsWhenFalse>
                                                                     </ruleProperties>
@@ -433,20 +500,6 @@
                                                         <storeResponseAt>is_command_successful</storeResponseAt>
                                                         <storeResponseText>true</storeResponseText>
                                                     </postProcessing>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                                <item guid="fd74b2ee-c4d8-49cd-9754-da9fb2bdf125" action="if" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>clean_up:</body>
-                                                    </command>
-                                                    <nestedSteps>
-                                                        <item guid="d1259371-60ff-44f9-877e-deb10d972bcc" action="call" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>clean_up()</body>
-                                                            </command>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                    </nestedSteps>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
                                             </nestedSteps>
@@ -753,6 +806,215 @@
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="login" isPublic="true">
+            <steps>
+                <item guid="b29ace27-eecb-4420-a15e-179efc35551b" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>username=param(&apos;Username&apos;, &apos;missing user name&apos;)</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="d1337f42-aba6-46aa-b41a-ae76d8abdbcf" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>password=param(&apos;Password&apos;, &apos;missing password&apos;)</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="1f65d857-20ab-4baa-bbd1-da7ea1528a59" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Go to the Main Instagram page</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="92b8d1e6-775d-4952-a2ee-1ae70f5400e5" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>home_login_url=param(&apos;home_login_url&apos;, &apos;https://www.instagram.com&apos;)</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="ed8c4cb6-a189-42a7-9b55-2af081f48627" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>driver_execute(deep_link_url=home_login_url,package=gget(&apos;insta_app_pkg&apos;),execute_script=&quot;deeplink&quot;)</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
+                                                <query>responseLine()</query>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>str(value).lower() == &quot;true&quot;</expression>
+                                                <actionsWhenFalse>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                            <message>Unable to open Instagram Home page</message>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="FailTest">
+                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    </item>
+                                                    <item actionId="CallProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                            <command>clean_up()</command>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                                <storeResponseAt>is_command_successful</storeResponseAt>
+                                <storeResponseText>true</storeResponseText>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="b08a8b8f-1d64-47c7-9c50-26f9610ea125" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Find usename/password textbox to input and login</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="4004f541-cf66-42b9-a38a-b2468c6b4383" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>xpath_username_textbox=&quot;//android.view.View[@content-desc=&apos;Username, email or mobile number&apos;]/../../android.widget.EditText&quot;</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="23dec3e0-ff53-46fc-b370-b029b826e5f0" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>xpath_password_textbox=&quot;//android.view.View[@content-desc=&apos;Password&apos;]/../../android.widget.EditText&quot;</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="2f0b4e12-3d4e-4cad-bb93-1a8ecd287fca" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>xpath_login=&quot;//android.view.View[@content-desc=&apos;Log in&apos;]&quot;</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="be1c4e76-2cca-4221-bdd0-a120890c145e" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>driver_wait_until_with_action(element=xpath_username_textbox, By=&quot;XPATH&quot;,expected_action=&quot;clear_text&quot;)</body>
+                            </command>
+                            <postProcessing>
+                                <storeResponseAt>is_command_successful</storeResponseAt>
+                                <storeResponseText>true</storeResponseText>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="e3721b9a-b759-4da1-ace2-f43523ead1b5" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>driver_wait_until_with_action(element=xpath_password_textbox, By=&quot;XPATH&quot;,expected_action=&quot;clear_text&quot;)</body>
+                            </command>
+                            <postProcessing>
+                                <storeResponseAt>is_command_successful</storeResponseAt>
+                                <storeResponseText>true</storeResponseText>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="61ec97cd-72c6-44cd-9c53-4108744e971f" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>driver_find_with_action(element=xpath_username_textbox, By=&quot;XPATH&quot;,expected_action=&quot;send_keys&quot;,keys_input=username)</body>
+                            </command>
+                            <postProcessing>
+                                <storeResponseAt>is_command_successful</storeResponseAt>
+                                <storeResponseText>true</storeResponseText>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="2231f168-6169-4439-96d7-cf4841280863" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>driver_find_with_action(element=xpath_password_textbox, By=&quot;XPATH&quot;,expected_action=&quot;send_keys&quot;,keys_input=password)</body>
+                            </command>
+                            <postProcessing>
+                                <storeResponseAt>is_command_successful</storeResponseAt>
+                                <storeResponseText>true</storeResponseText>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="b739caa5-e05d-425d-a681-e72a8a8bb2ca" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>driver_find_with_action(element=xpath_login, By=&quot;XPATH&quot;,expected_action=&quot;click&quot;)</body>
+                            </command>
+                            <postProcessing>
+                                <storeResponseAt>is_command_successful</storeResponseAt>
+                                <storeResponseText>true</storeResponseText>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="89e3f12d-db73-4388-9c64-d734b5c4e4ab" action="command" session="t1" useFieldsInCommand="false">
+                            <command>
+                                <body>time.sleep(10)</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="e58bc367-abca-42a8-b2b8-c7fb58523b03" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Check if we are loggin and on the Home page</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="323a726d-d566-48b3-88a6-d4ac6f185c8d" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>xpath_home_page=&quot;//android.widget.FrameLayout[@content-desc=&apos;Profile&apos;]&quot;</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="1b938b80-7f98-4df6-a8ff-d059d8b59712" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>driver_wait_until_with_action(element=xpath_home_page,expected_action=&quot;is_displayed&quot;,By=&quot;XPATH&quot;)</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>True</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 1</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_command_successful=True</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_command_successful=False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                                <storeResponseAt>is_command_successful</storeResponseAt>
+                                <storeResponseText>true</storeResponseText>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="37fd6625-eff5-497f-9a40-1e21f50ef9bd" action="return">
+                    <command>
+                        <body>[is_command_successful]</body>
+                    </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
             </steps>
@@ -1453,555 +1715,6 @@
                 </item>
             </steps>
         </item>
-        <item name="login" isPublic="true">
-            <steps>
-                <item guid="b29ace27-eecb-4420-a15e-179efc35551b" action="eval" useFieldsInCommand="false">
-                    <command>
-                        <body>username=param(&apos;Username&apos;, &apos;missing user name&apos;)</body>
-                    </command>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="d1337f42-aba6-46aa-b41a-ae76d8abdbcf" action="eval" useFieldsInCommand="false">
-                    <command>
-                        <body>password=param(&apos;Password&apos;, &apos;missing password&apos;)</body>
-                    </command>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="1f65d857-20ab-4baa-bbd1-da7ea1528a59" action="comment" useFieldsInCommand="false">
-                    <command>
-                        <body>Go to the Main Instagram page</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="92b8d1e6-775d-4952-a2ee-1ae70f5400e5" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>home_login_url=param(&apos;home_login_url&apos;, &apos;https://www.instagram.com&apos;)</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="ed8c4cb6-a189-42a7-9b55-2af081f48627" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>driver_execute(deep_link_url=home_login_url,package=gget(&apos;insta_app_pkg&apos;),execute_script=&quot;deeplink&quot;)</body>
-                            </command>
-                            <postProcessing>
-                                <analysisRules>
-                                    <item>
-                                        <extractorInfo extractorType="query">
-                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
-                                                <query>responseLine()</query>
-                                            </extractorProperties>
-                                        </extractorInfo>
-                                        <processorInfo ruleType="assert">
-                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                <expression>str(value).lower() == &quot;true&quot;</expression>
-                                                <actionsWhenFalse>
-                                                    <item actionId="DeclareExecutionIssue">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
-                                                            <message>Unable to open Instagram Home page</message>
-                                                        </actionProperties>
-                                                    </item>
-                                                    <item actionId="FailTest">
-                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                    </item>
-                                                    <item actionId="CallProcedure">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                            <command>clean_up()</command>
-                                                        </actionProperties>
-                                                    </item>
-                                                </actionsWhenFalse>
-                                            </ruleProperties>
-                                        </processorInfo>
-                                    </item>
-                                </analysisRules>
-                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                <storeResponseText>true</storeResponseText>
-                            </postProcessing>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="b08a8b8f-1d64-47c7-9c50-26f9610ea125" action="comment" useFieldsInCommand="false">
-                    <command>
-                        <body>Find usename/password textbox to input and login</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="4004f541-cf66-42b9-a38a-b2468c6b4383" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>xpath_username_textbox=&quot;//android.view.View[@content-desc=&apos;Username, email or mobile number&apos;]/../../android.widget.EditText&quot;</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="23dec3e0-ff53-46fc-b370-b029b826e5f0" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>xpath_password_textbox=&quot;//android.view.View[@content-desc=&apos;Password&apos;]/../../android.widget.EditText&quot;</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="2f0b4e12-3d4e-4cad-bb93-1a8ecd287fca" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>xpath_login=&quot;//android.view.View[@content-desc=&apos;Log in&apos;]&quot;</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="be1c4e76-2cca-4221-bdd0-a120890c145e" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>driver_wait_until_with_action(element=xpath_username_textbox, By=&quot;XPATH&quot;,expected_action=&quot;clear_text&quot;)</body>
-                            </command>
-                            <postProcessing>
-                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                <storeResponseText>true</storeResponseText>
-                            </postProcessing>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="e3721b9a-b759-4da1-ace2-f43523ead1b5" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>driver_wait_until_with_action(element=xpath_password_textbox, By=&quot;XPATH&quot;,expected_action=&quot;clear_text&quot;)</body>
-                            </command>
-                            <postProcessing>
-                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                <storeResponseText>true</storeResponseText>
-                            </postProcessing>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="61ec97cd-72c6-44cd-9c53-4108744e971f" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>driver_find_with_action(element=xpath_username_textbox, By=&quot;XPATH&quot;,expected_action=&quot;send_keys&quot;,keys_input=username)</body>
-                            </command>
-                            <postProcessing>
-                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                <storeResponseText>true</storeResponseText>
-                            </postProcessing>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="2231f168-6169-4439-96d7-cf4841280863" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>driver_find_with_action(element=xpath_password_textbox, By=&quot;XPATH&quot;,expected_action=&quot;send_keys&quot;,keys_input=password)</body>
-                            </command>
-                            <postProcessing>
-                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                <storeResponseText>true</storeResponseText>
-                            </postProcessing>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="b739caa5-e05d-425d-a681-e72a8a8bb2ca" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>driver_find_with_action(element=xpath_login, By=&quot;XPATH&quot;,expected_action=&quot;click&quot;)</body>
-                            </command>
-                            <postProcessing>
-                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                <storeResponseText>true</storeResponseText>
-                            </postProcessing>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="89e3f12d-db73-4388-9c64-d734b5c4e4ab" action="command" session="t1" useFieldsInCommand="false">
-                            <command>
-                                <body>time.sleep(10)</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="e58bc367-abca-42a8-b2b8-c7fb58523b03" action="comment" useFieldsInCommand="false">
-                    <command>
-                        <body>Check if we are loggin and on the Home page</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="323a726d-d566-48b3-88a6-d4ac6f185c8d" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>xpath_home_page=&quot;//android.widget.FrameLayout[@content-desc=&apos;Profile&apos;]&quot;</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="1b938b80-7f98-4df6-a8ff-d059d8b59712" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>driver_wait_until_with_action(element=xpath_home_page,expected_action=&quot;is_displayed&quot;,By=&quot;XPATH&quot;)</body>
-                            </command>
-                            <postProcessing>
-                                <analysisRules>
-                                    <item>
-                                        <extractorInfo extractorType="contains">
-                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
-                                                <searchString>True</searchString>
-                                            </extractorProperties>
-                                        </extractorInfo>
-                                        <processorInfo ruleType="assert">
-                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                <expression>value == 1</expression>
-                                                <actionsWhenTrue>
-                                                    <item actionId="Eval">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                            <statement>is_command_successful=True</statement>
-                                                        </actionProperties>
-                                                    </item>
-                                                </actionsWhenTrue>
-                                                <actionsWhenFalse>
-                                                    <item actionId="Eval">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                            <statement>is_command_successful=False</statement>
-                                                        </actionProperties>
-                                                    </item>
-                                                </actionsWhenFalse>
-                                            </ruleProperties>
-                                        </processorInfo>
-                                    </item>
-                                </analysisRules>
-                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                <storeResponseText>true</storeResponseText>
-                            </postProcessing>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="37fd6625-eff5-497f-9a40-1e21f50ef9bd" action="return">
-                    <command>
-                        <body>[is_command_successful]</body>
-                    </command>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-            </steps>
-        </item>
-        <item name="extract_actual_played_duration" isPublic="true">
-            <steps>
-                <item guid="88c8f2eb-d3a4-414b-99de-ceec299018d1" action="comment" useFieldsInCommand="false">
-                    <command>
-                        <body>Extract Actual Played Duration and add to extracted Data</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="1710c5ba-9832-44ee-8d89-a486e06891ea" action="comment" useFieldsInCommand="false">
-                            <command>
-                                <body>Wait then get actual_played_duration_check_point</body>
-                            </command>
-                            <nestedSteps>
-                                <item guid="25d0b849-c149-402d-82c4-9cb56a0f9b40" action="comment" useFieldsInCommand="false">
-                                    <command>
-                                        <body>Set the check point timer base on user input (Video Expected Duration) at 50% of the video length</body>
-                                    </command>
-                                    <nestedSteps>
-                                        <item guid="4150995d-d9fd-41f0-9a38-b787293b3f92" action="eval" useFieldsInCommand="false">
-                                            <command>
-                                                <body>video_expected_duration_length=param(&apos;Video_Expected_Duration&apos;,&quot;8&quot;);print(video_expected_duration_length)</body>
-                                            </command>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                        <item guid="db259147-680d-472e-b6b0-a22ff338e780" action="eval" useFieldsInCommand="false">
-                                            <command>
-                                                <body>set_timer_check_point=math.ceil(float(video_expected_duration_length)/2)</body>
-                                            </command>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                    </nestedSteps>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                                <item guid="851ff1f3-d37c-4151-9792-d42ce9e9c98c" action="command" session="t1">
-                                    <command>
-                                        <body>time.sleep([set_timer_check_point])</body>
-                                    </command>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                                <item guid="421ca8fc-f85e-49fc-9fc2-65b154cfc310" action="call" useFieldsInCommand="false">
-                                    <command>
-                                        <body>get_actual_timer()</body>
-                                    </command>
-                                    <postProcessing>
-                                        <storeResponseAt>actual_played_duration_check_point</storeResponseAt>
-                                        <storeResponseText>true</storeResponseText>
-                                    </postProcessing>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                                <item guid="31a28006-607b-46f6-a22b-aedcdb8376a4" action="if" useFieldsInCommand="false">
-                                    <command>
-                                        <body>actual_played_duration_check_point !=&quot;&quot;:</body>
-                                    </command>
-                                    <nestedSteps>
-                                        <item guid="7ce3808b-0076-425d-9858-4011db55e72e" action="eval" useFieldsInCommand="false">
-                                            <command>
-                                                <body>print(actual_played_duration_check_point)</body>
-                                            </command>
-                                            <postProcessing>
-                                                <analysisRules>
-                                                    <item>
-                                                        <extractorInfo extractorType="none">
-                                                            <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
-                                                        </extractorInfo>
-                                                        <processorInfo ruleType="message">
-                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
-                                                                <message>Actual Played Duration at first checkout: [actual_played_duration_check_point] seconds</message>
-                                                                <tag sub="false" defaultValue=""/>
-                                                            </ruleProperties>
-                                                        </processorInfo>
-                                                    </item>
-                                                </analysisRules>
-                                            </postProcessing>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                    </nestedSteps>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                                <item guid="e939b894-e062-40c0-aa9b-ed3699b540c1" action="else" useFieldsInCommand="false">
-                                    <nestedSteps>
-                                        <item guid="a66aa28c-fcb4-4a7c-b2dd-e0fbeaf5f3b2" action="message" useFieldsInCommand="false">
-                                            <command>
-                                                <body>Error:Unable to get the Actual Played Duration</body>
-                                            </command>
-                                            <postProcessing>
-                                                <analysisRules>
-                                                    <item>
-                                                        <extractorInfo extractorType="none">
-                                                            <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
-                                                        </extractorInfo>
-                                                        <processorInfo ruleType="assert">
-                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                <expression>True</expression>
-                                                                <actionsWhenTrue>
-                                                                    <item actionId="FailTest">
-                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                    </item>
-                                                                    <item actionId="CallProcedure">
-                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                                            <command>clean_up(is_screen_shot=True)</command>
-                                                                        </actionProperties>
-                                                                    </item>
-                                                                </actionsWhenTrue>
-                                                            </ruleProperties>
-                                                        </processorInfo>
-                                                    </item>
-                                                </analysisRules>
-                                            </postProcessing>
-                                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
-                                                <severity inherit="false">Error</severity>
-                                                <message inherit="false">Unable to get the Actual Played Duration</message>
-                                            </applicationProperties>
-                                        </item>
-                                    </nestedSteps>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                            </nestedSteps>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="3778ff03-0b8b-44a7-8a7c-c113afe14e13" action="comment" useFieldsInCommand="false">
-                            <command>
-                                <body>Get the Actual Played Duration after the video fully played and compare the with the actual_played_duration_check_point above</body>
-                            </command>
-                            <nestedSteps>
-                                <item guid="e38a91d6-a038-413d-b450-dfb3a58a0158" action="if" useFieldsInCommand="false">
-                                    <command>
-                                        <body>actual_played_duration_check_point !=&quot;&quot; and video_expected_duration_length !=&quot;&quot;:</body>
-                                    </command>
-                                    <nestedSteps>
-                                        <item guid="c41acbe2-cdc4-4a45-94fd-b65257601616" action="comment" useFieldsInCommand="false">
-                                            <command>
-                                                <body>Wait untill the video fully played base on the rest of the video length</body>
-                                            </command>
-                                            <nestedSteps>
-                                                <item guid="5629bf94-2399-400a-b3bd-c71ca53f8893" action="eval" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>extra_time_wait_till_video_replay=2</body>
-                                                    </command>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                                <item guid="9fbc8bd4-456f-450c-950d-93a8076ec9b3" action="eval" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>set_timer_check_point =math.ceil(video_expected_duration_length - actual_played_duration_check_point  + extra_time_wait_till_video_replay)</body>
-                                                    </command>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                                <item guid="c8db8808-a306-4e6f-ac2a-9b31d2051d58" action="command" session="t1">
-                                                    <command>
-                                                        <body>time.sleep([set_timer_check_point])</body>
-                                                    </command>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                            </nestedSteps>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                        <item guid="4055659b-3611-452a-836e-47fd892a0ce0" action="call" useFieldsInCommand="false">
-                                            <command>
-                                                <body>get_actual_timer()</body>
-                                            </command>
-                                            <postProcessing>
-                                                <storeResponseAt>actual_played_duration</storeResponseAt>
-                                                <storeResponseText>true</storeResponseText>
-                                            </postProcessing>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                        <item guid="f4e9aa55-016e-4b7d-a3ad-4be6a2b757a0" action="if" useFieldsInCommand="false">
-                                            <command>
-                                                <body>actual_played_duration !=&quot;&quot;:</body>
-                                            </command>
-                                            <nestedSteps>
-                                                <item guid="17a33a3a-2741-4941-a45b-a0171db7c1aa" action="if" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>float(actual_played_duration) &lt;= float(actual_played_duration_check_point):</body>
-                                                    </command>
-                                                    <nestedSteps>
-                                                        <item guid="819179e5-733d-4fca-b951-23a6296fec54" action="eval" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>print(video_expected_duration_length)</body>
-                                                            </command>
-                                                            <postProcessing>
-                                                                <analysisRules>
-                                                                    <item>
-                                                                        <extractorInfo extractorType="query">
-                                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
-                                                                                <query>responseLine()</query>
-                                                                            </extractorProperties>
-                                                                        </extractorInfo>
-                                                                        <processorInfo ruleType="message">
-                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
-                                                                                <message>The video is fully played with the Actual Played Duration:  [video_expected_duration_length] seconds</message>
-                                                                                <extractData>true</extractData>
-                                                                                <tag sub="false">Actual_Played_Duration</tag>
-                                                                            </ruleProperties>
-                                                                        </processorInfo>
-                                                                    </item>
-                                                                </analysisRules>
-                                                            </postProcessing>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                    </nestedSteps>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                                <item guid="4b346ba6-2ab0-4c3f-ae83-d50b75d1cf85" action="else" useFieldsInCommand="false">
-                                                    <nestedSteps>
-                                                        <item guid="a010057f-5891-4c3d-91e2-ca52f1441d5e" action="eval" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>print(actual_played_duration)</body>
-                                                            </command>
-                                                            <postProcessing>
-                                                                <analysisRules>
-                                                                    <item>
-                                                                        <extractorInfo extractorType="query">
-                                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
-                                                                                <query>responseLine()</query>
-                                                                            </extractorProperties>
-                                                                        </extractorInfo>
-                                                                        <processorInfo ruleType="message">
-                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
-                                                                                <message>The video is not fully played, the Actual Played Duration is: [actual_played_duration] seconds</message>
-                                                                                <extractData>true</extractData>
-                                                                                <tag sub="false">Actual_Played_Duration</tag>
-                                                                            </ruleProperties>
-                                                                        </processorInfo>
-                                                                    </item>
-                                                                </analysisRules>
-                                                            </postProcessing>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                    </nestedSteps>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                            </nestedSteps>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                        <item guid="43843b47-d1fa-4623-895c-9e664dff56a7" action="else" useFieldsInCommand="false">
-                                            <nestedSteps>
-                                                <item guid="d679da2f-db0c-4512-bd25-ca1eb0ab46a9" action="message" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>Error:Unable to get the Actual Played Duration</body>
-                                                    </command>
-                                                    <postProcessing>
-                                                        <analysisRules>
-                                                            <item>
-                                                                <extractorInfo extractorType="none">
-                                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
-                                                                </extractorInfo>
-                                                                <processorInfo ruleType="assert">
-                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                        <expression>True</expression>
-                                                                        <actionsWhenTrue>
-                                                                            <item actionId="FailTest">
-                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                            </item>
-                                                                            <item actionId="CallProcedure">
-                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                                                    <command>clean_up(is_screen_shot=True)</command>
-                                                                                </actionProperties>
-                                                                            </item>
-                                                                        </actionsWhenTrue>
-                                                                    </ruleProperties>
-                                                                </processorInfo>
-                                                            </item>
-                                                        </analysisRules>
-                                                    </postProcessing>
-                                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
-                                                        <severity inherit="false">Error</severity>
-                                                        <message inherit="false">Unable to get the Actual Played Duration</message>
-                                                    </applicationProperties>
-                                                </item>
-                                            </nestedSteps>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                    </nestedSteps>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                                <item guid="2ea519e4-75b1-451b-a2c6-9c3c2ba37338" action="else" useFieldsInCommand="false">
-                                    <nestedSteps>
-                                        <item guid="a66aa28c-fcb4-4a7c-b2dd-e0fbeaf5f3b2" action="message" useFieldsInCommand="false">
-                                            <command>
-                                                <body>Error:Unable to get the Actual Played Duration</body>
-                                            </command>
-                                            <postProcessing>
-                                                <analysisRules>
-                                                    <item>
-                                                        <extractorInfo extractorType="none">
-                                                            <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
-                                                        </extractorInfo>
-                                                        <processorInfo ruleType="assert">
-                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                <expression>True</expression>
-                                                                <actionsWhenTrue>
-                                                                    <item actionId="FailTest">
-                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                    </item>
-                                                                    <item actionId="CallProcedure">
-                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                                            <command>clean_up(is_screen_shot=True)</command>
-                                                                        </actionProperties>
-                                                                    </item>
-                                                                </actionsWhenTrue>
-                                                            </ruleProperties>
-                                                        </processorInfo>
-                                                    </item>
-                                                </analysisRules>
-                                            </postProcessing>
-                                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
-                                                <severity inherit="false">Error</severity>
-                                                <message inherit="false">Unable to get the Actual Played Duration</message>
-                                            </applicationProperties>
-                                        </item>
-                                        <item guid="cf1ad6c5-c125-4522-ac36-53dd0e559a83" action="eval" useFieldsInCommand="false">
-                                            <command>
-                                                <body>is_screen_shot=True</body>
-                                            </command>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                    </nestedSteps>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                            </nestedSteps>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="2533f094-3a07-4589-a6d3-d2a1f2582def" action="comment" useFieldsInCommand="false">
-                    <command>
-                        <body>Clean up and exit</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="9bad7cf8-9ff1-48e5-8de7-eef02afe8cd5" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>clean_up(is_screen_shot=False)</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-            </steps>
-        </item>
         <item name="verify_url" isPublic="true">
             <steps>
                 <item guid="70054e08-3f41-424e-b604-bf78b100cb6c" action="eval" useFieldsInCommand="false">
@@ -2036,12 +1749,12 @@
                 </item>
                 <item guid="9e34b90e-093c-4cd3-9453-5ff56cb680a2" action="if" useFieldsInCommand="false">
                     <command>
-                        <body>path.startswith(&quot;/story/&quot;):</body>
+                        <body>path.startswith(&quot;/story/&quot;) or path.startswith(&quot;/stories/&quot;):</body>
                     </command>
                     <nestedSteps>
                         <item guid="6d0de212-9581-49af-82a9-bc042cc273fb" action="message" useFieldsInCommand="false">
                             <command>
-                                <body>Error:URL link should be a supported video link</body>
+                                <body>Error:Invalid URL link, does not supports &quot;story&quot; and &quot;stories&quot;.</body>
                             </command>
                             <postProcessing>
                                 <analysisRules>
@@ -2069,7 +1782,7 @@
                             </postProcessing>
                             <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
                                 <severity inherit="false">Error</severity>
-                                <message inherit="false">URL link should be a supported video link</message>
+                                <message inherit="false">Invalid URL link, does not supports &quot;story&quot; and &quot;stories&quot;.</message>
                             </applicationProperties>
                         </item>
                         <item guid="800b9ac8-8189-4ab9-8726-df83d0cc0417" action="call" useFieldsInCommand="false">
@@ -2095,6 +1808,12 @@
                         <item guid="bfbc76f8-eb1a-415b-b63c-2f2bc38ee278" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>re_attempt=0</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="ddf3c754-6f51-4881-b0df-3cf9cb0ea870" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>response=&quot;&quot;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
@@ -2143,7 +1862,7 @@
                                 </item>
                                 <item guid="18b6808a-4efa-4dbd-a354-cbd823783b9b" action="if" useFieldsInCommand="false">
                                     <command>
-                                        <body>is_command_successful:</body>
+                                        <body>response != &quot;&quot; and is_command_successful:</body>
                                     </command>
                                     <nestedSteps>
                                         <item guid="83f881a2-4228-4eb4-a734-6f05c2bb3308" action="comment" useFieldsInCommand="false">
@@ -2174,6 +1893,13 @@
                                                                                 <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                             </item>
                                                                         </actionsWhenTrue>
+                                                                        <actionsWhenFalse>
+                                                                            <item actionId="Eval">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                    <statement>is_seekbar_exist=&quot;false&quot;</statement>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                        </actionsWhenFalse>
                                                                     </ruleProperties>
                                                                 </processorInfo>
                                                             </item>
@@ -2187,54 +1913,48 @@
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="8a0a359b-0fca-497d-b9a1-18d22ad4057d" action="else" useFieldsInCommand="false">
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="8a0a359b-0fca-497d-b9a1-18d22ad4057d" action="else" useFieldsInCommand="false">
+                            <nestedSteps>
+                                <item guid="f4a1a536-f998-4c33-8440-860eaf741b75" action="if" useFieldsInCommand="false">
+                                    <command>
+                                        <body>is_seekbar_exist=&quot;false&quot;:</body>
+                                    </command>
                                     <nestedSteps>
-                                        <item guid="1e00f2c7-cb1a-48d7-9cd3-1af85bbe8fd5" action="eval" useFieldsInCommand="false">
+                                        <item guid="642066e4-10c6-4aa6-abb2-07138ffd5704" action="message" useFieldsInCommand="false">
                                             <command>
-                                                <body>re_attempt +=1</body>
+                                                <body>Error:Unable to open URL or URL has the total video length &lt;15 seconds</body>
                                             </command>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                        <item guid="f4a1a536-f998-4c33-8440-860eaf741b75" action="if" useFieldsInCommand="false">
-                                            <command>
-                                                <body>re_attempt &gt;4:</body>
-                                            </command>
-                                            <nestedSteps>
-                                                <item guid="642066e4-10c6-4aa6-abb2-07138ffd5704" action="message" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>Error:Unable to open video link or URL link not supported</body>
-                                                    </command>
-                                                    <postProcessing>
-                                                        <analysisRules>
-                                                            <item>
-                                                                <extractorInfo extractorType="none">
-                                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
-                                                                </extractorInfo>
-                                                                <processorInfo ruleType="assert">
-                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                        <expression>True</expression>
-                                                                        <actionsWhenTrue>
-                                                                            <item actionId="FailTest">
-                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                            </item>
-                                                                            <item actionId="CallProcedure">
-                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                                                    <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
-                                                                                </actionProperties>
-                                                                            </item>
-                                                                        </actionsWhenTrue>
-                                                                    </ruleProperties>
-                                                                </processorInfo>
-                                                            </item>
-                                                        </analysisRules>
-                                                    </postProcessing>
-                                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
-                                                        <severity inherit="false">Error</severity>
-                                                        <message inherit="false">Unable to open video link or URL link not supported</message>
-                                                    </applicationProperties>
-                                                </item>
-                                            </nestedSteps>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            <postProcessing>
+                                                <analysisRules>
+                                                    <item>
+                                                        <extractorInfo extractorType="none">
+                                                            <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                        </extractorInfo>
+                                                        <processorInfo ruleType="assert">
+                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                <expression>True</expression>
+                                                                <actionsWhenTrue>
+                                                                    <item actionId="FailTest">
+                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                    </item>
+                                                                    <item actionId="CallProcedure">
+                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                                        </actionProperties>
+                                                                    </item>
+                                                                </actionsWhenTrue>
+                                                            </ruleProperties>
+                                                        </processorInfo>
+                                                    </item>
+                                                </analysisRules>
+                                            </postProcessing>
+                                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                <severity inherit="false">Error</severity>
+                                                <message inherit="false">Unable to open URL or URL has the total video length &lt;15 seconds</message>
+                                            </applicationProperties>
                                         </item>
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
@@ -2249,7 +1969,7 @@
                     <nestedSteps>
                         <item guid="3e2b4964-4813-417b-b465-1c7600e1a699" action="message" useFieldsInCommand="false">
                             <command>
-                                <body>Error:URL link should be a supported video link</body>
+                                <body>Error:Invalid URL, unsupport video link : &quot;[path]&quot;.</body>
                             </command>
                             <postProcessing>
                                 <analysisRules>
@@ -2277,7 +1997,7 @@
                             </postProcessing>
                             <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
                                 <severity inherit="false">Error</severity>
-                                <message inherit="false">URL link should be a supported video link</message>
+                                <message inherit="false">Invalid URL, unsupport video link : &quot;[path]&quot;.</message>
                             </applicationProperties>
                         </item>
                     </nestedSteps>
@@ -2315,6 +2035,12 @@
                         <item guid="b290e48f-0b11-48c6-aaf5-4bfb83d04b42" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>actual_timer_in_second =&quot;&quot;</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="d07b5ac7-e56e-49df-84bc-c0a78660799b" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>response=&quot;&quot;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
@@ -2358,7 +2084,7 @@
                         </item>
                         <item guid="8aa81528-7cfd-444a-ad30-cad0abf64bc5" action="if" useFieldsInCommand="false">
                             <command>
-                                <body>response:</body>
+                                <body>response != &quot;&quot; and is_command_successful:</body>
                             </command>
                             <nestedSteps>
                                 <item guid="83f881a2-4228-4eb4-a734-6f05c2bb3308" action="comment" useFieldsInCommand="false">
@@ -2446,120 +2172,122 @@
                 </item>
             </arguments>
         </item>
-        <item name="clean_pop_up_when_element_inaccessible" isPublic="true">
+        <item name="extract_actual_played_duration" isPublic="true">
             <steps>
-                <item guid="0836addd-659c-45a7-9268-d48113382dab" action="for" useFieldsInCommand="false">
+                <item guid="e3b09370-f2a5-4585-8e8e-a87c767f56f2" action="comment" useFieldsInCommand="false">
                     <command>
-                        <body>retry_time in range(0, 2):</body>
+                        <body>We get two check points timer and compare, to indicate the video is fully played.</body>
                     </command>
                     <nestedSteps>
-                        <item guid="65d9bc1a-6a40-4e90-ad0a-7abf0c26c7d5" action="comment" useFieldsInCommand="false">
+                        <item guid="88c8f2eb-d3a4-414b-99de-ceec299018d1" action="comment" useFieldsInCommand="false">
                             <command>
-                                <body># Notification Request</body>
+                                <body>#1 Get the Actual Played Duration after reached half of the video length. Save this as check point timer.</body>
                             </command>
                             <nestedSteps>
-                                <item guid="57ff2769-ac08-4871-b1f7-d416b1e4553b" action="if" useFieldsInCommand="false">
+                                <item guid="25d0b849-c149-402d-82c4-9cb56a0f9b40" action="comment" useFieldsInCommand="false">
                                     <command>
-                                        <body>notification_request== &quot;true&quot; or check_all_option == &quot;true&quot;:</body>
+                                        <body>Set the check point timer then wait</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="b4262c48-0bad-44e7-bf02-31df07be484b" action="eval" useFieldsInCommand="false">
+                                        <item guid="4150995d-d9fd-41f0-9a38-b787293b3f92" action="eval" useFieldsInCommand="false">
                                             <command>
-                                                <body>xpath_element=&quot;//android.widget.Button[@resource-id=&apos;com.android.permissioncontroller:id/permission_allow_button&apos;]&quot;</body>
+                                                <body>video_expected_duration_length=param(&apos;VideoExpectedDuration&apos;,&quot;8&quot;);print(video_expected_duration_length)</body>
                                             </command>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="dfb89f9c-67d7-4557-81d3-6eac3f169435" action="call" useFieldsInCommand="false">
+                                        <item guid="db259147-680d-472e-b6b0-a22ff338e780" action="eval" useFieldsInCommand="false">
                                             <command>
-                                                <body>driver_find_with_action(element=xpath_element,expected_action=&quot;is_displayed&quot;)</body>
+                                                <body>set_timer_check_point=math.ceil(float(video_expected_duration_length)/2)</body>
+                                            </command>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                        <item guid="851ff1f3-d37c-4151-9792-d42ce9e9c98c" action="command" session="t1">
+                                            <command>
+                                                <body>time.sleep([set_timer_check_point])</body>
+                                            </command>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="380b8c5c-de2b-407d-9b2a-3137bdf22def" action="comment" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Get the current actual_played_duration timer as check_point result</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="421ca8fc-f85e-49fc-9fc2-65b154cfc310" action="call" useFieldsInCommand="false">
+                                            <command>
+                                                <body>get_actual_timer()</body>
                                             </command>
                                             <postProcessing>
-                                                <storeResponseAt>is_element_exist</storeResponseAt>
+                                                <storeResponseAt>actual_played_duration_check_point</storeResponseAt>
                                                 <storeResponseText>true</storeResponseText>
                                             </postProcessing>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="392aa1d9-dfbd-4977-be2a-f790afac779a" action="if" useFieldsInCommand="false">
+                                        <item guid="31a28006-607b-46f6-a22b-aedcdb8376a4" action="if" useFieldsInCommand="false">
                                             <command>
-                                                <body>is_element_exist:</body>
+                                                <body>actual_played_duration_check_point !=&quot;&quot;:</body>
                                             </command>
                                             <nestedSteps>
-                                                <item guid="a034fd00-1e41-4870-af35-b43ed8bd45e7" action="call" useFieldsInCommand="false">
+                                                <item guid="7ce3808b-0076-425d-9858-4011db55e72e" action="eval" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
+                                                        <body>print(actual_played_duration_check_point)</body>
                                                     </command>
                                                     <postProcessing>
-                                                        <storeResponseAt>is_command_successful</storeResponseAt>
-                                                        <storeResponseText>true</storeResponseText>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="none">
+                                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="message">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
+                                                                        <message>Actual Played Duration at first checkout: [actual_played_duration_check_point] seconds</message>
+                                                                        <tag sub="false" defaultValue=""/>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
                                                     </postProcessing>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
-                                                <item guid="f59e8ce6-7644-41a7-a207-f927d2b824ba" action="if" useFieldsInCommand="false">
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                        <item guid="e939b894-e062-40c0-aa9b-ed3699b540c1" action="else" useFieldsInCommand="false">
+                                            <nestedSteps>
+                                                <item guid="a66aa28c-fcb4-4a7c-b2dd-e0fbeaf5f3b2" action="message" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>is_command_successful:</body>
+                                                        <body>Error:Unable to get the Actual Played Duration check point</body>
                                                     </command>
-                                                    <nestedSteps>
-                                                        <item guid="1afbd1df-dab9-4400-a22c-f03065781ca6" action="break" useFieldsInCommand="false">
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                    </nestedSteps>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                                <item guid="bc075c06-ef9d-45c4-bfc0-7b28cdfee37c" action="else" useFieldsInCommand="false">
-                                                    <nestedSteps>
-                                                        <item guid="8c98b2b7-a356-4565-9587-04cc7a25806d" action="comment" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>Re-Fresh the layout to clean the covered popup by open the Home page again </body>
-                                                            </command>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                        <item guid="bba90670-d22d-44f3-b8c8-a567c38ce647" action="eval" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>home_login_url=param(&apos;home_login_url&apos;, &apos;https://www.instagram.com&apos;)</body>
-                                                            </command>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                        <item guid="0c1b9128-875d-48d5-a839-3622726a3792" action="call" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>driver_execute(deep_link_url=home_login_url,package=gget(&apos;insta_app_pkg&apos;),execute_script=&quot;deeplink&quot;)</body>
-                                                            </command>
-                                                            <postProcessing>
-                                                                <analysisRules>
-                                                                    <item>
-                                                                        <extractorInfo extractorType="query">
-                                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
-                                                                                <query>responseLine()</query>
-                                                                            </extractorProperties>
-                                                                        </extractorInfo>
-                                                                        <processorInfo ruleType="assert">
-                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                                <expression>str(value).lower() == &quot;true&quot;</expression>
-                                                                                <actionsWhenFalse>
-                                                                                    <item actionId="DeclareExecutionIssue">
-                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
-                                                                                            <message>Unable to refresh Instagram Home page</message>
-                                                                                        </actionProperties>
-                                                                                    </item>
-                                                                                    <item actionId="FailTest">
-                                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                                    </item>
-                                                                                    <item actionId="CallProcedure">
-                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                                                            <command>clean_up()</command>
-                                                                                        </actionProperties>
-                                                                                    </item>
-                                                                                </actionsWhenFalse>
-                                                                            </ruleProperties>
-                                                                        </processorInfo>
-                                                                    </item>
-                                                                </analysisRules>
-                                                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                                                <storeResponseText>true</storeResponseText>
-                                                            </postProcessing>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                    </nestedSteps>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="none">
+                                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="assert">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                        <expression>True</expression>
+                                                                        <actionsWhenTrue>
+                                                                            <item actionId="FailTest">
+                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                            </item>
+                                                                            <item actionId="CallProcedure">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                    <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                        </actionsWhenTrue>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                        <severity inherit="false">Error</severity>
+                                                        <message inherit="false">Unable to get the Actual Played Duration check point</message>
+                                                    </applicationProperties>
                                                 </item>
                                             </nestedSteps>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
@@ -2570,93 +2298,118 @@
                             </nestedSteps>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="747f370c-d2f0-419a-9608-55ed87d485fd" action="comment" useFieldsInCommand="false">
+                        <item guid="3778ff03-0b8b-44a7-8a7c-c113afe14e13" action="comment" useFieldsInCommand="false">
                             <command>
-                                <body># Is Saving credentials Layout Covered (Specical for login only)</body>
+                                <body>#2 Get the Latest Actual Played Duration after the media player reach the end of video length, Compare with the check point above.</body>
                             </command>
                             <nestedSteps>
-                                <item guid="711d5db2-5dfa-473f-8380-90c6a209833e" action="if" useFieldsInCommand="false">
+                                <item guid="e38a91d6-a038-413d-b450-dfb3a58a0158" action="if" useFieldsInCommand="false">
                                     <command>
-                                        <body>is_saving_credentials_layout== &quot;true&quot; or check_all_option == &quot;true&quot; :</body>
+                                        <body>actual_played_duration_check_point !=&quot;&quot; and video_expected_duration_length !=&quot;&quot;:</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="a5ff27a1-bec1-450f-8d51-36562da64908" action="comment" useFieldsInCommand="false">
+                                        <item guid="c41acbe2-cdc4-4a45-94fd-b65257601616" action="comment" useFieldsInCommand="false">
                                             <command>
-                                                <body>is Instagram credential save request ?</body>
+                                                <body>Wait untill the video fully played base on the rest of the video length</body>
                                             </command>
                                             <nestedSteps>
-                                                <item guid="60ea75c6-5ce7-4441-a2dc-42d010d9ab38" action="eval" useFieldsInCommand="false">
+                                                <item guid="5629bf94-2399-400a-b3bd-c71ca53f8893" action="eval" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>xpath_element = &quot;//android.widget.Button[@content-desc=&apos;Save&apos;]&quot;</body>
+                                                        <body>extra_time_wait_till_video_replay=2</body>
                                                     </command>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
-                                                <item guid="1c1c349c-d655-4fe4-83e4-923be4699b3b" action="call" useFieldsInCommand="false">
+                                                <item guid="9fbc8bd4-456f-450c-950d-93a8076ec9b3" action="eval" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>driver_find_with_action(element=xpath_element,expected_action=&quot;is_displayed&quot;)</body>
+                                                        <body>set_timer_check_point =math.ceil(video_expected_duration_length - actual_played_duration_check_point  + extra_time_wait_till_video_replay)</body>
+                                                    </command>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="c8db8808-a306-4e6f-ac2a-9b31d2051d58" action="command" session="t1">
+                                                    <command>
+                                                        <body>time.sleep([set_timer_check_point])</body>
+                                                    </command>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                        <item guid="fdee1a31-2512-4b94-a04c-7fa217374274" action="comment" useFieldsInCommand="false">
+                                            <command>
+                                                <body>Get and compare the Latest Actual Played Duration result</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="4055659b-3611-452a-836e-47fd892a0ce0" action="call" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>get_actual_timer()</body>
                                                     </command>
                                                     <postProcessing>
-                                                        <storeResponseAt>is_element_exist</storeResponseAt>
+                                                        <storeResponseAt>actual_played_duration</storeResponseAt>
                                                         <storeResponseText>true</storeResponseText>
                                                     </postProcessing>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
-                                                <item guid="6f4967ab-aeab-49e9-8ef0-abaecdd90a80" action="call" useFieldsInCommand="false">
+                                                <item guid="f4e9aa55-016e-4b7d-a3ad-4be6a2b757a0" action="if" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
-                                                    </command>
-                                                    <postProcessing>
-                                                        <storeResponseAt>is_element_exist</storeResponseAt>
-                                                        <storeResponseText>true</storeResponseText>
-                                                    </postProcessing>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                                <item guid="6a15a702-dabe-46ca-8d26-2501d89b0296" action="if" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>not is_element_exist:</body>
+                                                        <body>actual_played_duration !=&quot;&quot;:</body>
                                                     </command>
                                                     <nestedSteps>
-                                                        <item guid="4a92802b-d3ee-4738-82aa-6cd3a8dc464e" action="comment" useFieldsInCommand="false">
+                                                        <item guid="17a33a3a-2741-4941-a45b-a0171db7c1aa" action="if" useFieldsInCommand="false">
                                                             <command>
-                                                                <body>Is autofill Request ?</body>
+                                                                <body>float(actual_played_duration) &lt;= float(actual_played_duration_check_point) or float(actual_played_duration) == float(video_expected_duration_length):</body>
                                                             </command>
                                                             <nestedSteps>
-                                                                <item guid="2c0428b0-f9d6-43a2-92a5-a003e4ea0e2c" action="eval" useFieldsInCommand="false">
+                                                                <item guid="819179e5-733d-4fca-b951-23a6296fec54" action="eval" useFieldsInCommand="false">
                                                                     <command>
-                                                                        <body>xpath_element = &quot;//android.widget.Button[@resource-id=&apos;android:id/autofill_save_no&apos;]&quot;</body>
-                                                                    </command>
-                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                </item>
-                                                                <item guid="b8c7151c-04a5-4624-a357-6ff6b278ef00" action="call" useFieldsInCommand="false">
-                                                                    <command>
-                                                                        <body>driver_find_with_action(element=xpath_element,expected_action=&quot;is_displayed&quot;)</body>
+                                                                        <body>print(video_expected_duration_length)</body>
                                                                     </command>
                                                                     <postProcessing>
-                                                                        <storeResponseAt>is_element_exist</storeResponseAt>
-                                                                        <storeResponseText>true</storeResponseText>
+                                                                        <analysisRules>
+                                                                            <item>
+                                                                                <extractorInfo extractorType="query">
+                                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                                        <query>responseLine()</query>
+                                                                                    </extractorProperties>
+                                                                                </extractorInfo>
+                                                                                <processorInfo ruleType="message">
+                                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
+                                                                                        <message>The video is fully played with the Actual Played Duration:  [video_expected_duration_length] seconds</message>
+                                                                                        <extractData>true</extractData>
+                                                                                        <tag sub="false">Actual_Played_Duration</tag>
+                                                                                    </ruleProperties>
+                                                                                </processorInfo>
+                                                                            </item>
+                                                                        </analysisRules>
                                                                     </postProcessing>
                                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                 </item>
-                                                                <item guid="8667579d-a13e-48c4-b51f-9bede4e9c4b2" action="if" useFieldsInCommand="false">
+                                                            </nestedSteps>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="4b346ba6-2ab0-4c3f-ae83-d50b75d1cf85" action="else" useFieldsInCommand="false">
+                                                            <nestedSteps>
+                                                                <item guid="a010057f-5891-4c3d-91e2-ca52f1441d5e" action="eval" useFieldsInCommand="false">
                                                                     <command>
-                                                                        <body>is_element_exist:</body>
+                                                                        <body>print(actual_played_duration)</body>
                                                                     </command>
-                                                                    <nestedSteps>
-                                                                        <item guid="d9ecf2fc-ad8c-47e3-809f-ed19d93f6014" action="call" useFieldsInCommand="false">
-                                                                            <command>
-                                                                                <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
-                                                                            </command>
-                                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                        </item>
-                                                                    </nestedSteps>
-                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                </item>
-                                                                <item guid="f9efb23d-6711-46f8-ae21-5714048dbb5d" action="else" useFieldsInCommand="false">
-                                                                    <nestedSteps>
-                                                                        <item guid="9ec681fc-bc7f-4c98-8e90-1d3f3e47526f" action="break" useFieldsInCommand="false">
-                                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                        </item>
-                                                                    </nestedSteps>
+                                                                    <postProcessing>
+                                                                        <analysisRules>
+                                                                            <item>
+                                                                                <extractorInfo extractorType="query">
+                                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                                        <query>responseLine()</query>
+                                                                                    </extractorProperties>
+                                                                                </extractorInfo>
+                                                                                <processorInfo ruleType="message">
+                                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
+                                                                                        <message>The video is not fully played, the Actual Played Duration is: [actual_played_duration] seconds</message>
+                                                                                        <extractData>true</extractData>
+                                                                                        <tag sub="false">Actual_Played_Duration</tag>
+                                                                                    </ruleProperties>
+                                                                                </processorInfo>
+                                                                            </item>
+                                                                        </analysisRules>
+                                                                    </postProcessing>
                                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                 </item>
                                                             </nestedSteps>
@@ -2665,16 +2418,84 @@
                                                     </nestedSteps>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
-                                                <item guid="c66397ea-d25b-4dac-9595-954e53d847db" action="else" useFieldsInCommand="false">
+                                                <item guid="43843b47-d1fa-4623-895c-9e664dff56a7" action="else" useFieldsInCommand="false">
                                                     <nestedSteps>
-                                                        <item guid="9ec681fc-bc7f-4c98-8e90-1d3f3e47526f" action="break" useFieldsInCommand="false">
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        <item guid="d679da2f-db0c-4512-bd25-ca1eb0ab46a9" action="message" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>Error:Unable to get the Actual Played Duration</body>
+                                                            </command>
+                                                            <postProcessing>
+                                                                <analysisRules>
+                                                                    <item>
+                                                                        <extractorInfo extractorType="none">
+                                                                            <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                                        </extractorInfo>
+                                                                        <processorInfo ruleType="assert">
+                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                                <expression>True</expression>
+                                                                                <actionsWhenTrue>
+                                                                                    <item actionId="FailTest">
+                                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                                    </item>
+                                                                                    <item actionId="CallProcedure">
+                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                                                        </actionProperties>
+                                                                                    </item>
+                                                                                </actionsWhenTrue>
+                                                                            </ruleProperties>
+                                                                        </processorInfo>
+                                                                    </item>
+                                                                </analysisRules>
+                                                            </postProcessing>
+                                                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                                <severity inherit="false">Error</severity>
+                                                                <message inherit="false">Unable to get the Actual Played Duration</message>
+                                                            </applicationProperties>
                                                         </item>
                                                     </nestedSteps>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
                                             </nestedSteps>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="2ea519e4-75b1-451b-a2c6-9c3c2ba37338" action="else" useFieldsInCommand="false">
+                                    <nestedSteps>
+                                        <item guid="a66aa28c-fcb4-4a7c-b2dd-e0fbeaf5f3b2" action="message" useFieldsInCommand="false">
+                                            <command>
+                                                <body>Error:Unable to get the Actual Played Duration</body>
+                                            </command>
+                                            <postProcessing>
+                                                <analysisRules>
+                                                    <item>
+                                                        <extractorInfo extractorType="none">
+                                                            <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                        </extractorInfo>
+                                                        <processorInfo ruleType="assert">
+                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                <expression>True</expression>
+                                                                <actionsWhenTrue>
+                                                                    <item actionId="FailTest">
+                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                    </item>
+                                                                    <item actionId="CallProcedure">
+                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                                        </actionProperties>
+                                                                    </item>
+                                                                </actionsWhenTrue>
+                                                            </ruleProperties>
+                                                        </processorInfo>
+                                                    </item>
+                                                </analysisRules>
+                                            </postProcessing>
+                                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                <severity inherit="false">Error</severity>
+                                                <message inherit="false">Unable to get the Actual Played Duration</message>
+                                            </applicationProperties>
                                         </item>
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
@@ -2685,12 +2506,178 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
+                <item guid="2533f094-3a07-4589-a6d3-d2a1f2582def" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Clean up and exit</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="9bad7cf8-9ff1-48e5-8de7-eef02afe8cd5" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>clean_up(is_screen_shot=&quot;false&quot;)</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="driver_execute" isPublic="true">
+            <steps>
+                <item guid="74638b83-2d30-4ccd-9f04-a579e39351e9" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>is_command_successful=True</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="d4b34364-e1e1-42b4-bd2d-8f9015aad59c" action="eval" normalOffset="0.004" estimatedStepExecutionTime="1.503" useFieldsInCommand="false">
+                    <command>
+                        <body>wait_time=5</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="3b3709f1-fc6e-47fd-9055-15921acfc15f" action="if" useFieldsInCommand="false">
+                    <command>
+                        <body>no_wait_time==&quot;true&quot;:</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="c75f856c-647d-440a-8189-143b89ea1cc7" action="eval" normalOffset="0.004" estimatedStepExecutionTime="1.503" useFieldsInCommand="false">
+                            <command>
+                                <body>wait_time=0</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="29118354-3d6b-4b64-a7e4-570e571e030a" action="if" useFieldsInCommand="false">
+                    <command>
+                        <body>execute_script==&quot;deeplink&quot;:</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="6443ca48-d77a-40e2-b5a9-7dd892e17174" action="command" session="t1">
+                            <command>
+                                <body>driver.execute_script(&quot;mobile:deepLink&quot;, {&quot;url&quot;: &quot;[deep_link_url]&quot;, &quot;package&quot;: &quot;[package]&quot;,&apos;waitForLaunch&apos;: True})</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>Traceback</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 1</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_command_successful=False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_command_successful=True</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <eventHandlers>
+                                <item name="OnRepeatStepMaxCountExceeded"/>
+                            </eventHandlers>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="0fe8780c-9735-49a5-8e30-0b006967b8d1" action="elif" useFieldsInCommand="false">
+                    <command>
+                        <body>execute_script==&quot;shell&quot;:</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="6443ca48-d77a-40e2-b5a9-7dd892e17174" action="command" session="t1">
+                            <command>
+                                <body>driver.execute_script(&quot;mobile:shell&quot;,{&quot;command&quot;: &quot;[command]&quot;})</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>Traceback</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 1</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_command_successful=False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="RepeatStep">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.RepeatStepPropertyGroup" maxRepeatCount="2" delayBetweenRepeats="5.0"/>
+                                                    </item>
+                                                    <item actionId="SkipRemainingRules">
+                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_command_successful=True</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <eventHandlers>
+                                <item name="OnRepeatStepMaxCountExceeded"/>
+                            </eventHandlers>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="ee88062f-0a2e-4321-9c2c-8b862696d332" action="command" session="t1" normalOffset="0.004" estimatedStepExecutionTime="1.503">
+                    <command>
+                        <body>time.sleep([wait_time])</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="1eee0371-0fca-4cab-8e56-347112aa817a" action="return">
+                    <command>
+                        <body>[is_command_successful]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
             </steps>
             <arguments>
-                <item name="is_saving_credentials_layout"/>
-                <item name="notification_request"/>
-                <item name="check_all_option">
-                    <defaultValue>False</defaultValue>
+                <item name="package">
+                    <description>Input app package for application activation</description>
+                    <defaultValue>com.instagram.android</defaultValue>
+                </item>
+                <item name="command"/>
+                <item name="no_wait_time">
+                    <defaultValue>false</defaultValue>
+                </item>
+                <item name="execute_script">
+                    <description>Expected action for script executing
+ex: Mobile Deeplink</description>
+                </item>
+                <item name="deep_link_url">
+                    <description>input the URL </description>
                 </item>
             </arguments>
         </item>
@@ -3115,165 +3102,6 @@ find By.Accessibility_ID
                 </item>
             </arguments>
         </item>
-        <item name="driver_execute" isPublic="true">
-            <steps>
-                <item guid="74638b83-2d30-4ccd-9f04-a579e39351e9" action="eval" useFieldsInCommand="false">
-                    <command>
-                        <body>is_command_successful=True</body>
-                    </command>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="d4b34364-e1e1-42b4-bd2d-8f9015aad59c" action="eval" normalOffset="0.004" estimatedStepExecutionTime="1.503" useFieldsInCommand="false">
-                    <command>
-                        <body>wait_time=5</body>
-                    </command>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="3b3709f1-fc6e-47fd-9055-15921acfc15f" action="if" useFieldsInCommand="false">
-                    <command>
-                        <body>no_wait_time==&quot;true&quot;:</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="c75f856c-647d-440a-8189-143b89ea1cc7" action="eval" normalOffset="0.004" estimatedStepExecutionTime="1.503" useFieldsInCommand="false">
-                            <command>
-                                <body>wait_time=0</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="29118354-3d6b-4b64-a7e4-570e571e030a" action="if" useFieldsInCommand="false">
-                    <command>
-                        <body>execute_script==&quot;deeplink&quot;:</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="6443ca48-d77a-40e2-b5a9-7dd892e17174" action="command" session="t1">
-                            <command>
-                                <body>driver.execute_script(&quot;mobile:deepLink&quot;, {&quot;url&quot;: &quot;[deep_link_url]&quot;, &quot;package&quot;: &quot;[package]&quot;,&apos;waitForLaunch&apos;: True})</body>
-                            </command>
-                            <postProcessing>
-                                <analysisRules>
-                                    <item>
-                                        <extractorInfo extractorType="contains">
-                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
-                                                <searchString>Traceback</searchString>
-                                            </extractorProperties>
-                                        </extractorInfo>
-                                        <processorInfo ruleType="assert">
-                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                <expression>value == 1</expression>
-                                                <actionsWhenTrue>
-                                                    <item actionId="Eval">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                            <statement>is_command_successful=False</statement>
-                                                        </actionProperties>
-                                                    </item>
-                                                </actionsWhenTrue>
-                                                <actionsWhenFalse>
-                                                    <item actionId="Eval">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                            <statement>is_command_successful=True</statement>
-                                                        </actionProperties>
-                                                    </item>
-                                                </actionsWhenFalse>
-                                            </ruleProperties>
-                                        </processorInfo>
-                                    </item>
-                                </analysisRules>
-                            </postProcessing>
-                            <eventHandlers>
-                                <item name="OnRepeatStepMaxCountExceeded"/>
-                            </eventHandlers>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="0fe8780c-9735-49a5-8e30-0b006967b8d1" action="elif" useFieldsInCommand="false">
-                    <command>
-                        <body>execute_script==&quot;shell&quot;:</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="6443ca48-d77a-40e2-b5a9-7dd892e17174" action="command" session="t1">
-                            <command>
-                                <body>driver.execute_script(&quot;mobile:shell&quot;,{&quot;command&quot;: &quot;[command]&quot;})</body>
-                            </command>
-                            <postProcessing>
-                                <analysisRules>
-                                    <item>
-                                        <extractorInfo extractorType="contains">
-                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
-                                                <searchString>Traceback</searchString>
-                                            </extractorProperties>
-                                        </extractorInfo>
-                                        <processorInfo ruleType="assert">
-                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                <expression>value == 1</expression>
-                                                <actionsWhenTrue>
-                                                    <item actionId="Eval">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                            <statement>is_command_successful=False</statement>
-                                                        </actionProperties>
-                                                    </item>
-                                                    <item actionId="RepeatStep">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.RepeatStepPropertyGroup" maxRepeatCount="2" delayBetweenRepeats="5.0"/>
-                                                    </item>
-                                                    <item actionId="SkipRemainingRules">
-                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                    </item>
-                                                </actionsWhenTrue>
-                                                <actionsWhenFalse>
-                                                    <item actionId="Eval">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                            <statement>is_command_successful=True</statement>
-                                                        </actionProperties>
-                                                    </item>
-                                                </actionsWhenFalse>
-                                            </ruleProperties>
-                                        </processorInfo>
-                                    </item>
-                                </analysisRules>
-                            </postProcessing>
-                            <eventHandlers>
-                                <item name="OnRepeatStepMaxCountExceeded"/>
-                            </eventHandlers>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="ee88062f-0a2e-4321-9c2c-8b862696d332" action="command" session="t1" normalOffset="0.004" estimatedStepExecutionTime="1.503">
-                    <command>
-                        <body>time.sleep([wait_time])</body>
-                    </command>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="1eee0371-0fca-4cab-8e56-347112aa817a" action="return">
-                    <command>
-                        <body>[is_command_successful]</body>
-                    </command>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-            </steps>
-            <arguments>
-                <item name="package">
-                    <description>Input app package for application activation</description>
-                    <defaultValue>com.instagram.android</defaultValue>
-                </item>
-                <item name="command"/>
-                <item name="no_wait_time">
-                    <defaultValue>false</defaultValue>
-                </item>
-                <item name="execute_script">
-                    <description>Expected action for script executing
-ex: Mobile Deeplink</description>
-                </item>
-                <item name="deep_link_url">
-                    <description>input the URL </description>
-                </item>
-            </arguments>
-        </item>
         <item name="driver_wait_until_with_action" isPublic="true">
             <steps>
                 <item guid="a0457a58-9c8c-4d60-a759-2894be3a3e4f" action="eval" useFieldsInCommand="false">
@@ -3481,54 +3309,292 @@ find By.Accessibility_ID
                 </item>
             </arguments>
         </item>
-        <item name="clean_up" isPublic="true">
+        <item name="run_adb" isPublic="true">
             <steps>
-                <item guid="28211c8f-daf0-41ba-ba3a-b86ed7df2f8f" action="comment" useFieldsInCommand="false">
+                <item guid="1980c89b-030b-4db1-a668-6de2a51e2362" action="eval" useFieldsInCommand="false">
                     <command>
-                        <body>Do the screenshot, get page source for debugging and do the cleanup when there are errors in the middle of the execution</body>
+                        <body>import subprocess, json</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="f1bb8e58-6dcb-4ffe-a117-42b59d92efca" action="if" useFieldsInCommand="false">
+                <item guid="02f73793-1a10-4928-97e7-7c4bcc22bc84" action="eval" useFieldsInCommand="false">
                     <command>
-                        <body>str(is_screen_shot).lower() ==&quot;true&quot;:</body>
+                        <body>result = subprocess.check_output(f&apos;{param(&quot;ADBPath&quot;)} {command}&apos;, shell=True).decode()</body>
+                    </command>
+                    <eventHandlers>
+                        <item name="OnInterpreterError">
+                            <item actionId="DeclareExecutionIssue">
+                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                    <message>{error}</message>
+                                </actionProperties>
+                            </item>
+                            <item actionId="Eval">
+                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                    <statement>result = None</statement>
+                                </actionProperties>
+                            </item>
+                        </item>
+                    </eventHandlers>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="af01dae7-be38-4507-add8-433fd940dced" action="return">
+                    <command>
+                        <body>[result]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="command">
+                    <isMandatory>true</isMandatory>
+                </item>
+            </arguments>
+        </item>
+        <item name="clean_pop_up_when_element_inaccessible" isPublic="true">
+            <steps>
+                <item guid="0836addd-659c-45a7-9268-d48113382dab" action="for" useFieldsInCommand="false">
+                    <command>
+                        <body>retry_time in range(0, 2):</body>
                     </command>
                     <nestedSteps>
-                        <item guid="00af1825-73a3-4451-b4bf-3c3367e3185f" action="screenshot" session="t1" useFieldsInCommand="false">
+                        <item guid="65d9bc1a-6a40-4e90-ad0a-7abf0c26c7d5" action="comment" useFieldsInCommand="false">
+                            <command>
+                                <body># Notification Request</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="57ff2769-ac08-4871-b1f7-d416b1e4553b" action="if" useFieldsInCommand="false">
+                                    <command>
+                                        <body>notification_request== &quot;true&quot; or check_all_option == &quot;true&quot;:</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="b4262c48-0bad-44e7-bf02-31df07be484b" action="eval" useFieldsInCommand="false">
+                                            <command>
+                                                <body>xpath_element=&quot;//android.widget.Button[@resource-id=&apos;com.android.permissioncontroller:id/permission_allow_button&apos;]&quot;</body>
+                                            </command>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                        <item guid="dfb89f9c-67d7-4557-81d3-6eac3f169435" action="call" useFieldsInCommand="false">
+                                            <command>
+                                                <body>driver_find_with_action(element=xpath_element,expected_action=&quot;is_displayed&quot;)</body>
+                                            </command>
+                                            <postProcessing>
+                                                <storeResponseAt>is_element_exist</storeResponseAt>
+                                                <storeResponseText>true</storeResponseText>
+                                            </postProcessing>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                        <item guid="392aa1d9-dfbd-4977-be2a-f790afac779a" action="if" useFieldsInCommand="false">
+                                            <command>
+                                                <body>is_element_exist:</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="a034fd00-1e41-4870-af35-b43ed8bd45e7" action="call" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <storeResponseAt>is_command_successful</storeResponseAt>
+                                                        <storeResponseText>true</storeResponseText>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="f59e8ce6-7644-41a7-a207-f927d2b824ba" action="if" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>is_command_successful:</body>
+                                                    </command>
+                                                    <nestedSteps>
+                                                        <item guid="1afbd1df-dab9-4400-a22c-f03065781ca6" action="break" useFieldsInCommand="false">
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="bc075c06-ef9d-45c4-bfc0-7b28cdfee37c" action="else" useFieldsInCommand="false">
+                                                    <nestedSteps>
+                                                        <item guid="8c98b2b7-a356-4565-9587-04cc7a25806d" action="comment" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>Re-Fresh the layout to clean the covered popup by open the Home page again </body>
+                                                            </command>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="bba90670-d22d-44f3-b8c8-a567c38ce647" action="eval" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>home_login_url=param(&apos;home_login_url&apos;, &apos;https://www.instagram.com&apos;)</body>
+                                                            </command>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="0c1b9128-875d-48d5-a839-3622726a3792" action="call" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>driver_execute(deep_link_url=home_login_url,package=gget(&apos;insta_app_pkg&apos;),execute_script=&quot;deeplink&quot;)</body>
+                                                            </command>
+                                                            <postProcessing>
+                                                                <analysisRules>
+                                                                    <item>
+                                                                        <extractorInfo extractorType="query">
+                                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
+                                                                                <query>responseLine()</query>
+                                                                            </extractorProperties>
+                                                                        </extractorInfo>
+                                                                        <processorInfo ruleType="assert">
+                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                                <expression>str(value).lower() == &quot;true&quot;</expression>
+                                                                                <actionsWhenFalse>
+                                                                                    <item actionId="DeclareExecutionIssue">
+                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                                                            <message>Unable to refresh Instagram Home page</message>
+                                                                                        </actionProperties>
+                                                                                    </item>
+                                                                                    <item actionId="FailTest">
+                                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                                    </item>
+                                                                                    <item actionId="CallProcedure">
+                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                            <command>clean_up()</command>
+                                                                                        </actionProperties>
+                                                                                    </item>
+                                                                                </actionsWhenFalse>
+                                                                            </ruleProperties>
+                                                                        </processorInfo>
+                                                                    </item>
+                                                                </analysisRules>
+                                                                <storeResponseAt>is_command_successful</storeResponseAt>
+                                                                <storeResponseText>true</storeResponseText>
+                                                            </postProcessing>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="3435bbe0-0f49-481e-b49e-fc74ec9387a2" action="command" session="t1" useFieldsInCommand="false">
+                        <item guid="747f370c-d2f0-419a-9608-55ed87d485fd" action="comment" useFieldsInCommand="false">
                             <command>
-                                <body>print(driver.page_source)
-</body>
+                                <body># Is Saving credentials Layout Covered (Specical for login only)</body>
                             </command>
+                            <nestedSteps>
+                                <item guid="711d5db2-5dfa-473f-8380-90c6a209833e" action="if" useFieldsInCommand="false">
+                                    <command>
+                                        <body>is_saving_credentials_layout== &quot;true&quot; or check_all_option == &quot;true&quot; :</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="a5ff27a1-bec1-450f-8d51-36562da64908" action="comment" useFieldsInCommand="false">
+                                            <command>
+                                                <body>is Instagram credential save request ?</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="60ea75c6-5ce7-4441-a2dc-42d010d9ab38" action="eval" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>xpath_element = &quot;//android.widget.Button[@content-desc=&apos;Save&apos;]&quot;</body>
+                                                    </command>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="1c1c349c-d655-4fe4-83e4-923be4699b3b" action="call" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>driver_find_with_action(element=xpath_element,expected_action=&quot;is_displayed&quot;)</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <storeResponseAt>is_element_exist</storeResponseAt>
+                                                        <storeResponseText>true</storeResponseText>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="6f4967ab-aeab-49e9-8ef0-abaecdd90a80" action="call" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <storeResponseAt>is_element_exist</storeResponseAt>
+                                                        <storeResponseText>true</storeResponseText>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="6a15a702-dabe-46ca-8d26-2501d89b0296" action="if" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>not is_element_exist:</body>
+                                                    </command>
+                                                    <nestedSteps>
+                                                        <item guid="4a92802b-d3ee-4738-82aa-6cd3a8dc464e" action="comment" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>Is autofill Request ?</body>
+                                                            </command>
+                                                            <nestedSteps>
+                                                                <item guid="2c0428b0-f9d6-43a2-92a5-a003e4ea0e2c" action="eval" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>xpath_element = &quot;//android.widget.Button[@resource-id=&apos;android:id/autofill_save_no&apos;]&quot;</body>
+                                                                    </command>
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                </item>
+                                                                <item guid="b8c7151c-04a5-4624-a357-6ff6b278ef00" action="call" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>driver_find_with_action(element=xpath_element,expected_action=&quot;is_displayed&quot;)</body>
+                                                                    </command>
+                                                                    <postProcessing>
+                                                                        <storeResponseAt>is_element_exist</storeResponseAt>
+                                                                        <storeResponseText>true</storeResponseText>
+                                                                    </postProcessing>
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                </item>
+                                                                <item guid="8667579d-a13e-48c4-b51f-9bede4e9c4b2" action="if" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>is_element_exist:</body>
+                                                                    </command>
+                                                                    <nestedSteps>
+                                                                        <item guid="d9ecf2fc-ad8c-47e3-809f-ed19d93f6014" action="call" useFieldsInCommand="false">
+                                                                            <command>
+                                                                                <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
+                                                                            </command>
+                                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                        </item>
+                                                                    </nestedSteps>
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                </item>
+                                                                <item guid="f9efb23d-6711-46f8-ae21-5714048dbb5d" action="else" useFieldsInCommand="false">
+                                                                    <nestedSteps>
+                                                                        <item guid="9ec681fc-bc7f-4c98-8e90-1d3f3e47526f" action="break" useFieldsInCommand="false">
+                                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                        </item>
+                                                                    </nestedSteps>
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                </item>
+                                                            </nestedSteps>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="c66397ea-d25b-4dac-9595-954e53d847db" action="else" useFieldsInCommand="false">
+                                                    <nestedSteps>
+                                                        <item guid="9ec681fc-bc7f-4c98-8e90-1d3f3e47526f" action="break" useFieldsInCommand="false">
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="c882f81c-100b-4422-bf55-f7bd0b6bedea" action="command" session="t1">
-                    <command>
-                        <body>driver.terminate_app(&quot;[gget(&apos;insta_app_pkg&apos;)]&quot;)</body>
-                    </command>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="d30d9b73-c93f-46fc-a7ab-a57b7bd07bbe" action="command" session="t1" useFieldsInCommand="false">
-                    <command>
-                        <body>driver.quit()</body>
-                    </command>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="61da0253-6e91-4133-b3e7-b65d15892bf2" action="close" session="t1" useFieldsInCommand="false">
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="2901b164-06d9-4349-87c7-2ba5a44871ab" action="exit" useFieldsInCommand="false">
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
             </steps>
             <arguments>
-                <item name="is_screen_shot">
-                    <defaultValue>True</defaultValue>
+                <item name="is_saving_credentials_layout"/>
+                <item name="notification_request"/>
+                <item name="check_all_option">
+                    <defaultValue>False</defaultValue>
                 </item>
             </arguments>
         </item>
@@ -3584,44 +3650,54 @@ find By.Accessibility_ID
                 </item>
             </steps>
         </item>
-        <item name="run_adb" isPublic="true">
+        <item name="clean_up" isPublic="true">
             <steps>
-                <item guid="1980c89b-030b-4db1-a668-6de2a51e2362" action="eval" useFieldsInCommand="false">
+                <item guid="28211c8f-daf0-41ba-ba3a-b86ed7df2f8f" action="comment" useFieldsInCommand="false">
                     <command>
-                        <body>import subprocess, json</body>
+                        <body>Do the screenshot, get page source for debugging and do the cleanup when there are errors in the middle of the execution</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="02f73793-1a10-4928-97e7-7c4bcc22bc84" action="eval" useFieldsInCommand="false">
+                <item guid="f1bb8e58-6dcb-4ffe-a117-42b59d92efca" action="if" useFieldsInCommand="false">
                     <command>
-                        <body>result = subprocess.check_output(f&apos;{param(&quot;ADBPath&quot;)} {command}&apos;, shell=True).decode()</body>
+                        <body>is_screen_shot==&quot;true&quot;:</body>
                     </command>
-                    <eventHandlers>
-                        <item name="OnInterpreterError">
-                            <item actionId="DeclareExecutionIssue">
-                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
-                                    <message>{error}</message>
-                                </actionProperties>
-                            </item>
-                            <item actionId="Eval">
-                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                    <statement>result = None</statement>
-                                </actionProperties>
-                            </item>
+                    <nestedSteps>
+                        <item guid="00af1825-73a3-4451-b4bf-3c3367e3185f" action="screenshot" session="t1" useFieldsInCommand="false">
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                    </eventHandlers>
+                        <item guid="3435bbe0-0f49-481e-b49e-fc74ec9387a2" action="command" session="t1" useFieldsInCommand="false">
+                            <command>
+                                <body>print(driver.page_source)
+</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="af01dae7-be38-4507-add8-433fd940dced" action="return">
+                <item guid="c882f81c-100b-4422-bf55-f7bd0b6bedea" action="command" session="t1">
                     <command>
-                        <body>[result]</body>
+                        <body>driver.terminate_app(&quot;[gget(&apos;insta_app_pkg&apos;)]&quot;)</body>
                     </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="d30d9b73-c93f-46fc-a7ab-a57b7bd07bbe" action="command" session="t1" useFieldsInCommand="false">
+                    <command>
+                        <body>driver.quit()</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="61da0253-6e91-4133-b3e7-b65d15892bf2" action="close" session="t1" useFieldsInCommand="false">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="2901b164-06d9-4349-87c7-2ba5a44871ab" action="exit" useFieldsInCommand="false">
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
             </steps>
             <arguments>
-                <item name="command">
-                    <isMandatory>true</isMandatory>
+                <item name="is_screen_shot">
+                    <defaultValue>True</defaultValue>
                 </item>
             </arguments>
         </item>
