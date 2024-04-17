@@ -1,28 +1,20 @@
 <?xml version="1.0"?>
-<testCase version="24.3.0.202402281100">
+<testCase version="24.3.0.202403311053">
     <general>
         <language>Python</language>
         <xPathVersion>XPATH31</xPathVersion>
     </general>
     <execution>
-        <parameters version="24.3.0.202402281100">
+        <parameters version="24.3.0.202403311053">
             <parameters escape="true">
                 <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
                     <DeviceAndroidVersion pt:description="OS version of Android device. Default support: 12">12</DeviceAndroidVersion>
                     <DeviceAndroidName pt:description="Name of Android device"/>
                     <DeviceAndroidID pt:description="ID of Android device"/>
-                    <AppiumDriverName pt:description="Appium Driver Name. Default: UiAutomator2">UiAutomator2</AppiumDriverName>
                     <AppiumServerHost pt:description="Appium Server Host. Default: localhost">localhost</AppiumServerHost>
                     <AppiumServerPort pt:datatype="INTEGER" pt:description="Appium Server Port. Default: 4723">4723</AppiumServerPort>
-                    <VideoURL pt:description="The URL to the video"/>
+                    <VideoURL pt:description="The URL to the video">https://www.tiktok.com/t/ZT8hvCrVW/</VideoURL>
                     <ADBPath pt:description="The path to ADB. Required when clear App Data"/>
-                    <packageName pt:description="Optional. Tiktok package name - base on Tiktok version">com.zhiliaoapp.musically</packageName>
-                    <username pt:description="Optional. Tiktok username"/>
-                    <password pt:description="Optional. Tiktok password"/>
-                    <allowAccess pt:datatype="BOOLEAN" pt:description="Optional. Allow Tiktok access or not. Default: false">false</allowAccess>
-                    <clearAppData pt:datatype="BOOLEAN" pt:description="Optional. Clear Tiktok data. Default: true">true</clearAppData>
-                    <waitForComplete pt:datatype="BOOLEAN" pt:description="Optional. Waiting for video complete and get actual time. Default: true">true</waitForComplete>
-                    <terminateApp pt:datatype="BOOLEAN" pt:description="Optional. Terminate Tiktok after complete. Default: true">true</terminateApp>
                 </parameters>
             </parameters>
         </parameters>
@@ -2063,7 +2055,7 @@
                     <nestedSteps>
                         <item guid="dc1b5cde-5b92-4514-a512-de6a416f36d1" action="call" useFieldsInCommand="false">
                             <command>
-                                <body>_findAndClickElement(xpath=&apos;//android.widget.TextView[@text=&quot;Continue with Google&quot;]/..&apos;, action=&apos;click&apos;, timeout=&apos;10&apos;, period=&apos;5&apos;)</body>
+                                <body>_findAndClickElement(xpath=&apos;//android.widget.TextView[@text=&quot;Continue with Google&quot;]&apos;, action=&apos;click&apos;, timeout=&apos;10&apos;, period=&apos;5&apos;)</body>
                             </command>
                             <postProcessing>
                                 <analysisRules>
@@ -3041,6 +3033,166 @@
                 </item>
             </arguments>
         </item>
+        <item name="handle_follow_your_friends" isPublic="true">
+            <steps>
+                <item guid="e20a12be-3bef-4718-a3a8-18d183338c11" action="if" useFieldsInCommand="false">
+                    <command>
+                        <body>str(folllow).lower() == &quot;true&quot;:</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="b988ca09-c189-4a09-a388-4e994e7be5f5" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>_findAndClickElement(xpath=&apos;//android.widget.Button[@text=&quot;Follow&quot;]&apos;, action=&apos;click&apos;, timeout=&apos;5&apos;, period=&apos;5&apos;)</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                <query>responseLine()</query>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>str(value) == &quot;True&quot;</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>success = True</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="Information">
+                                                            <message>Select &quot;Watch and follow&quot;</message>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>success = False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="70d7af6a-2a3c-442a-af9c-835e59ba10c5" action="else" useFieldsInCommand="false">
+                    <nestedSteps>
+                        <item guid="d93e442d-78c8-4e50-84e3-f83deeccad5d" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>_findAndClickElement(xpath=&apos;//android.widget.ImageView[@content-desc=&quot;Cancel&quot;]&apos;, elementID=&apos;&apos;, action=&apos;click&apos;, timeout=&apos;5&apos;)</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                <query>responseLine()</query>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>str(value) == &quot;True&quot;</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>success = True</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="Information">
+                                                            <message>Select &quot;Cancel follow your friends&quot;</message>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>success = False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="dc946cf9-e388-4967-804f-1f7ab13496d0" action="if" useFieldsInCommand="false">
+                            <command>
+                                <body>not success:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="262a834e-133d-48a6-9057-9e44c246f6bf" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>_findAndClickElement(xpath=&apos;//android.widget.TextView[@text=&quot;Cancel&quot;]&apos;, action=&apos;click&apos;, timeout=&apos;5&apos;)</body>
+                                    </command>
+                                    <postProcessing>
+                                        <analysisRules>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                        <query>responseLine()</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="assert">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                        <expression>str(value) == &quot;True&quot;</expression>
+                                                        <actionsWhenTrue>
+                                                            <item actionId="Eval">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                    <statement>success = True</statement>
+                                                                </actionProperties>
+                                                            </item>
+                                                            <item actionId="DeclareExecutionIssue">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="Information">
+                                                                    <message>Select &quot;Watch only&quot;</message>
+                                                                </actionProperties>
+                                                            </item>
+                                                        </actionsWhenTrue>
+                                                        <actionsWhenFalse>
+                                                            <item actionId="Eval">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                    <statement>success = False</statement>
+                                                                </actionProperties>
+                                                            </item>
+                                                        </actionsWhenFalse>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                        </analysisRules>
+                                    </postProcessing>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="8114ff5d-61f9-4fe1-8fa0-29c8b92fb1b5" action="return">
+                    <command>
+                        <body>[success]</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="folllow">
+                    <defaultValue>false</defaultValue>
+                    <isMandatory>true</isMandatory>
+                </item>
+            </arguments>
+        </item>
         <item name="waiting_for_app_start_or_playing" isPublic="true">
             <steps>
                 <item guid="dea1b38d-fa33-4111-b4b2-b3f089b158fe" action="comment" useFieldsInCommand="false">
@@ -3188,6 +3340,36 @@
                                             <item>
                                                 <extractorInfo extractorType="query">
                                                     <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                        <query>boolean(//android.widget.TextView[@text=&quot;Sign in with Google&quot;])</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>signinWithGoogleFound</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                        <query>boolean(//android.widget.Button[lower-case(@text)=&quot;continue&quot;])</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>continueWithGoogleFoundFound</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
                                                         <query>boolean(//android.widget.Button[lower-case(@text)=&quot;allow&quot;])</query>
                                                     </extractorProperties>
                                                 </extractorInfo>
@@ -3278,6 +3460,21 @@
                                             <item>
                                                 <extractorInfo extractorType="query">
                                                     <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                        <query>boolean(//android.widget.TextView[@text=&quot;Follow your friends&quot;])</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>followFound</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
                                                         <query>boolean(//android.widget.Button[@text=&quot;Watch and follow&quot;])</query>
                                                     </extractorProperties>
                                                 </extractorInfo>
@@ -3314,6 +3511,59 @@
                                                     <command>
                                                         <body>loginPageFound = True</body>
                                                     </command>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="a5516d9d-1b41-458e-ba93-bf279a5fe93c" action="comment" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Handle &quot;Sign in with Google&quot; popup</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="659052f7-4195-4ed3-99f8-c19563e0d663" action="if" useFieldsInCommand="false">
+                                            <command>
+                                                <body>signinWithGoogleFound == &apos;true&apos; and continueWithGoogleFoundFound == &apos;true&apos;:</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="e92be9bd-cf11-4f05-bba4-569fb3d02d9f" action="call" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>_findAndClickElement(xpath=&apos;//android.widget.ImageView[@content-desc=&quot;Cancel&quot;]&apos;, elementID=&apos;&apos;, action=&apos;click&apos;, timeout=&apos;5&apos;)</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="query">
+                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                        <query>responseLine()</query>
+                                                                    </extractorProperties>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="assert">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                        <expression>str(value) == &quot;True&quot;</expression>
+                                                                        <actionsWhenFalse>
+                                                                            <item actionId="DeclareExecutionIssue">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                                                    <message>Can not bypass the &quot;Sign in with Google&quot; popup</message>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                            <item actionId="CallProcedure">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                    <command>_screenshot()</command>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                            <item actionId="ExitProcedure">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                                            </item>
+                                                                        </actionsWhenFalse>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
                                             </nestedSteps>
@@ -3647,6 +3897,59 @@
                                                                             <item actionId="DeclareExecutionIssue">
                                                                                 <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
                                                                                     <message>Can not bypass the &quot;Watch and Follow&quot; popup</message>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                            <item actionId="CallProcedure">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                    <command>_screenshot()</command>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                            <item actionId="ExitProcedure">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                                            </item>
+                                                                        </actionsWhenFalse>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="4d5f2abe-53f4-48e2-8e04-fa2a6c11a43d" action="comment" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Handle &quot;Follow your friends&quot; popup</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="47902e61-bd92-4f9b-87b4-5199d592d43d" action="if" useFieldsInCommand="false">
+                                            <command>
+                                                <body>followFound == &apos;true&apos;:</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="afb507dc-7bc5-4ae0-bbe8-a246986eb325" action="call" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>handle_follow_your_friends()</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="query">
+                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                        <query>responseLine()</query>
+                                                                    </extractorProperties>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="assert">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                        <expression>str(value) == &quot;True&quot;</expression>
+                                                                        <actionsWhenFalse>
+                                                                            <item actionId="DeclareExecutionIssue">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                                                    <message>Can not bypass the &quot;Follow your friends&quot; popup</message>
                                                                                 </actionProperties>
                                                                             </item>
                                                                             <item actionId="CallProcedure">
