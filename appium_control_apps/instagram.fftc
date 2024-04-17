@@ -70,7 +70,7 @@
                                 </item>
                                 <item guid="ab717892-d69a-415b-8a43-bbd67158b6b7" action="if" useFieldsInCommand="false">
                                     <command>
-                                        <body>video_expected_duration_length != &quot;&quot; and float(video_expected_duration_length) &lt;= unsupport_video_duration_in_second:</body>
+                                        <body>video_expected_duration_length != &quot;&quot; and float(video_expected_duration_length) &lt; unsupport_video_duration_in_second:</body>
                                     </command>
                                     <nestedSteps>
                                         <item guid="e20eb6a3-0de5-489d-8381-79659237e24e" action="message" useFieldsInCommand="false">
@@ -823,6 +823,15 @@
                                 <storeResponseText>true</storeResponseText>
                             </postProcessing>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="61b5b2b4-32c8-474e-89da-8a38d2eee5fc" action="extractData" useFieldsInCommand="false">
+                            <command>
+                                <body>VideoURL:[url]</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.ExtractDataPropertyGroup">
+                                <tag inherit="false">VideoURL</tag>
+                                <value inherit="false">[url]</value>
+                            </applicationProperties>
                         </item>
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
