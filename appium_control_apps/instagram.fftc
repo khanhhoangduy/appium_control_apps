@@ -37,8 +37,29 @@
                             <nestedSteps>
                                 <item guid="82c1d016-fb45-4513-9ae9-700353eba42c" action="eval" useFieldsInCommand="false">
                                     <command>
-                                        <body>video_expected_duration_length=param(&apos;VideoExpectedDuration&apos;,&quot;&quot;);print(video_expected_duration_length)</body>
+                                        <body>video_expected_duration_length=param(&apos;VideoExpectedDuration&apos;,&quot;&quot;)</body>
                                     </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="c2ec7dbd-e347-4ae9-8a47-31ef68813b2c" action="eval" useFieldsInCommand="false">
+                                    <command>
+                                        <body>video_expected_duration_length=float(video_expected_duration_length)</body>
+                                    </command>
+                                    <eventHandlers>
+                                        <item name="OnInterpreterError">
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                    <message>Required the Video Expected Duration is an interger number. Actual input &quot;[video_expected_duration_length]&quot;. {error}</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="FailTest">
+                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            </item>
+                                            <item actionId="ExitProcedure">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                            </item>
+                                        </item>
+                                    </eventHandlers>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
                                 <item guid="47ea3c9e-ab56-4cae-a5bf-56bd726ffd8a" action="eval" useFieldsInCommand="false">
@@ -47,65 +68,14 @@
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="133ed159-1cb4-4c0a-94ee-3ba529be218b" action="call" useFieldsInCommand="false">
+                                <item guid="ab717892-d69a-415b-8a43-bbd67158b6b7" action="if" useFieldsInCommand="false">
                                     <command>
-                                        <body>is_number(check_number=video_expected_duration_length)</body>
-                                    </command>
-                                    <postProcessing>
-                                        <storeResponseAt>is_number</storeResponseAt>
-                                        <storeResponseText>true</storeResponseText>
-                                    </postProcessing>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                                <item guid="71c1f122-084b-4333-822d-049de98dae87" action="if" useFieldsInCommand="false">
-                                    <command>
-                                        <body>is_number:</body>
+                                        <body>video_expected_duration_length != &quot;&quot; and float(video_expected_duration_length) &lt;= unsupport_video_duration_in_second:</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="ab717892-d69a-415b-8a43-bbd67158b6b7" action="if" useFieldsInCommand="false">
+                                        <item guid="e20eb6a3-0de5-489d-8381-79659237e24e" action="message" useFieldsInCommand="false">
                                             <command>
-                                                <body>video_expected_duration_length != &quot;&quot; and float(video_expected_duration_length) &lt;= unsupport_video_duration_in_second:</body>
-                                            </command>
-                                            <nestedSteps>
-                                                <item guid="e20eb6a3-0de5-489d-8381-79659237e24e" action="message" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>Error:Required The Video Expected Duration timer &gt;= 15 seconds</body>
-                                                    </command>
-                                                    <postProcessing>
-                                                        <analysisRules>
-                                                            <item>
-                                                                <extractorInfo extractorType="none">
-                                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
-                                                                </extractorInfo>
-                                                                <processorInfo ruleType="assert">
-                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                        <expression>True</expression>
-                                                                        <actionsWhenTrue>
-                                                                            <item actionId="AbortExecution">
-                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                            </item>
-                                                                        </actionsWhenTrue>
-                                                                    </ruleProperties>
-                                                                </processorInfo>
-                                                            </item>
-                                                        </analysisRules>
-                                                    </postProcessing>
-                                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
-                                                        <severity inherit="false">Error</severity>
-                                                        <message inherit="false">Required The Video Expected Duration timer &gt;= 15 seconds</message>
-                                                    </applicationProperties>
-                                                </item>
-                                            </nestedSteps>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                    </nestedSteps>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                                <item guid="9a2fb8ac-8c72-4b7a-b0b0-06edb65c04ba" action="else" useFieldsInCommand="false">
-                                    <nestedSteps>
-                                        <item guid="dab2a9cb-927a-4ddd-ad01-e7c4af49e5b1" action="message" useFieldsInCommand="false">
-                                            <command>
-                                                <body>Error:Required the Video Expected Duration is an interger number. Actual input &quot;[video_expected_duration_length]&quot;</body>
+                                                <body>Error:Required The Video Expected Duration timer &gt;= 15 seconds</body>
                                             </command>
                                             <postProcessing>
                                                 <analysisRules>
@@ -128,7 +98,7 @@
                                             </postProcessing>
                                             <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
                                                 <severity inherit="false">Error</severity>
-                                                <message inherit="false">Required the Video Expected Duration is an interger number. Actual input &quot;[video_expected_duration_length]&quot;</message>
+                                                <message inherit="false">Required The Video Expected Duration timer &gt;= 15 seconds</message>
                                             </applicationProperties>
                                         </item>
                                     </nestedSteps>
@@ -3762,102 +3732,6 @@ find By.Accessibility_ID
             <arguments>
                 <item name="is_screen_shot">
                     <defaultValue>True</defaultValue>
-                </item>
-            </arguments>
-        </item>
-        <item name="is_number" isPublic="true">
-            <steps>
-                <item guid="f46054a3-99fa-43af-963b-c90cfd55cc8e" action="comment" useFieldsInCommand="false">
-                    <command>
-                        <body>simple check is input a number (int or float)</body>
-                    </command>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="b81b12a2-3ed1-44ec-8468-145ba5f0e413" action="eval" useFieldsInCommand="false">
-                    <command>
-                        <body>is_number=False</body>
-                    </command>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="e2bc04d4-8d87-41c2-a34e-cc69db8ab82b" action="if" useFieldsInCommand="false">
-                    <command>
-                        <body>isinstance(check_number,(int,float)):</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="c8a2f62c-8bcb-40ca-bce2-0eb1ec8f01d9" action="return">
-                            <command>
-                                <body>is_number=True</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="d372c76e-65f4-4c95-9542-312950ec14fb" action="elif" useFieldsInCommand="false">
-                    <command>
-                        <body>&quot;.&quot; in str(check_number):</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="d2d2474e-1a3b-489e-888e-eda73876b76f" action="for" useFieldsInCommand="false">
-                            <command>
-                                <body>number in check_number.split(&quot;.&quot;):</body>
-                            </command>
-                            <nestedSteps>
-                                <item guid="faf01954-cd1c-47d9-a8fc-0ded9a70ed2f" action="if" useFieldsInCommand="false">
-                                    <command>
-                                        <body>re.fullmatch(r&apos;\\d+&apos;, number):</body>
-                                    </command>
-                                    <nestedSteps>
-                                        <item guid="e905039d-a2a5-4eb0-8cca-f448c61c2d07" action="eval" useFieldsInCommand="false">
-                                            <command>
-                                                <body>is_number=True;print(number)</body>
-                                            </command>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                    </nestedSteps>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                                <item guid="bbe96cb6-fe01-41fb-b0d1-6d6aa033b1e0" action="else" useFieldsInCommand="false">
-                                    <nestedSteps>
-                                        <item guid="1859ffb9-d376-4dbf-9dea-cc9b6112dadc" action="eval" useFieldsInCommand="false">
-                                            <command>
-                                                <body>is_number=False</body>
-                                            </command>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                        <item guid="312c69d5-bf17-4900-a9dd-c24863feaaef" action="break" useFieldsInCommand="false">
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                    </nestedSteps>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                            </nestedSteps>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="de5a7b75-bc5b-47b4-a486-3d727de81a47" action="else" useFieldsInCommand="false">
-                    <nestedSteps>
-                        <item guid="2c6ad2cb-af63-48d7-be10-17ed6bf75181" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>False</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="3b08a529-4880-4993-9002-c3ce54e8b159" action="return">
-                    <command>
-                        <body>[is_number]</body>
-                    </command>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-            </steps>
-            <arguments>
-                <item name="check_number">
-                    <isMandatory>true</isMandatory>
                 </item>
             </arguments>
         </item>
