@@ -2417,7 +2417,7 @@
                                                                                     <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
                                                                                         <message>The video is fully played with the Actual Played Duration:  [video_expected_duration_length] seconds</message>
                                                                                         <extractData>true</extractData>
-                                                                                        <tag sub="false">Actual_Played_Duration</tag>
+                                                                                        <tag sub="false">ActualPlayedDuration</tag>
                                                                                     </ruleProperties>
                                                                                 </processorInfo>
                                                                             </item>
@@ -2446,7 +2446,7 @@
                                                                                     <ruleProperties type="com.fnfr.svt.execution.builtin.processors.MessageProcessorPropertyGroup" severity="Information">
                                                                                         <message>The video is not fully played, the Actual Played Duration is: [actual_played_duration] seconds</message>
                                                                                         <extractData>true</extractData>
-                                                                                        <tag sub="false">Actual_Played_Duration</tag>
+                                                                                        <tag sub="false">ActualPlayedDuration</tag>
                                                                                     </ruleProperties>
                                                                                 </processorInfo>
                                                                             </item>
