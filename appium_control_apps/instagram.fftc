@@ -11,7 +11,7 @@
                     <VideoURL pt:description="Instagram Video Link URL."/>
                     <VideoExpectedDuration pt:datatype="INTEGER" pt:description="Required. Input a interger number in seconds for the Video_Expected_Duration"/>
                     <Username pt:description="Required while running with fresh start. Username to login"/>
-                    <Password pt:description="Required while running with fresh start. Password to login for fresh start" pt:mask="true">CaK+mWSFs84=</Password>
+                    <Password pt:description="Required while running with fresh start. Password to login"/>
                     <ADBPath pt:description="Required. Android Development Brigdge path"/>
                     <DeviceAndroidID pt:description="Required if more than one device in the enviroment"/>
                     <DeviceAndroidName pt:description="Name of Android device">.*S.*</DeviceAndroidName>
