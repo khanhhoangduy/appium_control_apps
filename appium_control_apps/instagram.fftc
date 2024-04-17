@@ -2255,13 +2255,13 @@
                                     <nestedSteps>
                                         <item guid="4150995d-d9fd-41f0-9a38-b787293b3f92" action="eval" useFieldsInCommand="false">
                                             <command>
-                                                <body>video_expected_duration_length=param(&apos;VideoExpectedDuration&apos;,&quot;8&quot;);print(video_expected_duration_length)</body>
+                                                <body>video_expected_duration_length=float(param(&apos;VideoExpectedDuration&apos;,&quot;8&quot;));print(video_expected_duration_length)</body>
                                             </command>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
                                         <item guid="db259147-680d-472e-b6b0-a22ff338e780" action="eval" useFieldsInCommand="false">
                                             <command>
-                                                <body>set_timer_check_point=math.ceil(float(video_expected_duration_length)/2)</body>
+                                                <body>set_timer_check_point=math.ceil(video_expected_duration_length/2)</body>
                                             </command>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
@@ -2385,7 +2385,7 @@
                                                 </item>
                                                 <item guid="9fbc8bd4-456f-450c-950d-93a8076ec9b3" action="eval" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>set_timer_check_point =math.ceil(video_expected_duration_length - actual_played_duration_check_point  + extra_time_wait_till_video_replay)</body>
+                                                        <body>set_timer_check_point =math.ceil(float(video_expected_duration_length) - float(actual_played_duration_check_point)  + extra_time_wait_till_video_replay)</body>
                                                     </command>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
