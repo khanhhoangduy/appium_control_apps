@@ -713,11 +713,16 @@
                                                         <processorInfo ruleType="assert">
                                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
                                                                 <expression>True</expression>
-                                                                <actionsWhenFalse>
+                                                                <actionsWhenTrue>
                                                                     <item actionId="FailTest">
                                                                         <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                     </item>
-                                                                </actionsWhenFalse>
+                                                                    <item actionId="CallProcedure">
+                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                                        </actionProperties>
+                                                                    </item>
+                                                                </actionsWhenTrue>
                                                             </ruleProperties>
                                                         </processorInfo>
                                                     </item>
@@ -727,12 +732,6 @@
                                                 <severity inherit="false">Error</severity>
                                                 <message inherit="false">Failed to access the app Profile page</message>
                                             </applicationProperties>
-                                        </item>
-                                        <item guid="7a091833-173b-4b6b-bf07-13fa2385bb7d" action="call" useFieldsInCommand="false">
-                                            <command>
-                                                <body>clean_up()</body>
-                                            </command>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
