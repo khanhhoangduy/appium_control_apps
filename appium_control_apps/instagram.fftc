@@ -660,13 +660,73 @@
                 </item>
                 <item guid="a87ff581-fd3a-47ce-b870-697844f0450d" action="comment" useFieldsInCommand="false">
                     <command>
-                        <body>Check is Login page appeared</body>
+                        <body>Check is Login page appeared else re-open the login page unless show error and clean up</body>
                     </command>
                     <nestedSteps>
                         <item guid="71f4de2f-71fb-4c50-9ff1-c1bcce534f93" action="call" useFieldsInCommand="false">
                             <command>
                                 <body>clean_and_assert_expected_page(expected_page_xpath=xpath_login)</body>
                             </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>True</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 1</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_successful=True</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_successful=False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="CallProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                            <command>open_home_page()</command>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="RepeatStep">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.RepeatStepPropertyGroup" maxRepeatCount="2" delayBetweenRepeats="5.0"/>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                                <storeResponseAt>is_successful</storeResponseAt>
+                                <storeResponseText>true</storeResponseText>
+                            </postProcessing>
+                            <eventHandlers>
+                                <item name="OnRepeatStepMaxCountExceeded">
+                                    <item actionId="DeclareExecutionIssue">
+                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                            <message>Unable to open the Login page.</message>
+                                        </actionProperties>
+                                    </item>
+                                    <item actionId="CallProcedure">
+                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                        </actionProperties>
+                                    </item>
+                                    <item actionId="FailTest">
+                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                    </item>
+                                    <item actionId="ExitProcedure">
+                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                    </item>
+                                </item>
+                            </eventHandlers>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
@@ -802,49 +862,10 @@
                         <body>Go to the Main Instagram page</body>
                     </command>
                     <nestedSteps>
-                        <item guid="92b8d1e6-775d-4952-a2ee-1ae70f5400e5" action="eval" useFieldsInCommand="false">
+                        <item guid="cd57d015-5d8a-4f63-a693-0a419b0ee853" action="call" useFieldsInCommand="false">
                             <command>
-                                <body>home_login_url=param(&apos;home_login_url&apos;, &apos;https://www.instagram.com&apos;)</body>
+                                <body>open_home_page()</body>
                             </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="ed8c4cb6-a189-42a7-9b55-2af081f48627" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>driver_execute(deep_link_url=home_login_url,package=gget(&apos;insta_app_pkg&apos;),execute_script=&quot;deeplink&quot;)</body>
-                            </command>
-                            <postProcessing>
-                                <analysisRules>
-                                    <item>
-                                        <extractorInfo extractorType="query">
-                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
-                                                <query>responseLine()</query>
-                                            </extractorProperties>
-                                        </extractorInfo>
-                                        <processorInfo ruleType="assert">
-                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                <expression>str(value).lower() == &quot;true&quot;</expression>
-                                                <actionsWhenFalse>
-                                                    <item actionId="DeclareExecutionIssue">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
-                                                            <message>Unable to open Instagram Home page</message>
-                                                        </actionProperties>
-                                                    </item>
-                                                    <item actionId="FailTest">
-                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                    </item>
-                                                    <item actionId="CallProcedure">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
-                                                        </actionProperties>
-                                                    </item>
-                                                </actionsWhenFalse>
-                                            </ruleProperties>
-                                        </processorInfo>
-                                    </item>
-                                </analysisRules>
-                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                <storeResponseText>true</storeResponseText>
-                            </postProcessing>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
@@ -1182,49 +1203,10 @@
                                                                 <body>If still unaccessible: go to the Main Instagram page -&gt; Profile -&gt; Option by using deeplink</body>
                                                             </command>
                                                             <nestedSteps>
-                                                                <item guid="92b8d1e6-775d-4952-a2ee-1ae70f5400e5" action="eval" useFieldsInCommand="false">
+                                                                <item guid="621298eb-8de6-4394-9178-5e9a9310ccfe" action="call" useFieldsInCommand="false">
                                                                     <command>
-                                                                        <body>home_login_url=param(&apos;home_login_url&apos;, &apos;https://www.instagram.com&apos;)</body>
+                                                                        <body>open_home_page()</body>
                                                                     </command>
-                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                </item>
-                                                                <item guid="ed8c4cb6-a189-42a7-9b55-2af081f48627" action="call" useFieldsInCommand="false">
-                                                                    <command>
-                                                                        <body>driver_execute(deep_link_url=home_login_url,package=gget(&apos;insta_app_pkg&apos;),execute_script=&quot;deeplink&quot;)</body>
-                                                                    </command>
-                                                                    <postProcessing>
-                                                                        <analysisRules>
-                                                                            <item>
-                                                                                <extractorInfo extractorType="query">
-                                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
-                                                                                        <query>responseLine()</query>
-                                                                                    </extractorProperties>
-                                                                                </extractorInfo>
-                                                                                <processorInfo ruleType="assert">
-                                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                                        <expression>str(value).lower() == &quot;true&quot;</expression>
-                                                                                        <actionsWhenFalse>
-                                                                                            <item actionId="DeclareExecutionIssue">
-                                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
-                                                                                                    <message>Unable to re-access the Profile Setting through Instagram Home page</message>
-                                                                                                </actionProperties>
-                                                                                            </item>
-                                                                                            <item actionId="FailTest">
-                                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                                            </item>
-                                                                                            <item actionId="CallProcedure">
-                                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                                                                    <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
-                                                                                                </actionProperties>
-                                                                                            </item>
-                                                                                        </actionsWhenFalse>
-                                                                                    </ruleProperties>
-                                                                                </processorInfo>
-                                                                            </item>
-                                                                        </analysisRules>
-                                                                        <storeResponseAt>is_command_successful</storeResponseAt>
-                                                                        <storeResponseText>true</storeResponseText>
-                                                                    </postProcessing>
                                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                 </item>
                                                                 <item guid="d59a0411-e722-4eb3-815e-ece011639c01" action="command" session="t1" useFieldsInCommand="false">
@@ -1625,6 +1607,69 @@
                     <command>
                         <body>[is_command_successful]</body>
                     </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="open_home_page" isPublic="true">
+            <steps>
+                <item guid="631e191a-73a8-4f35-858b-0e19ab80f275" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Go to the Main Instagram page</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="92b8d1e6-775d-4952-a2ee-1ae70f5400e5" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>home_login_url=param(&apos;home_login_url&apos;, &apos;https://www.instagram.com&apos;)</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="ed8c4cb6-a189-42a7-9b55-2af081f48627" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>driver_execute(deep_link_url=home_login_url,package=gget(&apos;insta_app_pkg&apos;),execute_script=&quot;deeplink&quot;)</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
+                                                <query>responseLine()</query>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>str(value).lower() == &quot;true&quot;</expression>
+                                                <actionsWhenFalse>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                            <message>Unable to open Instagram Home page</message>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="FailTest">
+                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    </item>
+                                                    <item actionId="CallProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                                <storeResponseAt>is_command_successful</storeResponseAt>
+                                <storeResponseText>true</storeResponseText>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="fde9f6cf-4748-4525-8f53-54c86aaeaf76" action="return">
+                            <command>
+                                <body>[is_command_successful]</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
             </steps>
