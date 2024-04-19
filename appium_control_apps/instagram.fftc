@@ -407,6 +407,20 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
+                <item guid="c4bf4eb7-c8bc-49e1-a378-adef24f0e414" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Launch_instagram_app</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="300f55f7-45ff-48c3-b414-b0ad0b62afec" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>launch_instagram_app()</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
                 <item guid="0f901391-175c-45e4-94ef-44a45078f6d3" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Login</body>
@@ -433,11 +447,6 @@
                                                     <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
                                                         <expression>value == 1</expression>
                                                         <actionsWhenTrue>
-                                                            <item actionId="Eval">
-                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                                    <statement>is_loggin=True</statement>
-                                                                </actionProperties>
-                                                            </item>
                                                             <item actionId="DeclareExecutionIssue">
                                                                 <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="OK">
                                                                     <message>Loggin Successful</message>
@@ -445,9 +454,12 @@
                                                             </item>
                                                         </actionsWhenTrue>
                                                         <actionsWhenFalse>
-                                                            <item actionId="Eval">
-                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                                    <statement>is_loggin=False</statement>
+                                                            <item actionId="FailTest">
+                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                            </item>
+                                                            <item actionId="CallProcedure">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                    <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
                                                                 </actionProperties>
                                                             </item>
                                                         </actionsWhenFalse>
@@ -455,285 +467,9 @@
                                                 </processorInfo>
                                             </item>
                                         </analysisRules>
-                                        <storeResponseAt>is_loggin</storeResponseAt>
+                                        <storeResponseAt>is_successful</storeResponseAt>
                                         <storeResponseText>true</storeResponseText>
                                     </postProcessing>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                                <item guid="3b3ddaeb-f095-49a7-92f4-6d55658cb780" action="if" useFieldsInCommand="false">
-                                    <command>
-                                        <body>not is_loggin:</body>
-                                    </command>
-                                    <nestedSteps>
-                                        <item guid="6dbd5e7c-ea0d-4dab-9649-148c82f91f3f" action="comment" useFieldsInCommand="false">
-                                            <command>
-                                                <body>Clean saving credential pop up by google account manager or instagram its self</body>
-                                            </command>
-                                            <nestedSteps>
-                                                <item guid="71f4de2f-71fb-4c50-9ff1-c1bcce534f93" action="call" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>clean_pop_up_when_element_inaccessible(is_saving_credentials_layout=&quot;true&quot;)</body>
-                                                    </command>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                            </nestedSteps>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                        <item guid="065da80b-83b9-421c-a46c-6ee9e2bc268e" action="comment" useFieldsInCommand="false">
-                                            <command>
-                                                <body>Re-check if we are loggin and on the Home page</body>
-                                            </command>
-                                            <nestedSteps>
-                                                <item guid="678f2e85-7383-4501-a65f-8c471e335124" action="eval" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>xpath_home_page=&quot;//android.widget.FrameLayout[@content-desc=&apos;Profile&apos;]&quot;</body>
-                                                    </command>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                                <item guid="9614a5e1-d21d-4d1a-b4cc-10bdf4a1d29a" action="call" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>driver_find_with_action(element=xpath_home_page,expected_action=&quot;is_displayed&quot;)</body>
-                                                    </command>
-                                                    <postProcessing>
-                                                        <analysisRules>
-                                                            <item>
-                                                                <extractorInfo extractorType="contains">
-                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
-                                                                        <searchString>True</searchString>
-                                                                    </extractorProperties>
-                                                                </extractorInfo>
-                                                                <processorInfo ruleType="assert">
-                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                        <expression>value == 1</expression>
-                                                                        <actionsWhenTrue>
-                                                                            <item actionId="DeclareExecutionIssue">
-                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="OK">
-                                                                                    <message>Loggin successful</message>
-                                                                                </actionProperties>
-                                                                            </item>
-                                                                        </actionsWhenTrue>
-                                                                        <actionsWhenFalse>
-                                                                            <item actionId="DeclareExecutionIssue">
-                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
-                                                                                    <message>Unable to Login please manual check.</message>
-                                                                                </actionProperties>
-                                                                            </item>
-                                                                            <item actionId="FailTest">
-                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                            </item>
-                                                                            <item actionId="CallProcedure">
-                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                                                    <command>clean_up()</command>
-                                                                                </actionProperties>
-                                                                            </item>
-                                                                        </actionsWhenFalse>
-                                                                    </ruleProperties>
-                                                                </processorInfo>
-                                                            </item>
-                                                        </analysisRules>
-                                                        <storeResponseAt>is_command_successful</storeResponseAt>
-                                                        <storeResponseText>true</storeResponseText>
-                                                    </postProcessing>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                            </nestedSteps>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                    </nestedSteps>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                            </nestedSteps>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="e7b0c369-7651-4d1c-9f39-eb3f64ac13c3" action="comment" useFieldsInCommand="false">
-                    <command>
-                        <body>Go to the Main Instagram page</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="92b8d1e6-775d-4952-a2ee-1ae70f5400e5" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>home_login_url=param(&apos;home_login_url&apos;, &apos;https://www.instagram.com&apos;)</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="ed8c4cb6-a189-42a7-9b55-2af081f48627" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>driver_execute(deep_link_url=home_login_url,package=gget(&apos;insta_app_pkg&apos;),execute_script=&quot;deeplink&quot;)</body>
-                            </command>
-                            <postProcessing>
-                                <analysisRules>
-                                    <item>
-                                        <extractorInfo extractorType="query">
-                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
-                                                <query>responseLine()</query>
-                                            </extractorProperties>
-                                        </extractorInfo>
-                                        <processorInfo ruleType="assert">
-                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                <expression>str(value).lower() == &quot;true&quot;</expression>
-                                                <actionsWhenFalse>
-                                                    <item actionId="DeclareExecutionIssue">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
-                                                            <message>Unable go to the Instagram Home page</message>
-                                                        </actionProperties>
-                                                    </item>
-                                                    <item actionId="FailTest">
-                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                    </item>
-                                                    <item actionId="CallProcedure">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                            <command>clean_up()</command>
-                                                        </actionProperties>
-                                                    </item>
-                                                </actionsWhenFalse>
-                                            </ruleProperties>
-                                        </processorInfo>
-                                    </item>
-                                </analysisRules>
-                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                <storeResponseText>true</storeResponseText>
-                            </postProcessing>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                    </nestedSteps>
-                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                </item>
-                <item guid="5bc820d6-4df5-4629-9714-4dda0103b185" action="comment" useFieldsInCommand="false">
-                    <command>
-                        <body>Check if the main page has the Profile element displayed and access</body>
-                    </command>
-                    <nestedSteps>
-                        <item guid="db74de87-14b3-4a22-9ba6-434587677936" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>xpath_home_page=&quot;//android.widget.FrameLayout[@content-desc=&apos;Profile&apos;]&quot;</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="83f0f97a-4a0a-4af4-b00f-b589f345b6b0" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>driver_find_with_action(element=xpath_home_page,expected_action=&quot;is_displayed&quot;)</body>
-                            </command>
-                            <postProcessing>
-                                <analysisRules>
-                                    <item>
-                                        <extractorInfo extractorType="contains">
-                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
-                                                <searchString>True</searchString>
-                                            </extractorProperties>
-                                        </extractorInfo>
-                                        <processorInfo ruleType="assert">
-                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                <expression>value == 1</expression>
-                                                <actionsWhenTrue>
-                                                    <item actionId="Eval">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                            <statement>is_command_successful=True</statement>
-                                                        </actionProperties>
-                                                    </item>
-                                                </actionsWhenTrue>
-                                                <actionsWhenFalse>
-                                                    <item actionId="Eval">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                            <statement>is_command_successful=False</statement>
-                                                        </actionProperties>
-                                                    </item>
-                                                </actionsWhenFalse>
-                                            </ruleProperties>
-                                        </processorInfo>
-                                    </item>
-                                </analysisRules>
-                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                <storeResponseText>true</storeResponseText>
-                            </postProcessing>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="006ae75b-3efb-4386-b642-b38ca82a611b" action="if" useFieldsInCommand="false">
-                            <command>
-                                <body>not is_command_successful:</body>
-                            </command>
-                            <nestedSteps>
-                                <item guid="19e7fcc7-f7f9-4e63-8afb-8b8582183025" action="call" useFieldsInCommand="false">
-                                    <command>
-                                        <body>clean_pop_up_when_element_inaccessible(notification_request= &quot;true&quot;)</body>
-                                    </command>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                            </nestedSteps>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="09a55716-609a-4f99-a33d-66dc83c5bda1" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>driver_find_with_action(element=xpath_home_page,expected_action=&quot;click&quot;)</body>
-                            </command>
-                            <postProcessing>
-                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                <storeResponseText>true</storeResponseText>
-                            </postProcessing>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="fc8fce17-1f69-4977-9791-88910165e1b7" action="if" useFieldsInCommand="false">
-                            <command>
-                                <body>not is_command_successful:</body>
-                            </command>
-                            <nestedSteps>
-                                <item guid="43702ff6-ec74-46f6-b0c9-0938e36fa472" action="call" useFieldsInCommand="false">
-                                    <command>
-                                        <body>clean_pop_up_when_element_inaccessible(notification_request= &quot;true&quot;)</body>
-                                    </command>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                                <item guid="bc320528-7789-4a8f-a6d1-93d11b5d8602" action="call" useFieldsInCommand="false">
-                                    <command>
-                                        <body>driver_find_with_action(element=xpath_home_page,expected_action=&quot;click&quot;)</body>
-                                    </command>
-                                    <postProcessing>
-                                        <storeResponseAt>is_command_successful</storeResponseAt>
-                                        <storeResponseText>true</storeResponseText>
-                                    </postProcessing>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                                <item guid="3821fc25-03cc-4553-b28b-c5c1d3b54729" action="if" useFieldsInCommand="false">
-                                    <command>
-                                        <body>not is_command_successful:</body>
-                                    </command>
-                                    <nestedSteps>
-                                        <item guid="a711a912-1538-4c0f-9db2-70e9c32581b6" action="message" useFieldsInCommand="false">
-                                            <command>
-                                                <body>Error:Failed to access the app Profile page</body>
-                                            </command>
-                                            <postProcessing>
-                                                <analysisRules>
-                                                    <item>
-                                                        <extractorInfo extractorType="none">
-                                                            <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
-                                                        </extractorInfo>
-                                                        <processorInfo ruleType="assert">
-                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                <expression>True</expression>
-                                                                <actionsWhenTrue>
-                                                                    <item actionId="FailTest">
-                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                    </item>
-                                                                    <item actionId="CallProcedure">
-                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
-                                                                        </actionProperties>
-                                                                    </item>
-                                                                </actionsWhenTrue>
-                                                            </ruleProperties>
-                                                        </processorInfo>
-                                                    </item>
-                                                </analysisRules>
-                                            </postProcessing>
-                                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
-                                                <severity inherit="false">Error</severity>
-                                                <message inherit="false">Failed to access the app Profile page</message>
-                                            </applicationProperties>
-                                        </item>
-                                    </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
                             </nestedSteps>
@@ -751,6 +487,39 @@
                             <command>
                                 <body>enable_data_saver()</body>
                             </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>True</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 1</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="OK">
+                                                            <message>Enable Data Saver Successful</message>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="FailTest">
+                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    </item>
+                                                    <item actionId="CallProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
@@ -866,54 +635,15 @@
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="1f65d857-20ab-4baa-bbd1-da7ea1528a59" action="comment" useFieldsInCommand="false">
+                <item guid="a87ff581-fd3a-47ce-b870-697844f0450d" action="comment" useFieldsInCommand="false">
                     <command>
-                        <body>Go to the Main Instagram page</body>
+                        <body>Check is Login page appeared</body>
                     </command>
                     <nestedSteps>
-                        <item guid="92b8d1e6-775d-4952-a2ee-1ae70f5400e5" action="eval" useFieldsInCommand="false">
+                        <item guid="71f4de2f-71fb-4c50-9ff1-c1bcce534f93" action="call" useFieldsInCommand="false">
                             <command>
-                                <body>home_login_url=param(&apos;home_login_url&apos;, &apos;https://www.instagram.com&apos;)</body>
+                                <body>clean_and_assert_expected_page(expected_page_should_appear=&quot;login&quot;)</body>
                             </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="ed8c4cb6-a189-42a7-9b55-2af081f48627" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>driver_execute(deep_link_url=home_login_url,package=gget(&apos;insta_app_pkg&apos;),execute_script=&quot;deeplink&quot;)</body>
-                            </command>
-                            <postProcessing>
-                                <analysisRules>
-                                    <item>
-                                        <extractorInfo extractorType="query">
-                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
-                                                <query>responseLine()</query>
-                                            </extractorProperties>
-                                        </extractorInfo>
-                                        <processorInfo ruleType="assert">
-                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                <expression>str(value).lower() == &quot;true&quot;</expression>
-                                                <actionsWhenFalse>
-                                                    <item actionId="DeclareExecutionIssue">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
-                                                            <message>Unable to open Instagram Home page</message>
-                                                        </actionProperties>
-                                                    </item>
-                                                    <item actionId="FailTest">
-                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                    </item>
-                                                    <item actionId="CallProcedure">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                            <command>clean_up()</command>
-                                                        </actionProperties>
-                                                    </item>
-                                                </actionsWhenFalse>
-                                            </ruleProperties>
-                                        </processorInfo>
-                                    </item>
-                                </analysisRules>
-                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                <storeResponseText>true</storeResponseText>
-                            </postProcessing>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
@@ -1001,43 +731,44 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="e58bc367-abca-42a8-b2b8-c7fb58523b03" action="comment" useFieldsInCommand="false">
+                <item guid="9c1c0304-d240-461c-bfb4-66291dc53f7c" action="comment" useFieldsInCommand="false">
                     <command>
-                        <body>Check if we are loggin and on the Home page</body>
+                        <body>Go to the Main Instagram page</body>
                     </command>
                     <nestedSteps>
-                        <item guid="323a726d-d566-48b3-88a6-d4ac6f185c8d" action="eval" useFieldsInCommand="false">
+                        <item guid="92b8d1e6-775d-4952-a2ee-1ae70f5400e5" action="eval" useFieldsInCommand="false">
                             <command>
-                                <body>xpath_home_page=&quot;//android.widget.FrameLayout[@content-desc=&apos;Profile&apos;]&quot;</body>
+                                <body>home_login_url=param(&apos;home_login_url&apos;, &apos;https://www.instagram.com&apos;)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="1b938b80-7f98-4df6-a8ff-d059d8b59712" action="call" useFieldsInCommand="false">
+                        <item guid="ed8c4cb6-a189-42a7-9b55-2af081f48627" action="call" useFieldsInCommand="false">
                             <command>
-                                <body>driver_wait_until_with_action(element=xpath_home_page,expected_action=&quot;is_displayed&quot;,By=&quot;XPATH&quot;)</body>
+                                <body>driver_execute(deep_link_url=home_login_url,package=gget(&apos;insta_app_pkg&apos;),execute_script=&quot;deeplink&quot;)</body>
                             </command>
                             <postProcessing>
                                 <analysisRules>
                                     <item>
-                                        <extractorInfo extractorType="contains">
-                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
-                                                <searchString>True</searchString>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
+                                                <query>responseLine()</query>
                                             </extractorProperties>
                                         </extractorInfo>
                                         <processorInfo ruleType="assert">
                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                <expression>value == 1</expression>
-                                                <actionsWhenTrue>
-                                                    <item actionId="Eval">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                            <statement>is_command_successful=True</statement>
+                                                <expression>str(value).lower() == &quot;true&quot;</expression>
+                                                <actionsWhenFalse>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                            <message>Unable to open Instagram Home page</message>
                                                         </actionProperties>
                                                     </item>
-                                                </actionsWhenTrue>
-                                                <actionsWhenFalse>
-                                                    <item actionId="Eval">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                            <statement>is_command_successful=False</statement>
+                                                    <item actionId="FailTest">
+                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    </item>
+                                                    <item actionId="CallProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
                                                         </actionProperties>
                                                     </item>
                                                 </actionsWhenFalse>
@@ -1053,9 +784,107 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
+                <item guid="e58bc367-abca-42a8-b2b8-c7fb58523b03" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Check if we are loggin and on the Home page with profile button displayed</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="323a726d-d566-48b3-88a6-d4ac6f185c8d" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>xpath_home_page=&quot;//android.widget.FrameLayout[@content-desc=&apos;Profile&apos;]&quot;</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="1b938b80-7f98-4df6-a8ff-d059d8b59712" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>driver_find_with_action(element=xpath_home_page,expected_action=&quot;is_displayed&quot;,By=&quot;XPATH&quot;)</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>True</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 1</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_successful=True</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_successful=False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                                <storeResponseAt>is_successful</storeResponseAt>
+                                <storeResponseText>true</storeResponseText>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="583ae3ec-1f73-48f7-8edc-afe176959a1d" action="if" useFieldsInCommand="false">
+                            <command>
+                                <body>not is_successful:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="84bcab82-6c63-428c-935e-0acbb53b6416" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>clean_and_assert_expected_page(expected_page_should_appear=&quot;home_profile&quot;)</body>
+                                    </command>
+                                    <postProcessing>
+                                        <analysisRules>
+                                            <item>
+                                                <extractorInfo extractorType="contains">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                        <searchString>True</searchString>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="assert">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                        <expression>value == 1</expression>
+                                                        <actionsWhenTrue>
+                                                            <item actionId="Eval">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                    <statement>is_successful=True</statement>
+                                                                </actionProperties>
+                                                            </item>
+                                                        </actionsWhenTrue>
+                                                        <actionsWhenFalse>
+                                                            <item actionId="Eval">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                    <statement>is_successful=False</statement>
+                                                                </actionProperties>
+                                                            </item>
+                                                        </actionsWhenFalse>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                        </analysisRules>
+                                        <storeResponseAt>is_successful</storeResponseAt>
+                                        <storeResponseText>true</storeResponseText>
+                                    </postProcessing>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
                 <item guid="37fd6625-eff5-497f-9a40-1e21f50ef9bd" action="return">
                     <command>
-                        <body>[is_command_successful]</body>
+                        <body>[is_successful]</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
@@ -1068,20 +897,34 @@
                         <body>Open the setting for enable the data saver</body>
                     </command>
                     <nestedSteps>
+                        <item guid="dd22106b-8c8e-4f93-afc1-894ef133f3a5" action="comment" useFieldsInCommand="false">
+                            <command>
+                                <body>Access Home Profile</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="6da0670c-d161-4374-898a-9fc1ef00f221" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>access_home_profile()</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
                         <item guid="cb3f68f9-1e88-4f6d-92b8-2a3932c0d63d" action="comment" useFieldsInCommand="false">
                             <command>
-                                <body>Access the Profile Setting</body>
+                                <body>Access the Profile Setting (Options)</body>
                             </command>
                             <nestedSteps>
                                 <item guid="4b46ec56-c7f5-4460-a794-5737a2f232e0" action="eval" useFieldsInCommand="false">
                                     <command>
-                                        <body>xpath_element=&quot;//android.widget.Button[@content-desc=&apos;Options&apos;]&quot;</body>
+                                        <body>xpath_option_element=&quot;//android.widget.Button[@content-desc=&apos;Options&apos;]&quot;</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
                                 <item guid="2471175b-72e5-49f3-b935-6c5821f0a965" action="call" useFieldsInCommand="false">
                                     <command>
-                                        <body>driver_find_with_action(element=xpath_element,expected_action=&quot;is_displayed&quot;)</body>
+                                        <body>driver_find_with_action(element=xpath_option_element,expected_action=&quot;is_displayed&quot;)</body>
                                     </command>
                                     <postProcessing>
                                         <analysisRules>
@@ -1178,21 +1021,18 @@
                                                     <nestedSteps>
                                                         <item guid="0e2ddb9c-a5ee-4f7d-9334-d9bfe6c667ee" action="call" useFieldsInCommand="false">
                                                             <command>
-                                                                <body>clean_pop_up_when_element_inaccessible(notification_request= &quot;true&quot;)</body>
+                                                                <body>clean_and_assert_expected_page(expected_page_should_appear=&quot;home&quot;)</body>
                                                             </command>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
                                                     </nestedSteps>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
-                                                <item guid="5bc7c157-3e9e-4dd7-8b4a-eb6937b5cbe5" action="else" useFieldsInCommand="false">
+                                                <item guid="f46ef21c-2dc2-4b36-838d-07c3952f2df8" action="comment" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>Click the Home page button</body>
+                                                    </command>
                                                     <nestedSteps>
-                                                        <item guid="53ccbeb4-8e90-4786-a28e-120953fe7936" action="comment" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>click the Home page button re-attempt to access the Profile page</body>
-                                                            </command>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
                                                         <item guid="919808f2-4d5f-47c6-b5b9-b4053ea2374a" action="call" useFieldsInCommand="false">
                                                             <command>
                                                                 <body>driver_find_with_action(element=xpath_home_page,expected_action=&quot;click&quot;)</body>
@@ -1203,20 +1043,18 @@
                                                             </postProcessing>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
-                                                        <item guid="956ba18a-a7c9-4101-a459-93d08f105c02" action="eval" useFieldsInCommand="false">
+                                                    </nestedSteps>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="cdb13e23-0869-4e35-9d33-04c1f40369fa" action="comment" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>Re-Access Home Profile</body>
+                                                    </command>
+                                                    <nestedSteps>
+                                                        <item guid="6da0670c-d161-4374-898a-9fc1ef00f221" action="call" useFieldsInCommand="false">
                                                             <command>
-                                                                <body>xpath_home_page=&quot;//android.widget.FrameLayout[@content-desc=&apos;Profile&apos;]&quot;</body>
+                                                                <body>access_home_profile()</body>
                                                             </command>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                        <item guid="d3498cb4-33df-452e-8662-464b7600d2c4" action="call" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>driver_find_with_action(element=xpath_home_page,expected_action=&quot;click&quot;)</body>
-                                                            </command>
-                                                            <postProcessing>
-                                                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                                                <storeResponseText>true</storeResponseText>
-                                                            </postProcessing>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
                                                     </nestedSteps>
@@ -1225,152 +1063,153 @@
                                             </nestedSteps>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="66cbcfa5-9dd5-4096-817a-1e2f30c8e733" action="call" useFieldsInCommand="false">
+                                        <item guid="65c17ad2-9302-4ac4-acf4-01e9721230cb" action="comment" useFieldsInCommand="false">
                                             <command>
-                                                <body>driver_find_with_action(element=xpath_element,expected_action=&quot;is_displayed&quot;)</body>
-                                            </command>
-                                            <postProcessing>
-                                                <analysisRules>
-                                                    <item>
-                                                        <extractorInfo extractorType="contains">
-                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
-                                                                <searchString>True</searchString>
-                                                            </extractorProperties>
-                                                        </extractorInfo>
-                                                        <processorInfo ruleType="assert">
-                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                <expression>value == 1</expression>
-                                                                <actionsWhenTrue>
-                                                                    <item actionId="Eval">
-                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                                            <statement>is_command_successful=True</statement>
-                                                                        </actionProperties>
-                                                                    </item>
-                                                                </actionsWhenTrue>
-                                                                <actionsWhenFalse>
-                                                                    <item actionId="Eval">
-                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                                            <statement>is_command_successful=False</statement>
-                                                                        </actionProperties>
-                                                                    </item>
-                                                                </actionsWhenFalse>
-                                                            </ruleProperties>
-                                                        </processorInfo>
-                                                    </item>
-                                                </analysisRules>
-                                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                                <storeResponseText>true</storeResponseText>
-                                            </postProcessing>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                        <item guid="7fed3bd3-fcd1-487f-a229-d48cf1ce6bb1" action="if" useFieldsInCommand="false">
-                                            <command>
-                                                <body>not is_command_successful:</body>
+                                                <body>Check the Options layout again if it visible</body>
                                             </command>
                                             <nestedSteps>
-                                                <item guid="d3bef5fa-6b15-4caf-b74b-cc12209d5f05" action="comment" useFieldsInCommand="false">
+                                                <item guid="66cbcfa5-9dd5-4096-817a-1e2f30c8e733" action="call" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>Go to the Main Instagram page -&gt; Profile</body>
+                                                        <body>driver_find_with_action(element=xpath_option_element,expected_action=&quot;is_displayed&quot;)</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="contains">
+                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                                        <searchString>True</searchString>
+                                                                    </extractorProperties>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="assert">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                        <expression>value == 1</expression>
+                                                                        <actionsWhenTrue>
+                                                                            <item actionId="Eval">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                    <statement>is_command_successful=True</statement>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                        </actionsWhenTrue>
+                                                                        <actionsWhenFalse>
+                                                                            <item actionId="Eval">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                    <statement>is_command_successful=False</statement>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                        </actionsWhenFalse>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                        <storeResponseAt>is_command_successful</storeResponseAt>
+                                                        <storeResponseText>true</storeResponseText>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="7fed3bd3-fcd1-487f-a229-d48cf1ce6bb1" action="if" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>not is_command_successful:</body>
                                                     </command>
                                                     <nestedSteps>
-                                                        <item guid="92b8d1e6-775d-4952-a2ee-1ae70f5400e5" action="eval" useFieldsInCommand="false">
+                                                        <item guid="d3bef5fa-6b15-4caf-b74b-cc12209d5f05" action="comment" useFieldsInCommand="false">
                                                             <command>
-                                                                <body>home_login_url=param(&apos;home_login_url&apos;, &apos;https://www.instagram.com&apos;)</body>
-                                                            </command>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                        <item guid="ed8c4cb6-a189-42a7-9b55-2af081f48627" action="call" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>driver_execute(deep_link_url=home_login_url,package=gget(&apos;insta_app_pkg&apos;),execute_script=&quot;deeplink&quot;)</body>
-                                                            </command>
-                                                            <postProcessing>
-                                                                <analysisRules>
-                                                                    <item>
-                                                                        <extractorInfo extractorType="query">
-                                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
-                                                                                <query>responseLine()</query>
-                                                                            </extractorProperties>
-                                                                        </extractorInfo>
-                                                                        <processorInfo ruleType="assert">
-                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                                <expression>str(value).lower() == &quot;true&quot;</expression>
-                                                                                <actionsWhenFalse>
-                                                                                    <item actionId="DeclareExecutionIssue">
-                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
-                                                                                            <message>Unable go to the Instagram Home page</message>
-                                                                                        </actionProperties>
-                                                                                    </item>
-                                                                                    <item actionId="FailTest">
-                                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                                    </item>
-                                                                                    <item actionId="CallProcedure">
-                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                                                            <command>clean_up()</command>
-                                                                                        </actionProperties>
-                                                                                    </item>
-                                                                                </actionsWhenFalse>
-                                                                            </ruleProperties>
-                                                                        </processorInfo>
-                                                                    </item>
-                                                                </analysisRules>
-                                                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                                                <storeResponseText>true</storeResponseText>
-                                                            </postProcessing>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                        <item guid="e219ef73-8642-419e-965a-b8bff91c7ee1" action="eval" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>xpath_home_page=&quot;//android.widget.FrameLayout[@content-desc=&apos;Profile&apos;]&quot;</body>
-                                                            </command>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                        <item guid="9ed8d8a1-eb15-4cb5-b053-5c10eb45aa6c" action="call" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>driver_find_with_action(element=xpath_home_page,expected_action=&quot;click&quot;)</body>
-                                                            </command>
-                                                            <postProcessing>
-                                                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                                                <storeResponseText>true</storeResponseText>
-                                                            </postProcessing>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                        <item guid="207ce991-4057-4c61-a2f1-f1bc71d3f440" action="if" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>not is_command_successful:</body>
+                                                                <body>If still unaccessible: go to the Main Instagram page -&gt; Profile -&gt; Option by using deeplink</body>
                                                             </command>
                                                             <nestedSteps>
-                                                                <item guid="a711a912-1538-4c0f-9db2-70e9c32581b6" action="message" useFieldsInCommand="false">
+                                                                <item guid="92b8d1e6-775d-4952-a2ee-1ae70f5400e5" action="eval" useFieldsInCommand="false">
                                                                     <command>
-                                                                        <body>Error:Failed to access the Profile Settings</body>
+                                                                        <body>home_login_url=param(&apos;home_login_url&apos;, &apos;https://www.instagram.com&apos;)</body>
+                                                                    </command>
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                </item>
+                                                                <item guid="ed8c4cb6-a189-42a7-9b55-2af081f48627" action="call" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>driver_execute(deep_link_url=home_login_url,package=gget(&apos;insta_app_pkg&apos;),execute_script=&quot;deeplink&quot;)</body>
                                                                     </command>
                                                                     <postProcessing>
                                                                         <analysisRules>
                                                                             <item>
-                                                                                <extractorInfo extractorType="none">
-                                                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                                                <extractorInfo extractorType="query">
+                                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
+                                                                                        <query>responseLine()</query>
+                                                                                    </extractorProperties>
                                                                                 </extractorInfo>
                                                                                 <processorInfo ruleType="assert">
                                                                                     <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                                        <expression>True</expression>
+                                                                                        <expression>str(value).lower() == &quot;true&quot;</expression>
                                                                                         <actionsWhenFalse>
+                                                                                            <item actionId="DeclareExecutionIssue">
+                                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                                                                    <message>Unable to re-access the Profile Setting through Instagram Home page</message>
+                                                                                                </actionProperties>
+                                                                                            </item>
                                                                                             <item actionId="FailTest">
                                                                                                 <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                                            </item>
+                                                                                            <item actionId="CallProcedure">
+                                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                                    <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                                                                </actionProperties>
                                                                                             </item>
                                                                                         </actionsWhenFalse>
                                                                                     </ruleProperties>
                                                                                 </processorInfo>
                                                                             </item>
                                                                         </analysisRules>
+                                                                        <storeResponseAt>is_command_successful</storeResponseAt>
+                                                                        <storeResponseText>true</storeResponseText>
                                                                     </postProcessing>
-                                                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
-                                                                        <severity inherit="false">Error</severity>
-                                                                        <message inherit="false">Failed to access the Profile Settings</message>
-                                                                    </applicationProperties>
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                 </item>
-                                                                <item guid="7a091833-173b-4b6b-bf07-13fa2385bb7d" action="call" useFieldsInCommand="false">
+                                                                <item guid="9ed8d8a1-eb15-4cb5-b053-5c10eb45aa6c" action="call" useFieldsInCommand="false">
                                                                     <command>
-                                                                        <body>clean_up()</body>
+                                                                        <body>driver_find_with_action(element=xpath_home_page,expected_action=&quot;click&quot;)</body>
                                                                     </command>
+                                                                    <postProcessing>
+                                                                        <storeResponseAt>is_command_successful</storeResponseAt>
+                                                                        <storeResponseText>true</storeResponseText>
+                                                                    </postProcessing>
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                </item>
+                                                                <item guid="207ce991-4057-4c61-a2f1-f1bc71d3f440" action="if" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>not is_command_successful:</body>
+                                                                    </command>
+                                                                    <nestedSteps>
+                                                                        <item guid="a711a912-1538-4c0f-9db2-70e9c32581b6" action="message" useFieldsInCommand="false">
+                                                                            <command>
+                                                                                <body>Error:Unable to access the Profile Settings - Options</body>
+                                                                            </command>
+                                                                            <postProcessing>
+                                                                                <analysisRules>
+                                                                                    <item>
+                                                                                        <extractorInfo extractorType="none">
+                                                                                            <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                                                        </extractorInfo>
+                                                                                        <processorInfo ruleType="assert">
+                                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                                                <expression>True</expression>
+                                                                                                <actionsWhenFalse>
+                                                                                                    <item actionId="FailTest">
+                                                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                                                    </item>
+                                                                                                    <item actionId="CallProcedure">
+                                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                                                                        </actionProperties>
+                                                                                                    </item>
+                                                                                                </actionsWhenFalse>
+                                                                                            </ruleProperties>
+                                                                                        </processorInfo>
+                                                                                    </item>
+                                                                                </analysisRules>
+                                                                            </postProcessing>
+                                                                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                                                <severity inherit="false">Error</severity>
+                                                                                <message inherit="false">Unable to access the Profile Settings - Options</message>
+                                                                            </applicationProperties>
+                                                                        </item>
+                                                                    </nestedSteps>
                                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                 </item>
                                                             </nestedSteps>
@@ -1387,7 +1226,7 @@
                                 </item>
                                 <item guid="11d81488-01df-41ca-a0b7-e6ad833fddb3" action="call" useFieldsInCommand="false">
                                     <command>
-                                        <body>driver_wait_until_with_action(element=xpath_element,expected_action=&quot;click&quot;,By=&quot;XPATH&quot;)</body>
+                                        <body>driver_wait_until_with_action(element=xpath_option_element,expected_action=&quot;click&quot;,By=&quot;XPATH&quot;)</body>
                                     </command>
                                     <postProcessing>
                                         <storeResponseAt>is_command_successful</storeResponseAt>
@@ -1417,6 +1256,11 @@
                                                                     <item actionId="FailTest">
                                                                         <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                     </item>
+                                                                    <item actionId="CallProcedure">
+                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                                        </actionProperties>
+                                                                    </item>
                                                                 </actionsWhenFalse>
                                                             </ruleProperties>
                                                         </processorInfo>
@@ -1427,12 +1271,6 @@
                                                 <severity inherit="false">Error</severity>
                                                 <message inherit="false">Failed to access the Profile Settings</message>
                                             </applicationProperties>
-                                        </item>
-                                        <item guid="7a091833-173b-4b6b-bf07-13fa2385bb7d" action="call" useFieldsInCommand="false">
-                                            <command>
-                                                <body>clean_up()</body>
-                                            </command>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
@@ -1720,6 +1558,11 @@
                                                                             <item actionId="FailTest">
                                                                                 <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                             </item>
+                                                                            <item actionId="CallProcedure">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                    <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                                                </actionProperties>
+                                                                            </item>
                                                                         </actionsWhenFalse>
                                                                     </ruleProperties>
                                                                 </processorInfo>
@@ -1730,12 +1573,6 @@
                                                         <severity inherit="false">Error</severity>
                                                         <message inherit="false">Failed to set the Data Saver</message>
                                                     </applicationProperties>
-                                                </item>
-                                                <item guid="7a091833-173b-4b6b-bf07-13fa2385bb7d" action="call" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>clean_up()</body>
-                                                    </command>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
                                             </nestedSteps>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
@@ -1753,6 +1590,161 @@
                     <command>
                         <body>[is_command_successful]</body>
                     </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="access_home_profile" isPublic="true">
+            <steps>
+                <item guid="e4cb09be-5d8e-4d4d-867d-fa29f755bc4e" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Access Home Profile</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="db74de87-14b3-4a22-9ba6-434587677936" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>xpath_home_page=&quot;//android.widget.FrameLayout[@content-desc=&apos;Profile&apos;]&quot;</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="09a55716-609a-4f99-a33d-66dc83c5bda1" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>driver_find_with_action(element=xpath_home_page,expected_action=&quot;click&quot;)</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>True</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 1</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_command_successful=True</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_command_successful=False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                                <storeResponseAt>is_command_successful</storeResponseAt>
+                                <storeResponseText>true</storeResponseText>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="fc8fce17-1f69-4977-9791-88910165e1b7" action="if" useFieldsInCommand="false">
+                            <command>
+                                <body>not is_command_successful:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="0f9e1797-4b8c-427c-89c2-698b01b3a90c" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>clean_and_assert_expected_page(expected_page_should_appear=&quot;home_profile&quot;)</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="796dfe91-3645-4143-8ce4-aa3b35a59af0" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>driver_find_with_action(element=xpath_home_page,expected_action=&quot;click&quot;)</body>
+                                    </command>
+                                    <postProcessing>
+                                        <analysisRules>
+                                            <item>
+                                                <extractorInfo extractorType="contains">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                        <searchString>True</searchString>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="assert">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                        <expression>value == 1</expression>
+                                                        <actionsWhenTrue>
+                                                            <item actionId="Eval">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                    <statement>is_command_successful=True</statement>
+                                                                </actionProperties>
+                                                            </item>
+                                                        </actionsWhenTrue>
+                                                        <actionsWhenFalse>
+                                                            <item actionId="Eval">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                    <statement>is_command_successful=False</statement>
+                                                                </actionProperties>
+                                                            </item>
+                                                        </actionsWhenFalse>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                        </analysisRules>
+                                        <storeResponseAt>is_command_successful</storeResponseAt>
+                                        <storeResponseText>true</storeResponseText>
+                                    </postProcessing>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="f7e30bd5-5ce9-42dc-a64b-f4efc3e4b71d" action="if" useFieldsInCommand="false">
+                                    <command>
+                                        <body>not is_command_successful:</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="a711a912-1538-4c0f-9db2-70e9c32581b6" action="message" useFieldsInCommand="false">
+                                            <command>
+                                                <body>Error:Failed to access the app Profile page</body>
+                                            </command>
+                                            <postProcessing>
+                                                <analysisRules>
+                                                    <item>
+                                                        <extractorInfo extractorType="none">
+                                                            <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                        </extractorInfo>
+                                                        <processorInfo ruleType="assert">
+                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                <expression>True</expression>
+                                                                <actionsWhenTrue>
+                                                                    <item actionId="FailTest">
+                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                    </item>
+                                                                    <item actionId="CallProcedure">
+                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                                        </actionProperties>
+                                                                    </item>
+                                                                </actionsWhenTrue>
+                                                            </ruleProperties>
+                                                        </processorInfo>
+                                                    </item>
+                                                </analysisRules>
+                                            </postProcessing>
+                                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                <severity inherit="false">Error</severity>
+                                                <message inherit="false">Failed to access the app Profile page</message>
+                                            </applicationProperties>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="0624b485-8053-474d-9a62-86f69dbfa9b1" action="return">
+                            <command>
+                                <body>[is_command_successful]</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
             </steps>
@@ -3211,7 +3203,7 @@ find By.Accessibility_ID
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="730b5b9e-c0c7-4198-9c46-43d6ce17c487" action="elif" useFieldsInCommand="false">
+                <item guid="90c1227c-d361-4129-a40d-a12bea6566ae" action="elif" useFieldsInCommand="false">
                     <command>
                         <body>expected_action==&quot;click&quot;:</body>
                     </command>
@@ -3392,114 +3384,328 @@ find By.Accessibility_ID
                 </item>
             </arguments>
         </item>
-        <item name="clean_pop_up_when_element_inaccessible" isPublic="true">
+        <item name="clean_and_assert_expected_page" isPublic="true">
             <steps>
-                <item guid="0836addd-659c-45a7-9268-d48113382dab" action="for" useFieldsInCommand="false">
+                <item guid="c7be1323-6a99-43d6-970a-d21dc4bbea28" action="comment" useFieldsInCommand="false">
                     <command>
-                        <body>retry_time in range(0, 2):</body>
+                        <body>Check page source and clean pop up for expected page/layout appear</body>
                     </command>
                     <nestedSteps>
-                        <item guid="65d9bc1a-6a40-4e90-ad0a-7abf0c26c7d5" action="comment" useFieldsInCommand="false">
+                        <item guid="a6eebf75-8f1a-48d5-9fd1-5d4f2eaa9797" action="eval" useFieldsInCommand="false">
                             <command>
-                                <body># Notification Request</body>
+                                <body>timeout = 15</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="14339ac8-2cd5-4b17-a734-2e4de32c2d25" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>layout_found=False</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="d840f7f9-1880-4986-9deb-f56f0e10bad3" action="if" useFieldsInCommand="false">
+                            <command>
+                                <body>expected_page_should_appear==&quot;login&quot;:</body>
                             </command>
                             <nestedSteps>
-                                <item guid="57ff2769-ac08-4871-b1f7-d416b1e4553b" action="if" useFieldsInCommand="false">
+                                <item guid="dfc565d9-94d7-4af7-ba6f-e8aafb34753f" action="eval" useFieldsInCommand="false">
                                     <command>
-                                        <body>notification_request== &quot;true&quot; or check_all_option == &quot;true&quot;:</body>
+                                        <body>expected_page_xpath=&quot;//android.view.View[@content-desc=&apos;Log in&apos;]&quot;</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="978913f8-5ec7-4fb1-ba77-91cda37d499b" action="elif" useFieldsInCommand="false">
+                            <command>
+                                <body>expected_page_should_appear==&quot;home_profile&quot;:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="dfc565d9-94d7-4af7-ba6f-e8aafb34753f" action="eval" useFieldsInCommand="false">
+                                    <command>
+                                        <body>expected_page_xpath=&quot;//android.widget.FrameLayout[@content-desc=&apos;Profile&apos;]&quot;</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="7ac8616b-9b46-47ac-933e-3ce414f6591b" action="elif" useFieldsInCommand="false">
+                            <command>
+                                <body>expected_page_should_appear==&quot;home&quot;:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="dfc565d9-94d7-4af7-ba6f-e8aafb34753f" action="eval" useFieldsInCommand="false">
+                                    <command>
+                                        <body>expected_page_xpath=&quot;//android.widget.FrameLayout[@content-desc=&apos;Home&apos;]&quot;</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="21666c98-c3f1-4395-9cb5-e29cf8d3ea9c" action="elif" useFieldsInCommand="false">
+                            <command>
+                                <body>expected_page_should_appear==&quot;profile_option&quot;:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="dfc565d9-94d7-4af7-ba6f-e8aafb34753f" action="eval" useFieldsInCommand="false">
+                                    <command>
+                                        <body>expected_page_xpath=&quot;//android.widget.Button[@content-desc=&apos;Options&apos;]&quot;</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="8020525d-6264-429d-a54b-e8d6e9845575" action="while" useFieldsInCommand="false">
+                            <command>
+                                <body>timeout &gt; 0:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="8edc1ce5-c8a5-4dfb-838d-45dbd5712b28" action="command" session="t1" normalOffset="52.051" estimatedStepExecutionTime="12.353" useFieldsInCommand="false">
+                                    <command>
+                                        <body>print(driver.page_source)</body>
+                                    </command>
+                                    <postProcessing>
+                                        <analysisRules>
+                                            <item>
+                                                <extractorInfo extractorType="contains">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                        <searchString>Traceback</searchString>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="assert">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                        <expression>value == 1</expression>
+                                                        <actionsWhenTrue>
+                                                            <item actionId="RepeatStep">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.RepeatStepPropertyGroup" maxRepeatCount="6" delayBetweenRepeats="5.0"/>
+                                                            </item>
+                                                        </actionsWhenTrue>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                        </analysisRules>
+                                        <storeResponseAt>response</storeResponseAt>
+                                        <storeResponseText>true</storeResponseText>
+                                    </postProcessing>
+                                    <eventHandlers>
+                                        <item name="OnRepeatStepMaxCountExceeded">
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                    <message> Can not get page resource</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="CallProcedure">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                    <command>screenshot()</command>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="FailTest">
+                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            </item>
+                                            <item actionId="ExitProcedure">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                            </item>
+                                        </item>
+                                    </eventHandlers>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="a9e52ed5-ed61-4b80-bc7f-d658edf287b7" action="eval" useFieldsInCommand="false">
+                                    <command>
+                                        <body>response = response[response.index(&apos;&lt;hierarchy&apos;):];print(response)</body>
+                                    </command>
+                                    <postProcessing>
+                                        <analysisRules>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
+                                                        <query>boolean(//android.view.View[@text=&quot;Skip&quot;]/ancestor::android.widget.Button)</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>setup_new_device_layout</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
+                                                        <query>boolean(//android.widget.Button[@resource-id=&apos;com.android.permissioncontroller:id/permission_allow_button&apos;])</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>notification_layout</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
+                                                        <query>boolean(//android.widget.Button[@content-desc=&apos;Save&apos;])</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>insta_save_account_layout</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
+                                                        <query>boolean(//android.widget.Button[@resource-id=&apos;android:id/autofill_save_no&apos;])</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>device_autofill_layout</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                        </analysisRules>
+                                    </postProcessing>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="3b65a260-6d07-436b-9908-55f952df893c" action="comment" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Handle event found</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="b4262c48-0bad-44e7-bf02-31df07be484b" action="eval" useFieldsInCommand="false">
+                                        <item guid="dd71ad5c-8b58-4249-9674-21f064340e0a" action="comment" useFieldsInCommand="false">
                                             <command>
-                                                <body>xpath_element=&quot;//android.widget.Button[@resource-id=&apos;com.android.permissioncontroller:id/permission_allow_button&apos;]&quot;</body>
-                                            </command>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                        <item guid="dfb89f9c-67d7-4557-81d3-6eac3f169435" action="call" useFieldsInCommand="false">
-                                            <command>
-                                                <body>driver_find_with_action(element=xpath_element,expected_action=&quot;is_displayed&quot;)</body>
-                                            </command>
-                                            <postProcessing>
-                                                <storeResponseAt>is_element_exist</storeResponseAt>
-                                                <storeResponseText>true</storeResponseText>
-                                            </postProcessing>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
-                                        <item guid="392aa1d9-dfbd-4977-be2a-f790afac779a" action="if" useFieldsInCommand="false">
-                                            <command>
-                                                <body>is_element_exist:</body>
+                                                <body>Handle &quot;Set up on new device&quot; popup</body>
                                             </command>
                                             <nestedSteps>
-                                                <item guid="a034fd00-1e41-4870-af35-b43ed8bd45e7" action="call" useFieldsInCommand="false">
+                                                <item guid="659052f7-4195-4ed3-99f8-c19563e0d663" action="if" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
-                                                    </command>
-                                                    <postProcessing>
-                                                        <storeResponseAt>is_command_successful</storeResponseAt>
-                                                        <storeResponseText>true</storeResponseText>
-                                                    </postProcessing>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                                <item guid="f59e8ce6-7644-41a7-a207-f927d2b824ba" action="if" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>is_command_successful:</body>
+                                                        <body>setup_new_device_layout == &apos;true&apos;:</body>
                                                     </command>
                                                     <nestedSteps>
-                                                        <item guid="1afbd1df-dab9-4400-a22c-f03065781ca6" action="break" useFieldsInCommand="false">
+                                                        <item guid="1c5fede0-836d-410a-a977-48a7d7678769" action="eval" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>xpath_element=&quot;//android.view.View[@text=&apos;Skip&apos;]/ancestor::android.widget.Button&quot;</body>
+                                                            </command>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="5afec7ba-264e-45a3-b83a-2e6ad2342c43" action="call" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
+                                                            </command>
+                                                            <postProcessing>
+                                                                <storeResponseAt>is_element_exist</storeResponseAt>
+                                                                <storeResponseText>true</storeResponseText>
+                                                            </postProcessing>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
                                                     </nestedSteps>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
-                                                <item guid="bc075c06-ef9d-45c4-bfc0-7b28cdfee37c" action="else" useFieldsInCommand="false">
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                        <item guid="b9196a04-c154-4968-9fe1-248efcd3883f" action="comment" useFieldsInCommand="false">
+                                            <command>
+                                                <body>Handle &quot;Notification request&quot; popup</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="659052f7-4195-4ed3-99f8-c19563e0d663" action="if" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>notification_layout == &apos;true&apos;:</body>
+                                                    </command>
                                                     <nestedSteps>
-                                                        <item guid="8c98b2b7-a356-4565-9587-04cc7a25806d" action="comment" useFieldsInCommand="false">
+                                                        <item guid="1c5fede0-836d-410a-a977-48a7d7678769" action="eval" useFieldsInCommand="false">
                                                             <command>
-                                                                <body>Re-Fresh the layout to clean the covered popup by open the Home page again </body>
+                                                                <body>xpath_element=&quot;//android.widget.Button[@resource-id=&apos;com.android.permissioncontroller:id/permission_allow_button&apos;]&quot;</body>
                                                             </command>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
-                                                        <item guid="bba90670-d22d-44f3-b8c8-a567c38ce647" action="eval" useFieldsInCommand="false">
+                                                        <item guid="5afec7ba-264e-45a3-b83a-2e6ad2342c43" action="call" useFieldsInCommand="false">
                                                             <command>
-                                                                <body>home_login_url=param(&apos;home_login_url&apos;, &apos;https://www.instagram.com&apos;)</body>
-                                                            </command>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                        <item guid="0c1b9128-875d-48d5-a839-3622726a3792" action="call" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>driver_execute(deep_link_url=home_login_url,package=gget(&apos;insta_app_pkg&apos;),execute_script=&quot;deeplink&quot;)</body>
+                                                                <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
                                                             </command>
                                                             <postProcessing>
-                                                                <analysisRules>
-                                                                    <item>
-                                                                        <extractorInfo extractorType="query">
-                                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
-                                                                                <query>responseLine()</query>
-                                                                            </extractorProperties>
-                                                                        </extractorInfo>
-                                                                        <processorInfo ruleType="assert">
-                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                                <expression>str(value).lower() == &quot;true&quot;</expression>
-                                                                                <actionsWhenFalse>
-                                                                                    <item actionId="DeclareExecutionIssue">
-                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
-                                                                                            <message>Unable to refresh Instagram Home page</message>
-                                                                                        </actionProperties>
-                                                                                    </item>
-                                                                                    <item actionId="FailTest">
-                                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                                    </item>
-                                                                                    <item actionId="CallProcedure">
-                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                                                            <command>clean_up()</command>
-                                                                                        </actionProperties>
-                                                                                    </item>
-                                                                                </actionsWhenFalse>
-                                                                            </ruleProperties>
-                                                                        </processorInfo>
-                                                                    </item>
-                                                                </analysisRules>
-                                                                <storeResponseAt>is_command_successful</storeResponseAt>
+                                                                <storeResponseAt>is_element_exist</storeResponseAt>
+                                                                <storeResponseText>true</storeResponseText>
+                                                            </postProcessing>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                        <item guid="64116b00-a52f-4cb0-857c-80e3ba3e3239" action="comment" useFieldsInCommand="false">
+                                            <command>
+                                                <body>Handle &quot;Save account for next Login&quot; popup</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="659052f7-4195-4ed3-99f8-c19563e0d663" action="if" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>insta_save_account_layout == &apos;true&apos;:</body>
+                                                    </command>
+                                                    <nestedSteps>
+                                                        <item guid="1c5fede0-836d-410a-a977-48a7d7678769" action="eval" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>xpath_element=&quot;//android.widget.Button[@content-desc=&apos;Save&apos;]&quot;</body>
+                                                            </command>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="5afec7ba-264e-45a3-b83a-2e6ad2342c43" action="call" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
+                                                            </command>
+                                                            <postProcessing>
+                                                                <storeResponseAt>is_element_exist</storeResponseAt>
+                                                                <storeResponseText>true</storeResponseText>
+                                                            </postProcessing>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                        <item guid="d7570e2d-03b3-45ee-a260-eb645ac14a9c" action="comment" useFieldsInCommand="false">
+                                            <command>
+                                                <body>Handle &quot;Saving account by auto fill&quot; popup</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="659052f7-4195-4ed3-99f8-c19563e0d663" action="if" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>device_autofill_layout == &apos;true&apos;:</body>
+                                                    </command>
+                                                    <nestedSteps>
+                                                        <item guid="1c5fede0-836d-410a-a977-48a7d7678769" action="eval" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>xpath_element=&quot;//android.widget.Button[@resource-id=&apos;android:id/autofill_save_no&apos;]&quot;</body>
+                                                            </command>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="5afec7ba-264e-45a3-b83a-2e6ad2342c43" action="call" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
+                                                            </command>
+                                                            <postProcessing>
+                                                                <storeResponseAt>is_element_exist</storeResponseAt>
                                                                 <storeResponseText>true</storeResponseText>
                                                             </postProcessing>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
@@ -3513,110 +3719,61 @@ find By.Accessibility_ID
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                            </nestedSteps>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="747f370c-d2f0-419a-9608-55ed87d485fd" action="comment" useFieldsInCommand="false">
-                            <command>
-                                <body># Is Saving credentials Layout Covered (Specical for login only)</body>
-                            </command>
-                            <nestedSteps>
-                                <item guid="711d5db2-5dfa-473f-8380-90c6a209833e" action="if" useFieldsInCommand="false">
+                                <item guid="a3138477-b2d0-4457-a864-99209b84a000" action="comment" useFieldsInCommand="false">
                                     <command>
-                                        <body>is_saving_credentials_layout== &quot;true&quot; or check_all_option == &quot;true&quot; :</body>
+                                        <body>Find the expected page should appear</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="a5ff27a1-bec1-450f-8d51-36562da64908" action="comment" useFieldsInCommand="false">
+                                        <item guid="f6b046f5-c0ab-404b-8215-782c2fff45e7" action="call" useFieldsInCommand="false">
                                             <command>
-                                                <body>is Instagram credential save request ?</body>
+                                                <body>driver_find_with_action(element=expected_page_xpath,expected_action=&quot;is_displayed&quot;)</body>
+                                            </command>
+                                            <postProcessing>
+                                                <analysisRules>
+                                                    <item>
+                                                        <extractorInfo extractorType="contains">
+                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                                <searchString>True</searchString>
+                                                            </extractorProperties>
+                                                        </extractorInfo>
+                                                        <processorInfo ruleType="assert">
+                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                <expression>value == 1</expression>
+                                                                <actionsWhenTrue>
+                                                                    <item actionId="Eval">
+                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                            <statement>is_command_successful=True</statement>
+                                                                        </actionProperties>
+                                                                    </item>
+                                                                </actionsWhenTrue>
+                                                                <actionsWhenFalse>
+                                                                    <item actionId="Eval">
+                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                            <statement>is_command_successful=False</statement>
+                                                                        </actionProperties>
+                                                                    </item>
+                                                                </actionsWhenFalse>
+                                                            </ruleProperties>
+                                                        </processorInfo>
+                                                    </item>
+                                                </analysisRules>
+                                                <storeResponseAt>is_command_successful</storeResponseAt>
+                                                <storeResponseText>true</storeResponseText>
+                                            </postProcessing>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                        <item guid="a1bacfbf-cc6e-471a-bac1-7c1d557fcbf7" action="if" useFieldsInCommand="false">
+                                            <command>
+                                                <body>is_command_successful:</body>
                                             </command>
                                             <nestedSteps>
-                                                <item guid="60ea75c6-5ce7-4441-a2dc-42d010d9ab38" action="eval" useFieldsInCommand="false">
+                                                <item guid="dfc565d9-94d7-4af7-ba6f-e8aafb34753f" action="eval" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>xpath_element = &quot;//android.widget.Button[@content-desc=&apos;Save&apos;]&quot;</body>
+                                                        <body>layout_found = True</body>
                                                     </command>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
-                                                <item guid="1c1c349c-d655-4fe4-83e4-923be4699b3b" action="call" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>driver_find_with_action(element=xpath_element,expected_action=&quot;is_displayed&quot;)</body>
-                                                    </command>
-                                                    <postProcessing>
-                                                        <storeResponseAt>is_element_exist</storeResponseAt>
-                                                        <storeResponseText>true</storeResponseText>
-                                                    </postProcessing>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                                <item guid="6f4967ab-aeab-49e9-8ef0-abaecdd90a80" action="call" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
-                                                    </command>
-                                                    <postProcessing>
-                                                        <storeResponseAt>is_element_exist</storeResponseAt>
-                                                        <storeResponseText>true</storeResponseText>
-                                                    </postProcessing>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                                <item guid="6a15a702-dabe-46ca-8d26-2501d89b0296" action="if" useFieldsInCommand="false">
-                                                    <command>
-                                                        <body>not is_element_exist:</body>
-                                                    </command>
-                                                    <nestedSteps>
-                                                        <item guid="4a92802b-d3ee-4738-82aa-6cd3a8dc464e" action="comment" useFieldsInCommand="false">
-                                                            <command>
-                                                                <body>Is autofill Request ?</body>
-                                                            </command>
-                                                            <nestedSteps>
-                                                                <item guid="2c0428b0-f9d6-43a2-92a5-a003e4ea0e2c" action="eval" useFieldsInCommand="false">
-                                                                    <command>
-                                                                        <body>xpath_element = &quot;//android.widget.Button[@resource-id=&apos;android:id/autofill_save_no&apos;]&quot;</body>
-                                                                    </command>
-                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                </item>
-                                                                <item guid="b8c7151c-04a5-4624-a357-6ff6b278ef00" action="call" useFieldsInCommand="false">
-                                                                    <command>
-                                                                        <body>driver_find_with_action(element=xpath_element,expected_action=&quot;is_displayed&quot;)</body>
-                                                                    </command>
-                                                                    <postProcessing>
-                                                                        <storeResponseAt>is_element_exist</storeResponseAt>
-                                                                        <storeResponseText>true</storeResponseText>
-                                                                    </postProcessing>
-                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                </item>
-                                                                <item guid="8667579d-a13e-48c4-b51f-9bede4e9c4b2" action="if" useFieldsInCommand="false">
-                                                                    <command>
-                                                                        <body>is_element_exist:</body>
-                                                                    </command>
-                                                                    <nestedSteps>
-                                                                        <item guid="d9ecf2fc-ad8c-47e3-809f-ed19d93f6014" action="call" useFieldsInCommand="false">
-                                                                            <command>
-                                                                                <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
-                                                                            </command>
-                                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                        </item>
-                                                                    </nestedSteps>
-                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                </item>
-                                                                <item guid="f9efb23d-6711-46f8-ae21-5714048dbb5d" action="else" useFieldsInCommand="false">
-                                                                    <nestedSteps>
-                                                                        <item guid="9ec681fc-bc7f-4c98-8e90-1d3f3e47526f" action="break" useFieldsInCommand="false">
-                                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                        </item>
-                                                                    </nestedSteps>
-                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                </item>
-                                                            </nestedSteps>
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                    </nestedSteps>
-                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                </item>
-                                                <item guid="c66397ea-d25b-4dac-9595-954e53d847db" action="else" useFieldsInCommand="false">
-                                                    <nestedSteps>
-                                                        <item guid="9ec681fc-bc7f-4c98-8e90-1d3f3e47526f" action="break" useFieldsInCommand="false">
-                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                        </item>
-                                                    </nestedSteps>
+                                                <item guid="07ca61c9-7c49-44e3-8ba2-98cc83a1a37c" action="break" useFieldsInCommand="false">
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
                                             </nestedSteps>
@@ -3625,7 +3782,25 @@ find By.Accessibility_ID
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
+                                <item guid="6ed17ed9-25a8-4aed-93e1-4cab700611b4" action="eval" useFieldsInCommand="false">
+                                    <command>
+                                        <body>timeout -= 3</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="c55b9e70-a3fc-4ad2-926a-7fce8aa63ba3" action="sleep">
+                                    <command>
+                                        <body>3</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
                             </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="799d6212-00a6-4425-aeec-20421a66181b" action="return">
+                            <command>
+                                <body>[layout_found]</body>
+                            </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
@@ -3633,10 +3808,8 @@ find By.Accessibility_ID
                 </item>
             </steps>
             <arguments>
-                <item name="is_saving_credentials_layout"/>
-                <item name="notification_request"/>
-                <item name="check_all_option">
-                    <defaultValue>False</defaultValue>
+                <item name="expected_page_should_appear">
+                    <isMandatory>true</isMandatory>
                 </item>
             </arguments>
         </item>
@@ -3705,7 +3878,10 @@ find By.Accessibility_ID
                         <body>is_screen_shot==&quot;true&quot;:</body>
                     </command>
                     <nestedSteps>
-                        <item guid="00af1825-73a3-4451-b4bf-3c3367e3185f" action="screenshot" session="t1" useFieldsInCommand="false">
+                        <item guid="00af1825-73a3-4451-b4bf-3c3367e3185f" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>screenshot()</body>
+                            </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                         <item guid="3435bbe0-0f49-481e-b49e-fc74ec9387a2" action="command" session="t1" useFieldsInCommand="false">
@@ -3742,6 +3918,146 @@ find By.Accessibility_ID
                     <defaultValue>True</defaultValue>
                 </item>
             </arguments>
+        </item>
+        <item name="screenshot" isPublic="true">
+            <steps>
+                <item guid="1708ccf2-2a7b-40de-b573-4c5a58ecbb07" action="screenshot" session="t1" useFieldsInCommand="false">
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="launch_instagram_app" isPublic="true">
+            <steps>
+                <item guid="dd37020c-f5c8-49b2-8a02-1f53bad08c1e" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Use adb command</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="87aff4ce-10e4-4c8b-8ecb-d253c107bf63" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>device_used = &apos;&apos;</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="13113aad-3b0c-495b-9fb4-88a70e272391" action="if" useFieldsInCommand="false">
+                            <command>
+                                <body>param(&quot;DeviceAndroidID&quot;) != &apos;&apos;:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="f7c4ec24-36b7-4142-a5ac-5cc32ea34db6" action="eval" useFieldsInCommand="false">
+                                    <command>
+                                        <body>device_used = f&apos;-s {param(&quot;DeviceAndroidID&quot;)}&apos;</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="1814b1ee-25a6-493f-a09d-51f5ab848aae" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>cmd = f&apos; {device_used} shell monkey --pct-syskeys 0 -p {gget(&quot;insta_app_pkg&quot;)} -c android.intent.category.LAUNCHER 1&apos;</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="cc321022-57f5-47f9-9ecc-ce2b50aa5aaa" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>run_adb(command = cmd)</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>SYS_KEYS has no physical keys but with factor</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 1</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                            <message>Cannot launch the Instagram application</message>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="FailTest">
+                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    </item>
+                                                    <item actionId="ExitExecution">
+                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="e1ed6159-23da-49cd-abc0-71a4dfeccea8" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Wait until app is loaded</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="1aadcaf8-73b3-4234-ae17-40ec748a4760" action="command" session="t1" useFieldsInCommand="false">
+                            <command>
+                                <body>driver.current_activity</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>Shell$HomeActivity</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 0</expression>
+                                                <actionsWhenFalse>
+                                                    <item actionId="RepeatStep">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.RepeatStepPropertyGroup" maxRepeatCount="5" delayBetweenRepeats="3.0"/>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <eventHandlers>
+                                <item name="OnRepeatStepMaxCountExceeded">
+                                    <item actionId="FailTest">
+                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                    </item>
+                                    <item actionId="ExitExecution">
+                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                    </item>
+                                </item>
+                            </eventHandlers>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="f19eeeff-ef47-4da8-9e8d-3edb1ffb2f81" action="command" session="t1" useFieldsInCommand="false">
+                            <command>
+                                <body>time.sleep(3.0)</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="ddaa65d4-c30c-465b-bbb3-dafbbf848df9" action="message" useFieldsInCommand="false">
+                            <command>
+                                <body>OK:Successfully opened the Instagram application</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                <severity inherit="false">OK</severity>
+                                <message inherit="false">Successfully opened the Instagram application</message>
+                            </applicationProperties>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
         </item>
     </procedures>
 </testCase>
