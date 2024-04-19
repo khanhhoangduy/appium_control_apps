@@ -874,6 +874,125 @@
                                 <attribute>text</attribute>
                             </applicationProperties>
                         </item>
+                        <item guid="48e6b6a5-d21a-4e39-a2eb-92aee7c6c318" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>i = 0;</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="8bb173a8-c770-49d7-b41a-254cd27001f8" action="while" useFieldsInCommand="false">
+                            <command>
+                                <body>float(seekCount) &lt;= 1000 and i &lt; 5:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="a2583cb4-a7d7-467d-a394-e06a23d1d783" action="command" session="t1" useFieldsInCommand="false">
+                                    <command>
+                                        <body>driver.find_element(By.XPATH, &apos;//android.view.View[@content-desc=&quot;Video&quot;]&apos;).click()</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="943d8177-7d2e-4352-a9a1-080e42bd1ef0" action="command" session="t1" useFieldsInCommand="false">
+                                    <command>
+                                        <body>time.sleep(3)</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="ef711b81-9f06-45dd-9956-4ecc70cb6562" action="command" session="t1" useFieldsInCommand="false">
+                                    <command>
+                                        <body>driver.find_element(By.XPATH, &apos;//android.view.View[@content-desc=&quot;Video&quot;]&apos;).click()</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="d3b5c8f9-e73c-450b-b0b3-0a72acd8a335" action="get_attribute" session="t1" useFieldsInCommand="false">
+                                    <command>
+                                        <body>xpath=&apos;//android.widget.SeekBar&apos;, attribute=&apos;text&apos;</body>
+                                    </command>
+                                    <postProcessing>
+                                        <analysisRules>
+                                            <item>
+                                                <extractorInfo extractorType="contains">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                        <searchString>Traceback</searchString>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="assert">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                        <expression>value == 1</expression>
+                                                        <actionsWhenTrue>
+                                                            <item actionId="SkipRemainingRules">
+                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                            </item>
+                                                            <item actionId="Eval">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                    <statement>nextSeekCount = seekCount</statement>
+                                                                </actionProperties>
+                                                            </item>
+                                                        </actionsWhenTrue>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                        <query>responseLine()</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>nextSeekCount</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                        </analysisRules>
+                                    </postProcessing>
+                                    <applicationProperties type="com.spirent.itest.applications.appium.properties.GetAttributeStepProperties">
+                                        <target>//android.widget.SeekBar</target>
+                                        <attribute>text</attribute>
+                                    </applicationProperties>
+                                </item>
+                                <item guid="abb12d84-db1d-41c7-9938-7bed7cf97d5c" action="eval" useFieldsInCommand="false">
+                                    <command>
+                                        <body>seekCount = nextSeekCount</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="48658c12-bace-49bf-8888-708c1bb87587" action="eval" useFieldsInCommand="false">
+                                    <command>
+                                        <body>i = i + 1</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <eventHandlers>
+                                <item name="OnInterpreterError">
+                                    <item actionId="Eval">
+                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                            <statement>duration = &quot;&quot;</statement>
+                                        </actionProperties>
+                                    </item>
+                                    <item actionId="DeclareExecutionIssue">
+                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                            <message>Can not get the video duration </message>
+                                        </actionProperties>
+                                    </item>
+                                    <item actionId="CallProcedure">
+                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                            <command>_screenshot()</command>
+                                        </actionProperties>
+                                    </item>
+                                    <item actionId="FailTestIfPassing">
+                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                    </item>
+                                    <item actionId="ExitProcedure">
+                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                    </item>
+                                </item>
+                            </eventHandlers>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
                         <item guid="64f9d5a2-16da-409f-9e29-f39b17f46afd" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>percented = int((float(seekCount) / 10000) * 100)</body>
@@ -3237,7 +3356,7 @@
                                 <body>Get page source and hanlde unexpected dialogs</body>
                             </command>
                             <nestedSteps>
-                                <item guid="6f528197-68b5-44c8-805a-9e594741e5a6" action="command" session="t1" normalOffset="52.051" estimatedStepExecutionTime="12.353" useFieldsInCommand="false">
+                                <item guid="6f528197-68b5-44c8-805a-9e594741e5a6" action="command" session="t1" normalOffset="52.051" estimatedStepExecutionTime="12.353" useFieldsInCommand="false" skippReporting="false">
                                     <command>
                                         <body>print(driver.page_source)</body>
                                     </command>
