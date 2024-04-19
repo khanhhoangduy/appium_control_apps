@@ -457,6 +457,11 @@
                                                             <item actionId="FailTest">
                                                                 <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                             </item>
+                                                            <item actionId="DeclareExecutionIssue">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                                    <message>Unable to login</message>
+                                                                </actionProperties>
+                                                            </item>
                                                             <item actionId="CallProcedure">
                                                                 <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
                                                                     <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
@@ -635,6 +640,24 @@
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
+                <item guid="b9a6565b-2264-444e-9458-6b754446f245" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>xpath_username_textbox=&quot;//android.view.View[@content-desc=&apos;Username, email or mobile number&apos;]/../../android.widget.EditText&quot;</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="077e7e5b-a0bc-4918-b615-dc8224ccb8c9" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>xpath_password_textbox=&quot;//android.view.View[@content-desc=&apos;Password&apos;]/../../android.widget.EditText&quot;</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="a2939fa6-0461-4d22-93a9-bb9d225e1edf" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>xpath_login=&quot;//android.view.View[@content-desc=&apos;Log in&apos;]&quot;</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
                 <item guid="a87ff581-fd3a-47ce-b870-697844f0450d" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Check is Login page appeared</body>
@@ -642,7 +665,7 @@
                     <nestedSteps>
                         <item guid="71f4de2f-71fb-4c50-9ff1-c1bcce534f93" action="call" useFieldsInCommand="false">
                             <command>
-                                <body>clean_and_assert_expected_page(expected_page_should_appear=&quot;login&quot;)</body>
+                                <body>clean_and_assert_expected_page(expected_page_xpath=xpath_login)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
@@ -654,27 +677,19 @@
                         <body>Find usename/password textbox to input and login</body>
                     </command>
                     <nestedSteps>
-                        <item guid="4004f541-cf66-42b9-a38a-b2468c6b4383" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>xpath_username_textbox=&quot;//android.view.View[@content-desc=&apos;Username, email or mobile number&apos;]/../../android.widget.EditText&quot;</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="23dec3e0-ff53-46fc-b370-b029b826e5f0" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>xpath_password_textbox=&quot;//android.view.View[@content-desc=&apos;Password&apos;]/../../android.widget.EditText&quot;</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="2f0b4e12-3d4e-4cad-bb93-1a8ecd287fca" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>xpath_login=&quot;//android.view.View[@content-desc=&apos;Log in&apos;]&quot;</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
                         <item guid="be1c4e76-2cca-4221-bdd0-a120890c145e" action="call" useFieldsInCommand="false">
                             <command>
                                 <body>driver_wait_until_with_action(element=xpath_username_textbox, By=&quot;XPATH&quot;,expected_action=&quot;clear_text&quot;)</body>
+                            </command>
+                            <postProcessing>
+                                <storeResponseAt>is_command_successful</storeResponseAt>
+                                <storeResponseText>true</storeResponseText>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="946a8607-7135-494b-9902-07b47f8dcfa7" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>driver_find_with_action(element=xpath_username_textbox, By=&quot;XPATH&quot;,expected_action=&quot;send_keys&quot;,keys_input=username)</body>
                             </command>
                             <postProcessing>
                                 <storeResponseAt>is_command_successful</storeResponseAt>
@@ -687,16 +702,39 @@
                                 <body>driver_wait_until_with_action(element=xpath_password_textbox, By=&quot;XPATH&quot;,expected_action=&quot;clear_text&quot;)</body>
                             </command>
                             <postProcessing>
-                                <storeResponseAt>is_command_successful</storeResponseAt>
-                                <storeResponseText>true</storeResponseText>
-                            </postProcessing>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="61ec97cd-72c6-44cd-9c53-4108744e971f" action="call" useFieldsInCommand="false">
-                            <command>
-                                <body>driver_find_with_action(element=xpath_username_textbox, By=&quot;XPATH&quot;,expected_action=&quot;send_keys&quot;,keys_input=username)</body>
-                            </command>
-                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>True</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 1</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_successful=True</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_successful=False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="CallProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                            <command>clean_and_assert_expected_page(expected_page_xpath=xpath_password_textbox)</command>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
                                 <storeResponseAt>is_command_successful</storeResponseAt>
                                 <storeResponseText>true</storeResponseText>
                             </postProcessing>
@@ -707,6 +745,34 @@
                                 <body>driver_find_with_action(element=xpath_password_textbox, By=&quot;XPATH&quot;,expected_action=&quot;send_keys&quot;,keys_input=password)</body>
                             </command>
                             <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>True</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 1</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_successful=True</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_successful=False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
                                 <storeResponseAt>is_command_successful</storeResponseAt>
                                 <storeResponseText>true</storeResponseText>
                             </postProcessing>
@@ -791,13 +857,13 @@
                     <nestedSteps>
                         <item guid="323a726d-d566-48b3-88a6-d4ac6f185c8d" action="eval" useFieldsInCommand="false">
                             <command>
-                                <body>xpath_home_page=&quot;//android.widget.FrameLayout[@content-desc=&apos;Profile&apos;]&quot;</body>
+                                <body>xpath_profile_page=&quot;//android.widget.FrameLayout[@content-desc=&apos;Profile&apos;]&quot;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                         <item guid="1b938b80-7f98-4df6-a8ff-d059d8b59712" action="call" useFieldsInCommand="false">
                             <command>
-                                <body>driver_find_with_action(element=xpath_home_page,expected_action=&quot;is_displayed&quot;,By=&quot;XPATH&quot;)</body>
+                                <body>driver_find_with_action(element=xpath_profile_page,expected_action=&quot;is_displayed&quot;,By=&quot;XPATH&quot;)</body>
                             </command>
                             <postProcessing>
                                 <analysisRules>
@@ -840,7 +906,7 @@
                             <nestedSteps>
                                 <item guid="84bcab82-6c63-428c-935e-0acbb53b6416" action="call" useFieldsInCommand="false">
                                     <command>
-                                        <body>clean_and_assert_expected_page(expected_page_should_appear=&quot;home_profile&quot;)</body>
+                                        <body>clean_and_assert_expected_page(expected_page_xpath=xpath_profile_page)</body>
                                     </command>
                                     <postProcessing>
                                         <analysisRules>
@@ -1021,7 +1087,7 @@
                                                     <nestedSteps>
                                                         <item guid="0e2ddb9c-a5ee-4f7d-9334-d9bfe6c667ee" action="call" useFieldsInCommand="false">
                                                             <command>
-                                                                <body>clean_and_assert_expected_page(expected_page_should_appear=&quot;home&quot;)</body>
+                                                                <body>clean_and_assert_expected_page(expected_page_xpath=xpath_home_page)</body>
                                                             </command>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
@@ -1161,53 +1227,22 @@
                                                                     </postProcessing>
                                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                 </item>
-                                                                <item guid="9ed8d8a1-eb15-4cb5-b053-5c10eb45aa6c" action="call" useFieldsInCommand="false">
+                                                                <item guid="d59a0411-e722-4eb3-815e-ece011639c01" action="command" session="t1" useFieldsInCommand="false">
                                                                     <command>
-                                                                        <body>driver_find_with_action(element=xpath_home_page,expected_action=&quot;click&quot;)</body>
+                                                                        <body>time.sleep(2)</body>
                                                                     </command>
-                                                                    <postProcessing>
-                                                                        <storeResponseAt>is_command_successful</storeResponseAt>
-                                                                        <storeResponseText>true</storeResponseText>
-                                                                    </postProcessing>
                                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                 </item>
-                                                                <item guid="207ce991-4057-4c61-a2f1-f1bc71d3f440" action="if" useFieldsInCommand="false">
+                                                                <item guid="6d44221e-7899-4af9-8934-7e9c967047d3" action="comment" useFieldsInCommand="false">
                                                                     <command>
-                                                                        <body>not is_command_successful:</body>
+                                                                        <body>Re-Access Home Profile</body>
                                                                     </command>
                                                                     <nestedSteps>
-                                                                        <item guid="a711a912-1538-4c0f-9db2-70e9c32581b6" action="message" useFieldsInCommand="false">
+                                                                        <item guid="6da0670c-d161-4374-898a-9fc1ef00f221" action="call" useFieldsInCommand="false">
                                                                             <command>
-                                                                                <body>Error:Unable to access the Profile Settings - Options</body>
+                                                                                <body>access_home_profile()</body>
                                                                             </command>
-                                                                            <postProcessing>
-                                                                                <analysisRules>
-                                                                                    <item>
-                                                                                        <extractorInfo extractorType="none">
-                                                                                            <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
-                                                                                        </extractorInfo>
-                                                                                        <processorInfo ruleType="assert">
-                                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                                                <expression>True</expression>
-                                                                                                <actionsWhenFalse>
-                                                                                                    <item actionId="FailTest">
-                                                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                                                    </item>
-                                                                                                    <item actionId="CallProcedure">
-                                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
-                                                                                                        </actionProperties>
-                                                                                                    </item>
-                                                                                                </actionsWhenFalse>
-                                                                                            </ruleProperties>
-                                                                                        </processorInfo>
-                                                                                    </item>
-                                                                                </analysisRules>
-                                                                            </postProcessing>
-                                                                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
-                                                                                <severity inherit="false">Error</severity>
-                                                                                <message inherit="false">Unable to access the Profile Settings - Options</message>
-                                                                            </applicationProperties>
+                                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                         </item>
                                                                     </nestedSteps>
                                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
@@ -1603,13 +1638,13 @@
                     <nestedSteps>
                         <item guid="db74de87-14b3-4a22-9ba6-434587677936" action="eval" useFieldsInCommand="false">
                             <command>
-                                <body>xpath_home_page=&quot;//android.widget.FrameLayout[@content-desc=&apos;Profile&apos;]&quot;</body>
+                                <body>xpath_profile_page=&quot;//android.widget.FrameLayout[@content-desc=&apos;Profile&apos;]&quot;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                         <item guid="09a55716-609a-4f99-a33d-66dc83c5bda1" action="call" useFieldsInCommand="false">
                             <command>
-                                <body>driver_find_with_action(element=xpath_home_page,expected_action=&quot;click&quot;)</body>
+                                <body>driver_find_with_action(element=xpath_profile_page,expected_action=&quot;click&quot;)</body>
                             </command>
                             <postProcessing>
                                 <analysisRules>
@@ -1652,13 +1687,13 @@
                             <nestedSteps>
                                 <item guid="0f9e1797-4b8c-427c-89c2-698b01b3a90c" action="call" useFieldsInCommand="false">
                                     <command>
-                                        <body>clean_and_assert_expected_page(expected_page_should_appear=&quot;home_profile&quot;)</body>
+                                        <body>clean_and_assert_expected_page(expected_page_xpath=xpath_profile_page)</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
                                 <item guid="796dfe91-3645-4143-8ce4-aa3b35a59af0" action="call" useFieldsInCommand="false">
                                     <command>
-                                        <body>driver_find_with_action(element=xpath_home_page,expected_action=&quot;click&quot;)</body>
+                                        <body>driver_find_with_action(element=xpath_profile_page,expected_action=&quot;click&quot;)</body>
                                     </command>
                                     <postProcessing>
                                         <analysisRules>
@@ -3403,62 +3438,6 @@ find By.Accessibility_ID
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="d840f7f9-1880-4986-9deb-f56f0e10bad3" action="if" useFieldsInCommand="false">
-                            <command>
-                                <body>expected_page_should_appear==&quot;login&quot;:</body>
-                            </command>
-                            <nestedSteps>
-                                <item guid="dfc565d9-94d7-4af7-ba6f-e8aafb34753f" action="eval" useFieldsInCommand="false">
-                                    <command>
-                                        <body>expected_page_xpath=&quot;//android.view.View[@content-desc=&apos;Log in&apos;]&quot;</body>
-                                    </command>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                            </nestedSteps>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="978913f8-5ec7-4fb1-ba77-91cda37d499b" action="elif" useFieldsInCommand="false">
-                            <command>
-                                <body>expected_page_should_appear==&quot;home_profile&quot;:</body>
-                            </command>
-                            <nestedSteps>
-                                <item guid="dfc565d9-94d7-4af7-ba6f-e8aafb34753f" action="eval" useFieldsInCommand="false">
-                                    <command>
-                                        <body>expected_page_xpath=&quot;//android.widget.FrameLayout[@content-desc=&apos;Profile&apos;]&quot;</body>
-                                    </command>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                            </nestedSteps>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="7ac8616b-9b46-47ac-933e-3ce414f6591b" action="elif" useFieldsInCommand="false">
-                            <command>
-                                <body>expected_page_should_appear==&quot;home&quot;:</body>
-                            </command>
-                            <nestedSteps>
-                                <item guid="dfc565d9-94d7-4af7-ba6f-e8aafb34753f" action="eval" useFieldsInCommand="false">
-                                    <command>
-                                        <body>expected_page_xpath=&quot;//android.widget.FrameLayout[@content-desc=&apos;Home&apos;]&quot;</body>
-                                    </command>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                            </nestedSteps>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="21666c98-c3f1-4395-9cb5-e29cf8d3ea9c" action="elif" useFieldsInCommand="false">
-                            <command>
-                                <body>expected_page_should_appear==&quot;profile_option&quot;:</body>
-                            </command>
-                            <nestedSteps>
-                                <item guid="dfc565d9-94d7-4af7-ba6f-e8aafb34753f" action="eval" useFieldsInCommand="false">
-                                    <command>
-                                        <body>expected_page_xpath=&quot;//android.widget.Button[@content-desc=&apos;Options&apos;]&quot;</body>
-                                    </command>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                            </nestedSteps>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
                         <item guid="8020525d-6264-429d-a54b-e8d6e9845575" action="while" useFieldsInCommand="false">
                             <command>
                                 <body>timeout &gt; 0:</body>
@@ -3573,6 +3552,21 @@ find By.Accessibility_ID
                                                 <processorInfo ruleType="store">
                                                     <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
                                                         <storageLocation>device_autofill_layout</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
+                                                        <query>boolean(//android.widget.ListView[@resource-id=&quot;android:id/autofill_dataset_list&quot;]/descendant::android.widget.RelativeLayout[@resource-id=&quot;android:id/content&quot;][1])</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>google_autofill_layout</storageLocation>
                                                         <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
                                                         <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
                                                         <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
@@ -3716,6 +3710,34 @@ find By.Accessibility_ID
                                             </nestedSteps>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
+                                        <item guid="bcd03e97-f623-4039-89f7-06cff1c70d6b" action="comment" useFieldsInCommand="false">
+                                            <command>
+                                                <body>Handle &quot;google autofill&quot; popup</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="659052f7-4195-4ed3-99f8-c19563e0d663" action="if" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>google_autofill_layout == &apos;true&apos;:</body>
+                                                    </command>
+                                                    <nestedSteps>
+                                                        <item guid="1c5fede0-836d-410a-a977-48a7d7678769" action="eval" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>xpath_element=&quot;//android.widget.ListView[@resource-id=&apos;android:id/autofill_dataset_list&apos;]/descendant::android.widget.RelativeLayout[@resource-id=&apos;android:id/content&apos;][1]&quot;</body>
+                                                            </command>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="2c833132-1489-4501-9e8e-aa95032144e7" action="command" session="t1" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>driver.back()</body>
+                                                            </command>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
@@ -3808,7 +3830,7 @@ find By.Accessibility_ID
                 </item>
             </steps>
             <arguments>
-                <item name="expected_page_should_appear">
+                <item name="expected_page_xpath">
                     <isMandatory>true</isMandatory>
                 </item>
             </arguments>
@@ -4011,17 +4033,17 @@ find By.Accessibility_ID
                                     <item>
                                         <extractorInfo extractorType="contains">
                                             <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
-                                                <searchString>Shell$HomeActivity</searchString>
+                                                <searchString>MainTabActivity</searchString>
                                             </extractorProperties>
                                         </extractorInfo>
                                         <processorInfo ruleType="assert">
                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                <expression>value == 0</expression>
-                                                <actionsWhenFalse>
+                                                <expression>value == 1</expression>
+                                                <actionsWhenTrue>
                                                     <item actionId="RepeatStep">
                                                         <actionProperties type="com.fnfr.svt.execution.builtin.actions.RepeatStepPropertyGroup" maxRepeatCount="5" delayBetweenRepeats="3.0"/>
                                                     </item>
-                                                </actionsWhenFalse>
+                                                </actionsWhenTrue>
                                             </ruleProperties>
                                         </processorInfo>
                                     </item>
