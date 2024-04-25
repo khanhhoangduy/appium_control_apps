@@ -2512,7 +2512,7 @@
             </steps>
             <arguments>
                 <item name="allow">
-                    <defaultValue>false</defaultValue>
+                    <defaultValue>trues</defaultValue>
                     <isMandatory>true</isMandatory>
                 </item>
                 <item name="timeout">
@@ -2527,40 +2527,41 @@
         </item>
         <item name="handle_birthday_required" isPublic="true">
             <steps>
-                <item guid="2cf19979-c5b6-41e3-b1e0-98e95ad5f275" action="comment" useFieldsInCommand="false">
+                <item guid="74c73377-0f06-4554-b330-75221aa06579" action="comment" useFieldsInCommand="false">
                     <command>
-                        <body>Handle message &quot;When&apos;s your birthday&quot;</body>
+                        <body>Scroll the first time to get date time text</body>
                     </command>
                     <nestedSteps>
-                        <item guid="a46abc52-5f50-4430-a8cf-3c4960abfc59" action="call" useFieldsInCommand="false">
+                        <item guid="7a252131-05ef-43e1-ac20-79b3d0ade725" action="command" session="t1" useFieldsInCommand="false">
                             <command>
-                                <body>_findAndClickElement(xpath=&apos;//android.widget.EditText[@text=&quot;Birthday&quot;]&apos;, action=&apos;find&apos;, timeout=timeout, period=period)</body>
+                                <body>driver.find_element(By.ANDROID_UIAUTOMATOR, &apos;new UiScrollable(new UiSelector().scrollable(true).instance(2)).scrollToBeginning(1)&apos;)</body>
                             </command>
                             <postProcessing>
                                 <analysisRules>
                                     <item>
-                                        <extractorInfo extractorType="query">
-                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
-                                                <query>responseLine()</query>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>Traceback</searchString>
                                             </extractorProperties>
                                         </extractorInfo>
                                         <processorInfo ruleType="assert">
                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                <expression>str(value) == &quot;True&quot;</expression>
+                                                <expression>value == 1</expression>
                                                 <actionsWhenTrue>
-                                                    <item actionId="Eval">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                            <statement>success = True</statement>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                            <message>Can not scroll item index 2: year picker</message>
                                                         </actionProperties>
+                                                    </item>
+                                                    <item actionId="CallProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                            <command>_screenshot()</command>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="ExitProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
                                                     </item>
                                                 </actionsWhenTrue>
-                                                <actionsWhenFalse>
-                                                    <item actionId="Eval">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                            <statement>success = False</statement>
-                                                        </actionProperties>
-                                                    </item>
-                                                </actionsWhenFalse>
                                             </ruleProperties>
                                         </processorInfo>
                                     </item>
@@ -2568,40 +2569,224 @@
                             </postProcessing>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="7d939334-e010-45de-9103-cb7eb4297d11" action="if" useFieldsInCommand="false">
+                        <item guid="e15d56e5-763c-4424-a8ff-d59f32ddceb5" action="command" session="t1" useFieldsInCommand="false">
                             <command>
-                                <body>success:</body>
+                                <body>print(driver.find_element(By.XPATH, &apos;//android.widget.EditText[@resource-id=&quot;com.zhiliaoapp.musically:id/fka&quot;]&apos;).get_attribute(&apos;text&apos;))</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>Traceback</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 1</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="SkipRemainingRules">
+                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    </item>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                            <message>Can not find element id &quot;com.zhiliaoapp.musically:id/fka&quot;</message>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="CallProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                            <command>_screenshot()</command>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="ExitProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                    <item>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                <query>responseLine()</query>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="store">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                <storageLocation>dateTime</storageLocation>
+                                                <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="c88f0ec7-c3d2-4ee1-a48f-f8dd558c32f3" action="if" useFieldsInCommand="false">
+                    <command>
+                        <body>not dateTime:</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="0897906c-37ea-4b85-a509-f480a7fafc16" action="return">
+                            <command>
+                                <body>False</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="01f6fe9a-8aef-4d8b-b835-a94d331df8f1" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Scroll to over 18 years old</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="0a6e734d-a7c3-4035-8aba-32bcc84ab673" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>yearOver = 18</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="9c4f1328-bd37-4071-abfb-9a1fa781c673" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>import datetime</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="9e3133e4-150b-4d21-bfee-1717a6c80238" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>from datetime import datetime</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="04328f7b-e4c8-4664-a01d-a5d601169a8e" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>currentYear = datetime.now().year;print(currentYear)</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="819cdcfc-7ade-491a-86c5-4d2e948436b6" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>year = int(dateTime.split(&quot;,&quot;)[1]);print(year)</body>
+                            </command>
+                            <eventHandlers>
+                                <item name="OnInterpreterError">
+                                    <item actionId="DeclareExecutionIssue">
+                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                            <message>Can not get year from text &quot;[dateTime]&quot;</message>
+                                        </actionProperties>
+                                    </item>
+                                    <item actionId="ExitProcedure">
+                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                    </item>
+                                </item>
+                            </eventHandlers>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="b1b01ad1-4094-4652-9d40-981bdd46a1a2" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>tryTime = 20</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="4767b401-6225-49e5-8f63-c875a225b751" action="while" useFieldsInCommand="false">
+                            <command>
+                                <body>int(currentYear) - year &lt; yearOver and tryTime &gt; 0:</body>
                             </command>
                             <nestedSteps>
-                                <item guid="109db410-8dac-431e-9c10-7e2f4a67faad" action="call" useFieldsInCommand="false">
+                                <item guid="b3316739-2948-4e21-b8c3-100d5ebc5096" action="command" session="t1" useFieldsInCommand="false">
                                     <command>
-                                        <body>_findAndClickElement(xpath=&apos;//android.widget.Button[@text=&quot;Already have an account? Log in&quot;]&apos;, action=&apos;find&apos;, timeout=timeout, period=period)</body>
+                                        <body>driver.find_element(By.ANDROID_UIAUTOMATOR, &apos;new UiScrollable(new UiSelector().scrollable(true).instance(2)).scrollToBeginning(1)&apos;)</body>
                                     </command>
                                     <postProcessing>
                                         <analysisRules>
+                                            <item>
+                                                <extractorInfo extractorType="contains">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                        <searchString>Traceback</searchString>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="assert">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                        <expression>value == 1</expression>
+                                                        <actionsWhenTrue>
+                                                            <item actionId="DeclareExecutionIssue">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                                    <message>Can not scroll item index 2: year picker</message>
+                                                                </actionProperties>
+                                                            </item>
+                                                            <item actionId="CallProcedure">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                    <command>_screenshot()</command>
+                                                                </actionProperties>
+                                                            </item>
+                                                            <item actionId="ExitProcedure">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                            </item>
+                                                        </actionsWhenTrue>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                        </analysisRules>
+                                    </postProcessing>
+                                    <eventHandlers>
+                                        <item name="OnRepeatStepMaxCountExceeded"/>
+                                    </eventHandlers>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="b98284db-b1f5-416b-97bf-65923151a5d7" action="command" session="t1" useFieldsInCommand="false">
+                                    <command>
+                                        <body>print(driver.find_element(By.XPATH, &apos;//android.widget.EditText[@resource-id=&quot;com.zhiliaoapp.musically:id/fka&quot;]&apos;).get_attribute(&apos;text&apos;))</body>
+                                    </command>
+                                    <postProcessing>
+                                        <analysisRules>
+                                            <item>
+                                                <extractorInfo extractorType="contains">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                        <searchString>Traceback</searchString>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="assert">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                        <expression>value == 1</expression>
+                                                        <actionsWhenTrue>
+                                                            <item actionId="SkipRemainingRules">
+                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                            </item>
+                                                            <item actionId="DeclareExecutionIssue">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                                    <message>Can not find element id &quot;com.zhiliaoapp.musically:id/fka&quot;</message>
+                                                                </actionProperties>
+                                                            </item>
+                                                            <item actionId="CallProcedure">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                    <command>_screenshot()</command>
+                                                                </actionProperties>
+                                                            </item>
+                                                            <item actionId="ExitProcedure">
+                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                            </item>
+                                                        </actionsWhenTrue>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
                                             <item>
                                                 <extractorInfo extractorType="query">
                                                     <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
                                                         <query>responseLine()</query>
                                                     </extractorProperties>
                                                 </extractorInfo>
-                                                <processorInfo ruleType="assert">
-                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                        <expression>str(value) == &quot;True&quot;</expression>
-                                                        <actionsWhenTrue>
-                                                            <item actionId="Eval">
-                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                                    <statement>found = True</statement>
-                                                                </actionProperties>
-                                                            </item>
-                                                        </actionsWhenTrue>
-                                                        <actionsWhenFalse>
-                                                            <item actionId="Eval">
-                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                                    <statement>found = False</statement>
-                                                                </actionProperties>
-                                                            </item>
-                                                        </actionsWhenFalse>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>dateTime</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
                                                     </ruleProperties>
                                                 </processorInfo>
                                             </item>
@@ -2609,14 +2794,82 @@
                                     </postProcessing>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="54fe6b0e-f898-481d-8288-af853f188dc9" action="if" useFieldsInCommand="false">
+                                <item guid="0bdf14ea-371c-4429-a408-b66885a07dca" action="eval" useFieldsInCommand="false">
                                     <command>
-                                        <body>found:</body>
+                                        <body>year = int(dateTime.split(&quot;,&quot;)[1]);print(year)</body>
+                                    </command>
+                                    <eventHandlers>
+                                        <item name="OnInterpreterError">
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                    <message>Can not get year from text &quot;[dateTime]&quot;</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="ExitProcedure">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                            </item>
+                                        </item>
+                                    </eventHandlers>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="650c635a-f62a-4a95-86af-27cc2c4f35b0" action="command" session="t1" useFieldsInCommand="false">
+                                    <command>
+                                        <body>time.sleep(2.00)</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="424520b3-4be1-4219-b2ec-113cdeef9ccc" action="eval" useFieldsInCommand="false">
+                                    <command>
+                                        <body>tryTime -= 1</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="8278395a-487f-4e63-ab9e-331714bcc777" action="if" useFieldsInCommand="false">
+                            <command>
+                                <body>tryTime == 0 and  int(currentYear) - year &lt; yearOver:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="a5e281a2-4162-411c-a7f9-7616cca68e90" action="message" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Information: Can not set birthday over [yearOver] years old</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                        <message inherit="false"> Can not set birthday over [yearOver] years old</message>
+                                    </applicationProperties>
+                                </item>
+                                <item guid="4c57fa18-e3ae-47f5-87b2-439c4b928a10" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>_screenshot()</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="bb6da750-82aa-4ee7-8fa5-c825dd89a31a" action="return">
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="13b6f3ef-cf95-4860-be59-6210b1b0a8fa" action="else" useFieldsInCommand="false">
+                            <nestedSteps>
+                                <item guid="2587226c-62a2-4cba-a14a-8fe5fd3cf00e" action="message" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Information:Set birthday is &quot;[dateTime]&quot;</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                        <message inherit="false">Set birthday is &quot;[dateTime]&quot;</message>
+                                    </applicationProperties>
+                                </item>
+                                <item guid="d2796fe1-b814-41ef-b584-c9233ac8b9e3" action="comment" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Click next to continue</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="3a54904e-66d8-4a86-9b53-f7abf98465bf" action="call" useFieldsInCommand="false">
+                                        <item guid="418d2ee8-fa59-4f67-b488-4453d6bffc89" action="call" useFieldsInCommand="false">
                                             <command>
-                                                <body>_findAndClickElement(xpath=&apos;//android.widget.Button[@text=&quot;Already have an account? Log in&quot;]&apos;, action=&apos;click&apos;, timeout=&apos;1&apos;, period=&apos;1&apos;)</body>
+                                                <body>_findAndClickElement(xpath=&apos;//android.widget.Button[@text=&quot;Next&quot;]&apos;, action=&apos;click&apos;, timeout=&apos;10&apos;, period=&apos;5&apos;)</body>
                                             </command>
                                             <postProcessing>
                                                 <analysisRules>
@@ -2632,15 +2885,28 @@
                                                                 <actionsWhenTrue>
                                                                     <item actionId="Eval">
                                                                         <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                                            <statement>found = True</statement>
+                                                                            <statement>success = True</statement>
                                                                         </actionProperties>
                                                                     </item>
                                                                 </actionsWhenTrue>
                                                                 <actionsWhenFalse>
                                                                     <item actionId="Eval">
                                                                         <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                                            <statement>found = False</statement>
+                                                                            <statement>success = False</statement>
                                                                         </actionProperties>
+                                                                    </item>
+                                                                    <item actionId="DeclareExecutionIssue">
+                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                                            <message>Can not click the &quot;Next&quot; button</message>
+                                                                        </actionProperties>
+                                                                    </item>
+                                                                    <item actionId="CallProcedure">
+                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                            <command>_screenshot()</command>
+                                                                        </actionProperties>
+                                                                    </item>
+                                                                    <item actionId="ExitProcedure">
+                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
                                                                     </item>
                                                                 </actionsWhenFalse>
                                                             </ruleProperties>
@@ -2650,78 +2916,16 @@
                                             </postProcessing>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="e39572ea-8c01-4720-8a2c-6eb02d568061" action="return">
-                                            <command>
-                                                <body>[found]</body>
-                                            </command>
-                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                        </item>
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="ec70514e-4714-4a0c-a0d7-708e9858d489" action="message" useFieldsInCommand="false">
-                                    <command>
-                                        <body>Information:Require manual set your birthday.. waiting for 3 mins</body>
-                                    </command>
-                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
-                                        <message inherit="false">Require manual set your birthday.. waiting for 3 mins</message>
-                                    </applicationProperties>
-                                </item>
-                                <item guid="8c2241b8-6b68-4734-9163-faf1e5cf205d" action="command" session="t1" useFieldsInCommand="false">
-                                    <command>
-                                        <body>driver.find_element(By.XPATH, &apos;//android.widget.TextView[@text=&quot;When\\’s your birthday?&quot;]&apos;)</body>
-                                    </command>
-                                    <postProcessing>
-                                        <analysisRules>
-                                            <item>
-                                                <extractorInfo extractorType="contains">
-                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
-                                                        <searchString>Traceback</searchString>
-                                                    </extractorProperties>
-                                                </extractorInfo>
-                                                <processorInfo ruleType="assert">
-                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                        <expression>value == 1</expression>
-                                                        <actionsWhenTrue>
-                                                            <item actionId="Eval">
-                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                                    <statement>success = True</statement>
-                                                                </actionProperties>
-                                                            </item>
-                                                        </actionsWhenTrue>
-                                                        <actionsWhenFalse>
-                                                            <item actionId="Eval">
-                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
-                                                                    <statement>success = False</statement>
-                                                                </actionProperties>
-                                                            </item>
-                                                            <item actionId="RepeatStep">
-                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.RepeatStepPropertyGroup" maxRepeatCount="36" delayBetweenRepeats="5.0"/>
-                                                            </item>
-                                                        </actionsWhenFalse>
-                                                    </ruleProperties>
-                                                </processorInfo>
-                                            </item>
-                                        </analysisRules>
-                                    </postProcessing>
-                                    <eventHandlers>
-                                        <item name="OnRepeatStepMaxCountExceeded"/>
-                                    </eventHandlers>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                                <item guid="e896029f-7fd8-4691-afe1-cc2efb34f478" action="return">
+                                <item guid="d3cd6099-bfc5-4eb5-826f-f477f180bbe2" action="return">
                                     <command>
                                         <body>[success]</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
                             </nestedSteps>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="9906b488-ceea-4838-8b31-50ed259c09b4" action="return">
-                            <command>
-                                <body>s</body>
-                            </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
@@ -3312,6 +3516,161 @@
                 </item>
             </arguments>
         </item>
+        <item name="handle_create_nickname" isPublic="true">
+            <steps>
+                <item guid="ebbf4379-4350-4498-ad1f-b17674649f5c" action="if" useFieldsInCommand="false">
+                    <command>
+                        <body>nickname:</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="f2f48935-d7ce-4845-8af3-155880f39225" action="comment" useFieldsInCommand="false">
+                            <command>
+                                <body>TODO: not implement yet</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="4aac2ee2-a3a9-4de5-a4ee-dc2491baff93" action="else" useFieldsInCommand="false">
+                    <nestedSteps>
+                        <item guid="014df86c-ba95-4a21-82cf-69c9f39399cf" action="comment" useFieldsInCommand="false">
+                            <command>
+                                <body>Find and click skip button</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="c43b9a65-d78a-4e54-b348-b1414203431b" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>_findAndClickElement(xpath=&apos;//android.widget.Button[@text=&quot;Skip&quot;]&apos;, action=&apos;click&apos;, timeout=&apos;5&apos;)</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                <query>responseLine()</query>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="store">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                <storageLocation>skipSuccess</storageLocation>
+                                                <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="bd0ec8a9-6f53-4a6e-9716-a52f5a5b0fc1" action="if" useFieldsInCommand="false">
+                            <command>
+                                <body>skipSuccess == &apos;False&apos;:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="944f26d0-f031-4c74-b031-9de008cfd61a" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>_findAndClickElement(xpath=&apos;//android.widget.TextView[@text=&quot;Skip&quot;]&apos;, action=&apos;click&apos;, timeout=&apos;5&apos;)</body>
+                                    </command>
+                                    <postProcessing>
+                                        <analysisRules>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                        <query>responseLine()</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>skipSuccess</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                        </analysisRules>
+                                    </postProcessing>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="c5c68d01-b3de-44a7-9661-978231cca549" action="if" useFieldsInCommand="false">
+                                    <command>
+                                        <body>skipSuccess == &apos;False&apos;:</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="56e7dd81-d8a3-46eb-94f1-5bd2ba8436b5" action="message" useFieldsInCommand="false">
+                                            <command>
+                                                <body>Error: Can not skip &quot;Create nickname&quot; page</body>
+                                            </command>
+                                            <postProcessing>
+                                                <analysisRules>
+                                                    <item>
+                                                        <extractorInfo extractorType="query">
+                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                <query>isEmpty()</query>
+                                                            </extractorProperties>
+                                                        </extractorInfo>
+                                                        <processorInfo ruleType="assert">
+                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                <expression>value == &quot;true&quot;</expression>
+                                                                <actionsWhenTrue>
+                                                                    <item actionId="CallProcedure">
+                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                            <command>_screenshot()</command>
+                                                                        </actionProperties>
+                                                                    </item>
+                                                                    <item actionId="FailTest">
+                                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                    </item>
+                                                                    <item actionId="ExitProcedure">
+                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                                    </item>
+                                                                </actionsWhenTrue>
+                                                            </ruleProperties>
+                                                        </processorInfo>
+                                                    </item>
+                                                </analysisRules>
+                                            </postProcessing>
+                                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                <severity inherit="false">Error</severity>
+                                                <message inherit="false"> Can not skip &quot;Create nickname&quot; page</message>
+                                            </applicationProperties>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="ae49d0bd-1871-44ca-a0d4-b5823dbfe74f" action="else" useFieldsInCommand="false">
+                                    <nestedSteps>
+                                        <item guid="0fb741f4-4a2e-4844-b233-0df54d2aeb74" action="message" useFieldsInCommand="false">
+                                            <command>
+                                                <body>Information:Skip &quot;Create nickname&quot; page</body>
+                                            </command>
+                                            <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                <message inherit="false">Skip &quot;Create nickname&quot; page</message>
+                                            </applicationProperties>
+                                        </item>
+                                        <item guid="56f0d798-1e5a-48df-9e1c-a1203c04c2f1" action="return">
+                                            <command>
+                                                <body>True</body>
+                                            </command>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="nickname"/>
+            </arguments>
+        </item>
         <item name="waiting_for_app_start_or_playing" isPublic="true">
             <steps>
                 <item guid="dea1b38d-fa33-4111-b4b2-b3f089b158fe" action="comment" useFieldsInCommand="false">
@@ -3340,6 +3699,12 @@
                         <item guid="67953d33-7b9b-4693-a2b6-018b7c7b6f0c" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>verifyWait = False</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="eec0703c-6573-46c7-a7db-9532b21c182d" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>birthdayTimeout = 180</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
@@ -3474,6 +3839,21 @@
                                             <item>
                                                 <extractorInfo extractorType="query">
                                                     <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                        <query>boolean(//android.widget.TextView[@text=&quot;Sign in to TikTok&quot;])</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>signinToTiktokFound</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
                                                         <query>boolean(//android.widget.Button[lower-case(@text)=&quot;continue&quot;])</query>
                                                     </extractorProperties>
                                                 </extractorInfo>
@@ -3525,6 +3905,21 @@
                                                 <processorInfo ruleType="store">
                                                     <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
                                                         <storageLocation>interestsFound</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                        <query>boolean(//android.widget.TextView[@text=&quot;Create nickname&quot;])</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>createNicknameFound</storageLocation>
                                                         <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
                                                         <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
                                                         <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
@@ -3594,6 +3989,36 @@
                                             <item>
                                                 <extractorInfo extractorType="query">
                                                     <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                        <query>boolean(//android.widget.TextView[@text=&quot;Community Guidelines Update&quot;])</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>guidelineFound</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                        <query>boolean(//android.widget.TextView[@text=&quot;Notifications keep you up to date!&quot;])</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>keepYouUpFound</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
                                                         <query>boolean(//android.widget.Button[@text=&quot;Watch and follow&quot;])</query>
                                                     </extractorProperties>
                                                 </extractorInfo>
@@ -3624,12 +4049,61 @@
                                                     <command>
                                                         <body>_findAndClickElement(xpath=&apos;//android.widget.ImageView[@content-desc=&quot;Cancel&quot;]&apos;, elementID=&apos;&apos;, action=&apos;click&apos;, timeout=&apos;5&apos;)</body>
                                                     </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="query">
+                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                        <query>responseLine()</query>
+                                                                    </extractorProperties>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="assert">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                        <expression>str(value) == &quot;True&quot;</expression>
+                                                                        <actionsWhenTrue>
+                                                                            <item actionId="Eval">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                    <statement>success = True</statement>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                        </actionsWhenTrue>
+                                                                        <actionsWhenFalse>
+                                                                            <item actionId="Eval">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                    <statement>success = False</statement>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                            <item actionId="CallProcedure">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                    <command>_screenshot()</command>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                            <item actionId="ExitProcedure">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                                            </item>
+                                                                        </actionsWhenFalse>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
-                                                <item guid="11367796-7744-474c-b0e7-0dc28b01f0a6" action="eval" useFieldsInCommand="false">
+                                                <item guid="a62c7697-7c46-45e4-bb6a-4f97249bf28b" action="if" useFieldsInCommand="false">
                                                     <command>
-                                                        <body>loginPageFound = True</body>
+                                                        <body>success:</body>
                                                     </command>
+                                                    <nestedSteps>
+                                                        <item guid="d142f154-1333-4426-a07b-2d2b29f5f2be" action="command" session="t1" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>time.sleep(1.50)</body>
+                                                            </command>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="eded8a8f-a988-46a1-9707-f96a97b53153" action="continue" useFieldsInCommand="false">
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
                                             </nestedSteps>
@@ -3646,6 +4120,59 @@
                                         <item guid="659052f7-4195-4ed3-99f8-c19563e0d663" action="if" useFieldsInCommand="false">
                                             <command>
                                                 <body>signinWithGoogleFound == &apos;true&apos; and continueWithGoogleFoundFound == &apos;true&apos;:</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="e92be9bd-cf11-4f05-bba4-569fb3d02d9f" action="call" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>_findAndClickElement(xpath=&apos;//android.widget.ImageView[@content-desc=&quot;Cancel&quot;]&apos;, elementID=&apos;&apos;, action=&apos;click&apos;, timeout=&apos;5&apos;)</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="query">
+                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                        <query>responseLine()</query>
+                                                                    </extractorProperties>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="assert">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                        <expression>str(value) == &quot;True&quot;</expression>
+                                                                        <actionsWhenFalse>
+                                                                            <item actionId="DeclareExecutionIssue">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                                                    <message>Can not bypass the &quot;Sign in with Google&quot; popup</message>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                            <item actionId="CallProcedure">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                    <command>_screenshot()</command>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                            <item actionId="ExitProcedure">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                                            </item>
+                                                                        </actionsWhenFalse>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="8126ae67-267e-43e7-bfd9-0af5912bd178" action="comment" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Handle &quot;Sign in to TikTok&quot; popup</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="659052f7-4195-4ed3-99f8-c19563e0d663" action="if" useFieldsInCommand="false">
+                                            <command>
+                                                <body>signinToTiktokFound == &apos;true&apos;:</body>
                                             </command>
                                             <nestedSteps>
                                                 <item guid="e92be9bd-cf11-4f05-bba4-569fb3d02d9f" action="call" useFieldsInCommand="false">
@@ -3741,6 +4268,56 @@
                                                     <command>
                                                         <body>handle_birthday_required()</body>
                                                     </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="query">
+                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                        <query>responseLine()</query>
+                                                                    </extractorProperties>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="assert">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                        <expression>str(value) == &quot;True&quot;</expression>
+                                                                        <actionsWhenTrue>
+                                                                            <item actionId="Eval">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                    <statement>success = True</statement>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                        </actionsWhenTrue>
+                                                                        <actionsWhenFalse>
+                                                                            <item actionId="Eval">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                    <statement>success = False</statement>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                            <item actionId="ExitProcedure">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                                            </item>
+                                                                        </actionsWhenFalse>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="c48711fd-e277-4552-b5dd-ce723eb18306" action="if" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>success:</body>
+                                                    </command>
+                                                    <nestedSteps>
+                                                        <item guid="d142f154-1333-4426-a07b-2d2b29f5f2be" action="command" session="t1" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>time.sleep(1.50)</body>
+                                                            </command>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="eded8a8f-a988-46a1-9707-f96a97b53153" action="continue" useFieldsInCommand="false">
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
                                             </nestedSteps>
@@ -3866,6 +4443,78 @@
                                                                     </applicationProperties>
                                                                 </item>
                                                             </nestedSteps>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="338805a7-c4b1-4fe5-8831-0a38e7cf96aa" action="comment" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Handle &quot;Create nickname&quot; page</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="a2f5853a-a10d-4ed0-bac5-53f061295a24" action="if" useFieldsInCommand="false">
+                                            <command>
+                                                <body>createNicknameFound == &apos;true&apos;:</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="6ff3e7ea-f4f9-4b2b-9add-bb3188f10e9c" action="call" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>handle_create_nickname()</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="query">
+                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                        <query>responseLine()</query>
+                                                                    </extractorProperties>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="assert">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                        <expression>str(value) == &quot;True&quot;</expression>
+                                                                        <actionsWhenTrue>
+                                                                            <item actionId="Eval">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                    <statement>success = True</statement>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                        </actionsWhenTrue>
+                                                                        <actionsWhenFalse>
+                                                                            <item actionId="Eval">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                    <statement>success = False</statement>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                            <item actionId="ExitProcedure">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                                            </item>
+                                                                        </actionsWhenFalse>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="0aed5fab-6ea1-4f84-be7b-7676be598cff" action="if" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>success:</body>
+                                                    </command>
+                                                    <nestedSteps>
+                                                        <item guid="ee9794d3-ad0e-4db3-80bd-b90814e40e22" action="command" session="t1" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>time.sleep(1.50)</body>
+                                                            </command>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="eded8a8f-a988-46a1-9707-f96a97b53153" action="continue" useFieldsInCommand="false">
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
                                                     </nestedSteps>
@@ -4085,6 +4734,292 @@
                                                             </item>
                                                         </analysisRules>
                                                     </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="e9e4ca2d-fc8c-41fc-9f5f-499410254b9f" action="comment" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Handle &quot;Community Guidelines Update&quot; popup</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="659052f7-4195-4ed3-99f8-c19563e0d663" action="if" useFieldsInCommand="false">
+                                            <command>
+                                                <body>guidelineFound == &apos;true&apos;:</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="e92be9bd-cf11-4f05-bba4-569fb3d02d9f" action="call" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>_findAndClickElement(xpath=&apos;//android.widget.Button[@text=&quot;Got it&quot;]&apos;, elementID=&apos;&apos;, action=&apos;click&apos;, timeout=&apos;5&apos;)</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="query">
+                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                        <query>responseLine()</query>
+                                                                    </extractorProperties>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="store">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                                        <storageLocation>skipSuccess</storageLocation>
+                                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="853b659c-fa7f-4407-82e4-fa40fb6747cf" action="if" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>skipSuccess == &apos;False&apos;:</body>
+                                                    </command>
+                                                    <nestedSteps>
+                                                        <item guid="944f26d0-f031-4c74-b031-9de008cfd61a" action="call" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>_findAndClickElement(xpath=&apos;//android.widget.TextView[@text=&quot;Got it&quot;]&apos;, action=&apos;click&apos;, timeout=&apos;5&apos;)</body>
+                                                            </command>
+                                                            <postProcessing>
+                                                                <analysisRules>
+                                                                    <item>
+                                                                        <extractorInfo extractorType="query">
+                                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                                <query>responseLine()</query>
+                                                                            </extractorProperties>
+                                                                        </extractorInfo>
+                                                                        <processorInfo ruleType="store">
+                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                                                <storageLocation>skipSuccess</storageLocation>
+                                                                                <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                                                <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                                                <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                                            </ruleProperties>
+                                                                        </processorInfo>
+                                                                    </item>
+                                                                </analysisRules>
+                                                            </postProcessing>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="c5c68d01-b3de-44a7-9661-978231cca549" action="if" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>skipSuccess == &apos;False&apos;:</body>
+                                                            </command>
+                                                            <nestedSteps>
+                                                                <item guid="56e7dd81-d8a3-46eb-94f1-5bd2ba8436b5" action="message" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>Error: Can not find and click &quot;Got it&quot; button</body>
+                                                                    </command>
+                                                                    <postProcessing>
+                                                                        <analysisRules>
+                                                                            <item>
+                                                                                <extractorInfo extractorType="query">
+                                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                                        <query>isEmpty()</query>
+                                                                                    </extractorProperties>
+                                                                                </extractorInfo>
+                                                                                <processorInfo ruleType="assert">
+                                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                                        <expression>value == &quot;true&quot;</expression>
+                                                                                        <actionsWhenTrue>
+                                                                                            <item actionId="CallProcedure">
+                                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                                    <command>_screenshot()</command>
+                                                                                                </actionProperties>
+                                                                                            </item>
+                                                                                            <item actionId="FailTest">
+                                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                                            </item>
+                                                                                            <item actionId="ExitProcedure">
+                                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                                                            </item>
+                                                                                        </actionsWhenTrue>
+                                                                                    </ruleProperties>
+                                                                                </processorInfo>
+                                                                            </item>
+                                                                        </analysisRules>
+                                                                    </postProcessing>
+                                                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                                        <severity inherit="false">Error</severity>
+                                                                        <message inherit="false"> Can not find and click &quot;Got it&quot; button</message>
+                                                                    </applicationProperties>
+                                                                </item>
+                                                            </nestedSteps>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="8ed31242-0fca-4c9e-9709-479c12539854" action="else" useFieldsInCommand="false">
+                                                            <nestedSteps>
+                                                                <item guid="44e50277-f72d-4aa6-944e-9385063e550c" action="message" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>Information:Select &quot;Got it&quot; for &quot;Community Guidelines Update&quot; popup</body>
+                                                                    </command>
+                                                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                                        <severity inherit="false" defaultValue=""/>
+                                                                        <message inherit="false">Select &quot;Got it&quot; for &quot;Community Guidelines Update&quot; popup</message>
+                                                                    </applicationProperties>
+                                                                </item>
+                                                                <item guid="5e848170-a7c6-4e9b-9b7d-8bb6964a4da8" action="command" session="t1" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>time.sleep(1.50)</body>
+                                                                    </command>
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                </item>
+                                                                <item guid="ec558713-9e80-46ee-8454-bee0003dbbb2" action="continue" useFieldsInCommand="false">
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                </item>
+                                                            </nestedSteps>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="b8addb0a-f5ba-47a3-9733-ec76788ca515" action="comment" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Handle &quot;Notifications keep you up to date!&quot; popup</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="659052f7-4195-4ed3-99f8-c19563e0d663" action="if" useFieldsInCommand="false">
+                                            <command>
+                                                <body>keepYouUpFound == &apos;true&apos;:</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="e92be9bd-cf11-4f05-bba4-569fb3d02d9f" action="call" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>_findAndClickElement(xpath=&apos;//android.widget.Button[@text=&quot;Later&quot;]&apos;, elementID=&apos;&apos;, action=&apos;click&apos;, timeout=&apos;5&apos;)</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="query">
+                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                        <query>responseLine()</query>
+                                                                    </extractorProperties>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="store">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                                        <storageLocation>skipSuccess</storageLocation>
+                                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="853b659c-fa7f-4407-82e4-fa40fb6747cf" action="if" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>skipSuccess == &apos;False&apos;:</body>
+                                                    </command>
+                                                    <nestedSteps>
+                                                        <item guid="944f26d0-f031-4c74-b031-9de008cfd61a" action="call" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>_findAndClickElement(xpath=&apos;//android.widget.TextView[@text=&quot;Later&quot;]&apos;, action=&apos;click&apos;, timeout=&apos;5&apos;)</body>
+                                                            </command>
+                                                            <postProcessing>
+                                                                <analysisRules>
+                                                                    <item>
+                                                                        <extractorInfo extractorType="query">
+                                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                                <query>responseLine()</query>
+                                                                            </extractorProperties>
+                                                                        </extractorInfo>
+                                                                        <processorInfo ruleType="store">
+                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                                                <storageLocation>skipSuccess</storageLocation>
+                                                                                <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                                                <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                                                <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                                            </ruleProperties>
+                                                                        </processorInfo>
+                                                                    </item>
+                                                                </analysisRules>
+                                                            </postProcessing>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="c5c68d01-b3de-44a7-9661-978231cca549" action="if" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>skipSuccess == &apos;False&apos;:</body>
+                                                            </command>
+                                                            <nestedSteps>
+                                                                <item guid="56e7dd81-d8a3-46eb-94f1-5bd2ba8436b5" action="message" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>Error: Can not find and click &quot;Later&quot; button</body>
+                                                                    </command>
+                                                                    <postProcessing>
+                                                                        <analysisRules>
+                                                                            <item>
+                                                                                <extractorInfo extractorType="query">
+                                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                                        <query>isEmpty()</query>
+                                                                                    </extractorProperties>
+                                                                                </extractorInfo>
+                                                                                <processorInfo ruleType="assert">
+                                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                                        <expression>value == &quot;true&quot;</expression>
+                                                                                        <actionsWhenTrue>
+                                                                                            <item actionId="CallProcedure">
+                                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                                    <command>_screenshot()</command>
+                                                                                                </actionProperties>
+                                                                                            </item>
+                                                                                            <item actionId="FailTest">
+                                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                                            </item>
+                                                                                            <item actionId="ExitProcedure">
+                                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                                                            </item>
+                                                                                        </actionsWhenTrue>
+                                                                                    </ruleProperties>
+                                                                                </processorInfo>
+                                                                            </item>
+                                                                        </analysisRules>
+                                                                    </postProcessing>
+                                                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                                        <severity inherit="false">Error</severity>
+                                                                        <message inherit="false"> Can not find and click &quot;Later&quot; button</message>
+                                                                    </applicationProperties>
+                                                                </item>
+                                                            </nestedSteps>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="36cdf86e-894e-4a3a-b99c-1d13ac127052" action="else" useFieldsInCommand="false">
+                                                            <nestedSteps>
+                                                                <item guid="44e50277-f72d-4aa6-944e-9385063e550c" action="message" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>Information:Select &quot;Later&quot; for &quot;Notifications keep you up to date!&quot; popup</body>
+                                                                    </command>
+                                                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                                        <severity inherit="false" defaultValue=""/>
+                                                                        <message inherit="false">Select &quot;Later&quot; for &quot;Notifications keep you up to date!&quot; popup</message>
+                                                                    </applicationProperties>
+                                                                </item>
+                                                                <item guid="5e848170-a7c6-4e9b-9b7d-8bb6964a4da8" action="command" session="t1" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>time.sleep(1.50)</body>
+                                                                    </command>
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                </item>
+                                                                <item guid="ec558713-9e80-46ee-8454-bee0003dbbb2" action="continue" useFieldsInCommand="false">
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                </item>
+                                                            </nestedSteps>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
                                             </nestedSteps>
