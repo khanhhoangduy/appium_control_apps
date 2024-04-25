@@ -192,6 +192,12 @@
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
+                        <item guid="d4dcc640-4267-4754-bbb9-bbb7da680496" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>handle_notification_ask()</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
                         <item guid="7e9b2032-2b8d-46bc-a366-52a59d15f023" action="call" useFieldsInCommand="false">
                             <command>
                                 <body>enable_stats_for_nerds(fresh_start=fresh_start)</body>
@@ -260,6 +266,12 @@
                                 <body>Wait until the video is playing</body>
                             </command>
                             <nestedSteps>
+                                <item guid="8bfa77d0-7f32-42bc-8c2e-9633e58e162a" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>handle_notification_ask()</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
                                 <item guid="3feb49b8-cd28-4b79-b90b-6fee201741c3" action="eval" useFieldsInCommand="false">
                                     <command>
                                         <body>xpath_to_progress_loading = &apos;//android.widget.ProgressBar[@resource-id=&quot;com.google.android.youtube:id/player_loading_view_thin&quot;]&apos;</body>
@@ -878,6 +890,12 @@
                                 <body>i in range(0, 10):</body>
                             </command>
                             <nestedSteps>
+                                <item guid="8c80f21d-3672-41c4-97f7-f6dd089a6536" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>handle_notification_ask()</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
                                 <item guid="11a84334-b4bc-450f-8eca-f7c54fd79208" action="command" session="s1" estimatedStepExecutionTime="1.662">
                                     <command>
                                         <body>driver.find_element(By.ID, &apos;[video_player_id]&apos;).click()</body>
@@ -2727,6 +2745,123 @@
                                 <severity inherit="false">OK</severity>
                                 <message inherit="false">Successfully opened the Youtube application</message>
                             </applicationProperties>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="handle_notification_ask" isPublic="true">
+            <steps>
+                <item guid="c032aaf5-af12-4c9d-939b-b347be03a53f" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Youtube will be asking for sending notification sometimes, this taps the &quot;Allow&quot; button</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="202a1590-faff-4c57-a32a-536efb6268b3" action="command" session="s1" useFieldsInCommand="false">
+                    <command>
+                        <body>driver.current_activity</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="contains">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                        <searchString>GrantPermissionsActivity</searchString>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="assert">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                        <expression>value == 1</expression>
+                                        <actionsWhenFalse>
+                                            <item actionId="ExitProcedure">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                            </item>
+                                        </actionsWhenFalse>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="a9ec3b84-640a-4b26-b45e-17f210a243d1" action="command" session="s1" estimatedStepExecutionTime="1.662" useFieldsInCommand="false">
+                    <command>
+                        <body>driver.find_element(By.ID, &apos;com.android.permissioncontroller:id/permission_allow_button&apos;).click()</body>
+                    </command>
+                    <postProcessing>
+                        <analysisRules>
+                            <item>
+                                <extractorInfo extractorType="contains">
+                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                        <searchString>Traceback (most recent call last):</searchString>
+                                    </extractorProperties>
+                                </extractorInfo>
+                                <processorInfo ruleType="assert">
+                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                        <expression>value == 1</expression>
+                                        <actionsWhenTrue>
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                    <message>Cannot find the &quot;Allow&quot; button</message>
+                                                </actionProperties>
+                                            </item>
+                                            <item actionId="FailTest">
+                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            </item>
+                                            <item actionId="ExitExecution">
+                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                            </item>
+                                        </actionsWhenTrue>
+                                        <actionsWhenFalse>
+                                            <item actionId="DeclareExecutionIssue">
+                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="OK">
+                                                    <message>Detected a popup asking to allow sending notification - Tapped &quot;Allow&quot;</message>
+                                                </actionProperties>
+                                            </item>
+                                        </actionsWhenFalse>
+                                    </ruleProperties>
+                                </processorInfo>
+                            </item>
+                        </analysisRules>
+                    </postProcessing>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="729d7872-b71b-49d5-82a8-861edfce1924" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>After allowing the notification, relaunch the app if it does not</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="076838de-84ce-47c6-b77b-221e06c80c1e" action="command" session="s1" useFieldsInCommand="false">
+                            <command>
+                                <body>driver.current_package</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>[gget(&apos;ytb_app_pkg&apos;)]</searchString>
+                                                <matchType>CaseInsensitive</matchType>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 1</expression>
+                                                <actionsWhenFalse>
+                                                    <item actionId="CallProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                            <command>launch_youtube_app()</command>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
