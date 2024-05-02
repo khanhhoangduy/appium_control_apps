@@ -1040,11 +1040,12 @@
                         </item>
                         <item guid="d604f6c3-f9e6-4448-ab7d-d89d72c0d97c" action="wait_until" session="s1" useFieldsInCommand="false">
                             <command>
-                                <body>condition=&apos;visibility_of_element_located&apos;, xpath=&apos;[xpath_to_auto_play]&apos;, timeout=5.0</body>
+                                <body>condition=&apos;visibility_of_element_located&apos;, xpath=&apos;[xpath_to_auto_play]&apos;, timeout=20.0</body>
                             </command>
                             <applicationProperties type="com.spirent.itest.applications.appium.properties.WaitUntilStepProperties">
                                 <condition>visibility_of_element_located</condition>
                                 <target sub="true">[xpath_to_auto_play]</target>
+                                <timeout>20.0</timeout>
                             </applicationProperties>
                         </item>
                         <item guid="5ba2c6d5-ad1b-4658-b3b9-47a1860ddc4f" action="get_attribute" session="s1" normalOffset="9.97" useFieldsInCommand="false">
