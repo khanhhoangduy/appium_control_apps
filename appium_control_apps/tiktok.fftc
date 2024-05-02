@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
-<testCase version="24.3.0.202403311053">
+<testCase version="24.3.0.202404251339">
     <general>
         <language>Python</language>
         <xPathVersion>XPATH31</xPathVersion>
     </general>
     <execution>
-        <parameters version="24.3.0.202403311053">
+        <parameters version="24.3.0.202404251339">
             <parameters escape="true">
                 <parameters xmlns:pt="http://www.fnfr.com/schemas/parameterTree">
                     <DeviceAndroidVersion pt:description="OS version of Android device. Default support: 12">12</DeviceAndroidVersion>
@@ -3671,6 +3671,121 @@
                 <item name="nickname"/>
             </arguments>
         </item>
+        <item name="handle_verify_identity" isPublic="true">
+            <steps>
+                <item guid="d9039107-f7c0-44bb-b615-d9e532e4bb38" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Click the first account</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="38cb8af5-d8ab-4280-bc24-ac21d34fe52d" action="command" session="t1" normalOffset="21.691" estimatedStepExecutionTime="0.112" useFieldsInCommand="false">
+                            <command>
+                                <body>driver.find_element(By.XPATH, &apos;//android.widget.FrameLayout[@resource-id=&quot;com.zhiliaoapp.musically:id/r6&quot;]/android.widget.FrameLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View[1]/android.view.View/android.view.View[2]/android.widget.ListView/android.view.View/android.widget.TextView&apos;).click()</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>Traceback</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 1</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>success = False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                            <message>Can not select the first account in &quot;Verify identity&quot; page</message>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="CallProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                            <command>_screenshot()</command>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="ExitProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="299b9824-626a-4f39-b239-e08c50bfab6a" action="command" session="t1" useFieldsInCommand="false">
+                            <command>
+                                <body>time.sleep(2)</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="fae76d0c-c3af-46d6-89fb-f0df167285cc" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>_findAndClickElement(xpath=&apos;//android.widget.Button[@text=&quot;Next&quot;]&apos;, action=&apos;click&apos;, timeout=&apos;10&apos;, period=&apos;5&apos;)</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="query">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                <query>responseLine()</query>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>str(value) == &quot;True&quot;</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>success = True</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>success = False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                            <message>Can not click the &quot;Next&quot; button</message>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="CallProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                            <command>_screenshot()</command>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="ExitProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="7cfe83e1-9f00-4328-ab7c-304a46611234" action="return">
+                    <command>
+                        <body>True</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
         <item name="waiting_for_app_start_or_playing" isPublic="true">
             <steps>
                 <item guid="dea1b38d-fa33-4111-b4b2-b3f089b158fe" action="comment" useFieldsInCommand="false">
@@ -3721,7 +3836,7 @@
                                 <body>Get page source and hanlde unexpected dialogs</body>
                             </command>
                             <nestedSteps>
-                                <item guid="6f528197-68b5-44c8-805a-9e594741e5a6" action="command" session="t1" normalOffset="52.051" estimatedStepExecutionTime="12.353" useFieldsInCommand="false" skippReporting="false">
+                                <item guid="6f528197-68b5-44c8-805a-9e594741e5a6" action="command" session="t1" normalOffset="52.051" estimatedStepExecutionTime="12.353" useFieldsInCommand="false">
                                     <command>
                                         <body>print(driver.page_source)</body>
                                     </command>
@@ -3965,6 +4080,21 @@
                                                 <processorInfo ruleType="store">
                                                     <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
                                                         <storageLocation>verifyFound</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                        <query>boolean(//android.widget.TextView[@text=&quot;Verify identity&quot;])</query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>verifyIdentityFound</storageLocation>
                                                         <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
                                                         <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
                                                         <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
@@ -5028,9 +5158,52 @@
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
+                                <item guid="4de7784b-7d1d-435f-ad16-5f6e68d406da" action="comment" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Handle &quot;Verify identity&quot; page</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="6d10ddee-9cba-4f41-bb13-f11339a9c6f3" action="if" useFieldsInCommand="false">
+                                            <command>
+                                                <body>verifyIdentityFound == &apos;true&apos;:</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="afb507dc-7bc5-4ae0-bbe8-a246986eb325" action="call" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>handle_verify_identity()</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="query">
+                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup">
+                                                                        <query>responseLine()</query>
+                                                                    </extractorProperties>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="assert">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                        <expression>str(value) == &quot;True&quot;</expression>
+                                                                        <actionsWhenFalse>
+                                                                            <item actionId="ExitProcedure">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
+                                                                            </item>
+                                                                        </actionsWhenFalse>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
                                 <item guid="87558f8d-d909-4e47-b309-25afccc5907f" action="comment" useFieldsInCommand="false">
                                     <command>
-                                        <body>Handle &quot;Verify&quot; step</body>
+                                        <body>Handle &quot;Verify to continue:&quot; page</body>
                                     </command>
                                     <nestedSteps>
                                         <item guid="0b26a22e-02bb-4f12-aa90-2d7585a51c31" action="if" useFieldsInCommand="false">
