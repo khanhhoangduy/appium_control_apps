@@ -1305,7 +1305,7 @@
                     <nestedSteps>
                         <item guid="8d9198cc-5324-4687-83ae-994317529b98" action="comment" useFieldsInCommand="false">
                             <command>
-                                <body>Find Search bar to indicate layout base account type (fresh account has different layout Profile Setting)</body>
+                                <body>Find Search bar for used account to indicate layout base account type (used vs fresh account has different layout Profile Setting)</body>
                             </command>
                             <nestedSteps>
                                 <item guid="a601e9b3-1d32-4719-b5af-dcd2b07c2eff" action="eval" useFieldsInCommand="false">
@@ -1322,6 +1322,58 @@
                                         <storeResponseAt>is_command_successful</storeResponseAt>
                                         <storeResponseText>true</storeResponseText>
                                     </postProcessing>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="e3c257e9-a743-44f6-a179-06deccd40d9f" action="if" useFieldsInCommand="false">
+                                    <command>
+                                        <body>not is_command_successful:</body>
+                                    </command>
+                                    <nestedSteps>
+                                        <item guid="150d88e6-a508-489e-acf9-a96e77a3d062" action="comment" useFieldsInCommand="false">
+                                            <command>
+                                                <body>Ensure the Search option for used account isn&apos;t cover by popup instead of move to fresh account setting immediately. this will reassigne the &quot;is_command_successful&quot; variable</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="9d817805-3fc8-4c05-9c86-6e8188892cb6" action="call" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>clean_and_assert_expected_page(expected_page_xpath=xpath_element)</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="contains">
+                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                                        <searchString>True</searchString>
+                                                                    </extractorProperties>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="assert">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                        <expression>value == 1</expression>
+                                                                        <actionsWhenTrue>
+                                                                            <item actionId="Eval">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                    <statement>is_command_successful=True</statement>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                        </actionsWhenTrue>
+                                                                        <actionsWhenFalse>
+                                                                            <item actionId="Eval">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                    <statement>is_command_successful=False</statement>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                        </actionsWhenFalse>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                    </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
                                 <item guid="e37ef517-ac16-4401-b9fe-11d8ae19c426" action="if" useFieldsInCommand="false">
@@ -1371,6 +1423,114 @@
                                                 <storeResponseAt>is_command_successful</storeResponseAt>
                                                 <storeResponseText>true</storeResponseText>
                                             </postProcessing>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                        <item guid="136d1eef-9478-4b76-91e6-21ad9200ad7d" action="if" useFieldsInCommand="false">
+                                            <command>
+                                                <body>not is_command_successful:</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="150d88e6-a508-489e-acf9-a96e77a3d062" action="comment" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>Ensure the known popup already cleaned</body>
+                                                    </command>
+                                                    <nestedSteps>
+                                                        <item guid="9d817805-3fc8-4c05-9c86-6e8188892cb6" action="call" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>clean_and_assert_expected_page(expected_page_xpath=xpath_element)</body>
+                                                            </command>
+                                                            <postProcessing>
+                                                                <analysisRules>
+                                                                    <item>
+                                                                        <extractorInfo extractorType="contains">
+                                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                                                <searchString>True</searchString>
+                                                                            </extractorProperties>
+                                                                        </extractorInfo>
+                                                                        <processorInfo ruleType="assert">
+                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                                <expression>value == 1</expression>
+                                                                                <actionsWhenTrue>
+                                                                                    <item actionId="Eval">
+                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                            <statement>is_command_successful=True</statement>
+                                                                                        </actionProperties>
+                                                                                    </item>
+                                                                                </actionsWhenTrue>
+                                                                                <actionsWhenFalse>
+                                                                                    <item actionId="Eval">
+                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                            <statement>is_command_successful=False</statement>
+                                                                                        </actionProperties>
+                                                                                    </item>
+                                                                                </actionsWhenFalse>
+                                                                            </ruleProperties>
+                                                                        </processorInfo>
+                                                                    </item>
+                                                                </analysisRules>
+                                                            </postProcessing>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="2ce49624-9b7b-453c-bdd3-f209b8fc5271" action="if" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>not is_command_successful:</body>
+                                                            </command>
+                                                            <nestedSteps>
+                                                                <item guid="a711a912-1538-4c0f-9db2-70e9c32581b6" action="message" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>Error:Failed to set the Data Saver</body>
+                                                                    </command>
+                                                                    <postProcessing>
+                                                                        <analysisRules>
+                                                                            <item>
+                                                                                <extractorInfo extractorType="none">
+                                                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                                                </extractorInfo>
+                                                                                <processorInfo ruleType="assert">
+                                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                                        <expression>True</expression>
+                                                                                        <actionsWhenFalse>
+                                                                                            <item actionId="FailTest">
+                                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                                            </item>
+                                                                                            <item actionId="CallProcedure">
+                                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                                    <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                                                                </actionProperties>
+                                                                                            </item>
+                                                                                        </actionsWhenFalse>
+                                                                                    </ruleProperties>
+                                                                                </processorInfo>
+                                                                            </item>
+                                                                        </analysisRules>
+                                                                    </postProcessing>
+                                                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                                        <severity inherit="false">Error</severity>
+                                                                        <message inherit="false">Failed to set the Data Saver</message>
+                                                                    </applicationProperties>
+                                                                </item>
+                                                            </nestedSteps>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="85a84b60-757e-4851-8a5b-a8ff133341d8" action="else" useFieldsInCommand="false">
+                                                            <nestedSteps>
+                                                                <item guid="2576379b-0187-49fa-926e-14d581c6c00d" action="call" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
+                                                                    </command>
+                                                                    <postProcessing>
+                                                                        <storeResponseAt>is_command_successful</storeResponseAt>
+                                                                        <storeResponseText>true</storeResponseText>
+                                                                    </postProcessing>
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                </item>
+                                                            </nestedSteps>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
                                     </nestedSteps>
@@ -1436,6 +1596,114 @@
                                                 <storeResponseAt>is_command_successful</storeResponseAt>
                                                 <storeResponseText>true</storeResponseText>
                                             </postProcessing>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                        <item guid="20e680b3-389b-46bb-a2e6-569cb2e14353" action="if" useFieldsInCommand="false">
+                                            <command>
+                                                <body>not is_command_successful:</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="150d88e6-a508-489e-acf9-a96e77a3d062" action="comment" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>Ensure the known popup already cleaned</body>
+                                                    </command>
+                                                    <nestedSteps>
+                                                        <item guid="9d817805-3fc8-4c05-9c86-6e8188892cb6" action="call" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>clean_and_assert_expected_page(expected_page_xpath=xpath_element)</body>
+                                                            </command>
+                                                            <postProcessing>
+                                                                <analysisRules>
+                                                                    <item>
+                                                                        <extractorInfo extractorType="contains">
+                                                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                                                <searchString>True</searchString>
+                                                                            </extractorProperties>
+                                                                        </extractorInfo>
+                                                                        <processorInfo ruleType="assert">
+                                                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                                <expression>value == 1</expression>
+                                                                                <actionsWhenTrue>
+                                                                                    <item actionId="Eval">
+                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                            <statement>is_command_successful=True</statement>
+                                                                                        </actionProperties>
+                                                                                    </item>
+                                                                                </actionsWhenTrue>
+                                                                                <actionsWhenFalse>
+                                                                                    <item actionId="Eval">
+                                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                                            <statement>is_command_successful=False</statement>
+                                                                                        </actionProperties>
+                                                                                    </item>
+                                                                                </actionsWhenFalse>
+                                                                            </ruleProperties>
+                                                                        </processorInfo>
+                                                                    </item>
+                                                                </analysisRules>
+                                                            </postProcessing>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="2ce49624-9b7b-453c-bdd3-f209b8fc5271" action="if" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>not is_command_successful:</body>
+                                                            </command>
+                                                            <nestedSteps>
+                                                                <item guid="a711a912-1538-4c0f-9db2-70e9c32581b6" action="message" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>Error:Failed to set the Data Saver</body>
+                                                                    </command>
+                                                                    <postProcessing>
+                                                                        <analysisRules>
+                                                                            <item>
+                                                                                <extractorInfo extractorType="none">
+                                                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                                                </extractorInfo>
+                                                                                <processorInfo ruleType="assert">
+                                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                                        <expression>True</expression>
+                                                                                        <actionsWhenFalse>
+                                                                                            <item actionId="FailTest">
+                                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                                            </item>
+                                                                                            <item actionId="CallProcedure">
+                                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                                    <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                                                                </actionProperties>
+                                                                                            </item>
+                                                                                        </actionsWhenFalse>
+                                                                                    </ruleProperties>
+                                                                                </processorInfo>
+                                                                            </item>
+                                                                        </analysisRules>
+                                                                    </postProcessing>
+                                                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                                        <severity inherit="false">Error</severity>
+                                                                        <message inherit="false">Failed to set the Data Saver</message>
+                                                                    </applicationProperties>
+                                                                </item>
+                                                            </nestedSteps>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="85a84b60-757e-4851-8a5b-a8ff133341d8" action="else" useFieldsInCommand="false">
+                                                            <nestedSteps>
+                                                                <item guid="2576379b-0187-49fa-926e-14d581c6c00d" action="call" useFieldsInCommand="false">
+                                                                    <command>
+                                                                        <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
+                                                                    </command>
+                                                                    <postProcessing>
+                                                                        <storeResponseAt>is_command_successful</storeResponseAt>
+                                                                        <storeResponseText>true</storeResponseText>
+                                                                    </postProcessing>
+                                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                </item>
+                                                            </nestedSteps>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
                                     </nestedSteps>
@@ -3618,6 +3886,21 @@ find By.Accessibility_ID
                                                     </ruleProperties>
                                                 </processorInfo>
                                             </item>
+                                            <item>
+                                                <extractorInfo extractorType="query">
+                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.QueryDataExtractorPropertyGroup" declareNoMatchIssue="false">
+                                                        <query>boolean(//android.widget.TextView[@text=&apos;Now in Accounts Center&apos;]) and boolean(//android.widget.Button[@resource-id=&apos;com.instagram.android:id/primary_button&apos;]) </query>
+                                                    </extractorProperties>
+                                                </extractorInfo>
+                                                <processorInfo ruleType="store">
+                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.StoreProcessorPropertyGroup">
+                                                        <storageLocation>now_in_account_center</storageLocation>
+                                                        <responseValue type="com.fnfr.documents.PropertyBoolean">false</responseValue>
+                                                        <variable type="com.fnfr.documents.PropertyBoolean">true</variable>
+                                                        <secret type="com.fnfr.documents.PropertyBoolean">false</secret>
+                                                    </ruleProperties>
+                                                </processorInfo>
+                                            </item>
                                         </analysisRules>
                                     </postProcessing>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
@@ -3640,6 +3923,38 @@ find By.Accessibility_ID
                                                         <item guid="1c5fede0-836d-410a-a977-48a7d7678769" action="eval" useFieldsInCommand="false">
                                                             <command>
                                                                 <body>xpath_element=&quot;//android.view.View[@text=&apos;Skip&apos;]/ancestor::android.widget.Button&quot;</body>
+                                                            </command>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                        <item guid="5afec7ba-264e-45a3-b83a-2e6ad2342c43" action="call" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>driver_find_with_action(element=xpath_element,expected_action=&quot;click&quot;)</body>
+                                                            </command>
+                                                            <postProcessing>
+                                                                <storeResponseAt>is_element_exist</storeResponseAt>
+                                                                <storeResponseText>true</storeResponseText>
+                                                            </postProcessing>
+                                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                        </item>
+                                                    </nestedSteps>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
+                                        <item guid="2a7a6653-99e2-433f-bdea-417949e4120a" action="comment" useFieldsInCommand="false">
+                                            <command>
+                                                <body>Handle &quot;Now in Account center&quot; popup</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="659052f7-4195-4ed3-99f8-c19563e0d663" action="if" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>now_in_account_center == &apos;true&apos;:</body>
+                                                    </command>
+                                                    <nestedSteps>
+                                                        <item guid="1c5fede0-836d-410a-a977-48a7d7678769" action="eval" useFieldsInCommand="false">
+                                                            <command>
+                                                                <body>xpath_element=&quot;//android.widget.Button[@resource-id=&apos;com.instagram.android:id/primary_button&apos;]&quot;</body>
                                                             </command>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
