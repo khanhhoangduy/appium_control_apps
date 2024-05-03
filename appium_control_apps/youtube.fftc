@@ -1560,6 +1560,55 @@
                                             </nestedSteps>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
+                                        <item guid="317cbf7e-2a53-42ef-ac1b-a55e160cdd10" action="comment" useFieldsInCommand="false">
+                                            <command>
+                                                <body>Open the comment view to prevent the next video from auto playing</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="b2160dcd-0223-4d2e-bce7-e7bfae78136f" action="eval" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>xpath_to_comment = &apos;//android.view.ViewGroup[contains(@content-desc, &quot;Add a comment&quot;)]/..&apos;</body>
+                                                    </command>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="1df2c670-cf64-4a22-9d3c-83cf7be4183b" action="command" session="s1" estimatedStepExecutionTime="1.662">
+                                                    <command>
+                                                        <body>driver.find_element(By.XPATH, &apos;[xpath_to_comment]&apos;).click()</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="contains">
+                                                                    <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                                        <searchString>Traceback (most recent call last):</searchString>
+                                                                    </extractorProperties>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="assert">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                        <expression>value == 1</expression>
+                                                                        <actionsWhenTrue>
+                                                                            <item actionId="DeclareExecutionIssue">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                                                    <message>Cannot find the video&apos;s &quot;More options&quot;</message>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                            <item actionId="FailTest">
+                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                            </item>
+                                                                            <item actionId="ExitExecution">
+                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                            </item>
+                                                                        </actionsWhenTrue>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
                                         <item guid="6286e8db-77ee-4498-9e16-4af2f81fe570" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
                                             <command>
                                                 <body>xpath=&apos;//android.widget.TextView[@resource-id=&quot;com.google.android.youtube:id/bandwidth_estimate&quot;]&apos;, attribute=&apos;text&apos;</body>
@@ -1641,7 +1690,7 @@
                                     <nestedSteps>
                                         <item guid="9781d5b4-077f-479e-96f2-52c4788b7f5a" action="eval" useFieldsInCommand="false">
                                             <command>
-                                                <body>next_video_close_btn_id = &apos;com.google.android.youtube:id/close_button&apos;</body>
+                                                <body>next_video_close_btn_id = &apos;com.google.android.youtube:id/cancel_button&apos;</body>
                                             </command>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
