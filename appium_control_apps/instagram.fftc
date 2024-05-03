@@ -1560,6 +1560,47 @@
                                             </postProcessing>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
+                                        <item guid="328b4655-942d-48a0-8c4e-dc0f6e1a451f" action="if" useFieldsInCommand="false">
+                                            <command>
+                                                <body>not is_command_successful:</body>
+                                            </command>
+                                            <nestedSteps>
+                                                <item guid="a711a912-1538-4c0f-9db2-70e9c32581b6" action="message" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>Error:Failed to go to the Data Saver Setting</body>
+                                                    </command>
+                                                    <postProcessing>
+                                                        <analysisRules>
+                                                            <item>
+                                                                <extractorInfo extractorType="none">
+                                                                    <extractorProperties type="com.fnfr.svt.documents.EmptyExtractorPropertyGroup"/>
+                                                                </extractorInfo>
+                                                                <processorInfo ruleType="assert">
+                                                                    <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                                        <expression>True</expression>
+                                                                        <actionsWhenTrue>
+                                                                            <item actionId="FailTest">
+                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                                            </item>
+                                                                            <item actionId="CallProcedure">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                                                    <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                                                </actionProperties>
+                                                                            </item>
+                                                                        </actionsWhenTrue>
+                                                                    </ruleProperties>
+                                                                </processorInfo>
+                                                            </item>
+                                                        </analysisRules>
+                                                    </postProcessing>
+                                                    <applicationProperties type="com.fnfr.svt.execution.builtin.exec.MessagePropertyGroup">
+                                                        <severity inherit="false">Error</severity>
+                                                        <message inherit="false">Failed to go to the Data Saver Setting</message>
+                                                    </applicationProperties>
+                                                </item>
+                                            </nestedSteps>
+                                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                        </item>
                                         <item guid="8bd04b13-37e2-4fa0-8d56-346a176c95e3" action="eval" useFieldsInCommand="false">
                                             <command>
                                                 <body>xpath_element=&quot;//android.widget.EditText[@resource-id=&apos;com.instagram.android:id/row_search_edit_text&apos;]&quot;</body>
