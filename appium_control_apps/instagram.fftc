@@ -2002,12 +2002,6 @@
                                     <command>
                                         <body>clean_and_assert_expected_page(expected_page_xpath=xpath_profile_page)</body>
                                     </command>
-                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                </item>
-                                <item guid="796dfe91-3645-4143-8ce4-aa3b35a59af0" action="call" useFieldsInCommand="false">
-                                    <command>
-                                        <body>driver_find_with_action(element=xpath_profile_page,expected_action=&quot;click&quot;)</body>
-                                    </command>
                                     <postProcessing>
                                         <analysisRules>
                                             <item>
@@ -2037,8 +2031,6 @@
                                                 </processorInfo>
                                             </item>
                                         </analysisRules>
-                                        <storeResponseAt>is_command_successful</storeResponseAt>
-                                        <storeResponseText>true</storeResponseText>
                                     </postProcessing>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
@@ -2081,6 +2073,16 @@
                                             </applicationProperties>
                                         </item>
                                     </nestedSteps>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="796dfe91-3645-4143-8ce4-aa3b35a59af0" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>driver_find_with_action(element=xpath_profile_page,expected_action=&quot;click&quot;)</body>
+                                    </command>
+                                    <postProcessing>
+                                        <storeResponseAt>is_command_successful</storeResponseAt>
+                                        <storeResponseText>true</storeResponseText>
+                                    </postProcessing>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
                             </nestedSteps>
