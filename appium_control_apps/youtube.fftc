@@ -22,35 +22,35 @@
     <procedures>
         <item name="main">
             <steps>
-                <item guid="606e52e0-477f-4ba2-901c-2b4ee195deda" action="comment" useFieldsInCommand="false">
+                <item guid="fe4fb2e1-e666-4d03-93d3-783f849739e3" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Initialize variables and validation</body>
                     </command>
                     <nestedSteps>
-                        <item guid="17bd04e5-a581-40d5-a632-2cc8af7b348d" action="eval" useFieldsInCommand="false">
+                        <item guid="3aa2b279-ea4c-41f3-8ee7-eace34a89074" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>ytb_app_pkg = &quot;com.google.android.youtube&quot;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="d1382e33-7b71-4a44-a697-e439094b9cda" action="eval" useFieldsInCommand="false">
+                        <item guid="e5e8d33d-1b3c-4e42-b98d-9529ff39b99a" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>gset(&apos;ytb_app_pkg&apos;, ytb_app_pkg)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="e4f6a83a-dfa2-4f0f-b8d0-d213365c3bfe" action="eval" useFieldsInCommand="false">
+                        <item guid="25e3c45f-bc80-4798-bffb-1e60f3424ff1" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>fresh_start = True</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="19e29fec-b7b0-467e-9063-356a9780b8a9" action="if" useFieldsInCommand="false">
+                        <item guid="1924be41-2c67-4378-86af-85ba499f6837" action="if" useFieldsInCommand="false">
                             <command>
                                 <body>param(&apos;VideoURL&apos;) == &apos;&apos;:</body>
                             </command>
                             <nestedSteps>
-                                <item guid="1f51ed8e-f994-4f5b-9d03-35dc27ba8340" action="message" useFieldsInCommand="false">
+                                <item guid="c5cacb99-16d0-4d0c-9edc-36dc695eea05" action="message" useFieldsInCommand="false">
                                     <command>
                                         <body>Error:Please input the video&apos;s URL</body>
                                     </command>
@@ -81,12 +81,12 @@
                             </nestedSteps>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="53f45571-3199-4cbb-9c02-b0905f0a0a4e" action="if" useFieldsInCommand="false">
+                        <item guid="917870b4-c759-4ceb-a838-0d08bdafdf43" action="if" useFieldsInCommand="false">
                             <command>
                                 <body>param(&apos;ADBPath&apos;) == &apos;&apos;:</body>
                             </command>
                             <nestedSteps>
-                                <item guid="10c57722-4651-423b-ba18-c95f5fe6c6c4" action="message" useFieldsInCommand="false">
+                                <item guid="83e8d825-dff1-449d-84d7-7efd138d8674" action="message" useFieldsInCommand="false">
                                     <command>
                                         <body>Error:Please input the path to ADB</body>
                                     </command>
@@ -120,17 +120,17 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="8292da2d-7eb4-452e-ad39-1eedfff5ab24" action="comment" useFieldsInCommand="false">
+                <item guid="ecd6d103-a06b-449f-bebd-53e94b470dd1" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Assumes always do the clear storage before starting the app</body>
                     </command>
                     <nestedSteps>
-                        <item guid="0e7def07-abaf-4c69-8997-a23ec38f2a8f" action="if" useFieldsInCommand="false">
+                        <item guid="9b38ab27-87a5-4bbd-9be3-3e72ff013a29" action="if" useFieldsInCommand="false">
                             <command>
                                 <body>fresh_start:</body>
                             </command>
                             <nestedSteps>
-                                <item guid="e58b14b4-a89a-4ca8-ba87-8aacba293f96" action="call" useFieldsInCommand="false">
+                                <item guid="133eccd2-8d1b-4e27-ab02-95deb061bfc9" action="call" useFieldsInCommand="false">
                                     <command>
                                         <body>clean_app_data()</body>
                                     </command>
@@ -170,7 +170,7 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="70a2327a-fd6f-4d30-8686-9e77e66e8932" action="open" session="s1" useFieldsInCommand="false">
+                <item guid="99a82028-3455-43a8-87f7-278ce5230e96" action="open" session="s1" useFieldsInCommand="false">
                     <command>
                         <body>project://appium_control_apps/appium.ffsp</body>
                     </command>
@@ -181,24 +181,24 @@
                         <sessionVersion type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                     </applicationProperties>
                 </item>
-                <item guid="edbfcdb6-7fd1-4e57-91c4-30f9ce1a7cae" action="comment" useFieldsInCommand="false">
+                <item guid="0656e60b-75c1-4326-90bb-5386acdf6e12" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Enable stats for nerds</body>
                     </command>
                     <nestedSteps>
-                        <item guid="fa1e071c-4b7b-44b9-a678-8465111dabf2" action="call" useFieldsInCommand="false">
+                        <item guid="8a60869c-63a8-40ad-aa7b-d2e8e3a8131f" action="call" useFieldsInCommand="false">
                             <command>
                                 <body>launch_youtube_app()</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="d4dcc640-4267-4754-bbb9-bbb7da680496" action="call" useFieldsInCommand="false">
+                        <item guid="a433eee7-12ad-448f-ab69-7d570407b223" action="call" useFieldsInCommand="false">
                             <command>
                                 <body>handle_notification_ask()</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="7e9b2032-2b8d-46bc-a366-52a59d15f023" action="call" useFieldsInCommand="false">
+                        <item guid="70d7eca6-2616-48c6-939c-11d65f87854e" action="call" useFieldsInCommand="false">
                             <command>
                                 <body>enable_stats_for_nerds(fresh_start=fresh_start)</body>
                             </command>
@@ -207,26 +207,38 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="d14d90de-f04f-488d-a7bd-b62bd4db7a8d" action="comment" useFieldsInCommand="false">
+                <item guid="4d4fcc48-c09f-4159-ab6d-f4310cc1a567" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Open the video&apos;s URL</body>
                     </command>
                     <nestedSteps>
-                        <item guid="6f05b8bf-de05-4459-a4db-a9e2238a52d6" action="eval" useFieldsInCommand="false">
+                        <item guid="61f2bedf-91db-413b-b7f7-9404fbcff0e2" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>video_url = param(&apos;VideoURL&apos;)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="407929f2-8e30-45a2-9149-e0a5877daa8f" action="terminate" session="s1">
+                        <item guid="086fc4e4-284c-487e-8069-735ab29cb544" action="comment" useFieldsInCommand="false">
                             <command>
-                                <body>[ytb_app_pkg]</body>
+                                <body>Need to terminate the app and relaunch for the correct layout</body>
                             </command>
-                            <applicationProperties type="com.spirent.itest.applications.appium.properties.AppIdStepProperties">
-                                <AppId>[ytb_app_pkg]</AppId>
-                            </applicationProperties>
+                            <nestedSteps>
+                                <item guid="242161c5-88f4-4289-afb8-da87c0ba78e9" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>terminate_youtube_app()</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="fd399bf6-f86c-47f0-9471-266976220654" action="command" session="s1" useFieldsInCommand="false">
+                                    <command>
+                                        <body>time.sleep(1.5)</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="f832f234-37e8-4bf9-a221-09bbe16dc069" action="command" session="s1">
+                        <item guid="2d66f9f0-e990-4228-8350-021f9be0e115" action="command" session="s1">
                             <command>
                                 <body>driver.execute_script(&quot;mobile:deepLink&quot;, {&quot;url&quot;: &quot;[video_url]&quot;, &quot;package&quot;: &quot;[ytb_app_pkg]&quot;})</body>
                             </command>
@@ -261,29 +273,29 @@
                             </postProcessing>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="d18b3d92-8428-46fe-9a8b-1ab331825004" action="comment" useFieldsInCommand="false">
+                        <item guid="d3e49f29-3f2b-49aa-b2b2-1fe13a61c1e2" action="comment" useFieldsInCommand="false">
                             <command>
                                 <body>Wait until the video is playing</body>
                             </command>
                             <nestedSteps>
-                                <item guid="8bfa77d0-7f32-42bc-8c2e-9633e58e162a" action="call" useFieldsInCommand="false">
+                                <item guid="acef7cc0-7bcc-43e5-b184-cd3793076a27" action="call" useFieldsInCommand="false">
                                     <command>
                                         <body>handle_notification_ask()</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="3feb49b8-cd28-4b79-b90b-6fee201741c3" action="eval" useFieldsInCommand="false">
+                                <item guid="a0ed3b34-2c1e-4f4a-a07f-2c29d4fd8dcb" action="eval" useFieldsInCommand="false">
                                     <command>
                                         <body>xpath_to_progress_loading = &apos;//android.widget.ProgressBar[@resource-id=&quot;com.google.android.youtube:id/player_loading_view_thin&quot;]&apos;</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="84198fc9-c198-486a-8e3d-d408e1472d87" action="for" useFieldsInCommand="false">
+                                <item guid="b3b03183-0c65-46fd-9322-ccf41482c3d5" action="for" useFieldsInCommand="false">
                                     <command>
                                         <body>i in range(0, 15):</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="882b9bfb-244d-4579-bd82-9392799918e3" action="command" session="s1" estimatedStepExecutionTime="1.662">
+                                        <item guid="860c8d85-b8fa-44cc-b2d0-6b0a37460bfd" action="command" session="s1" estimatedStepExecutionTime="1.662">
                                             <command>
                                                 <body>driver.find_element(By.XPATH, &apos;[xpath_to_progress_loading]&apos;)</body>
                                             </command>
@@ -310,7 +322,7 @@
                                             </postProcessing>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="c0a99c2d-3fb0-4502-bf46-abaa7cbf0570" action="command" session="s1" useFieldsInCommand="false">
+                                        <item guid="93006e3c-bead-473f-8601-6b1f99cb2fa2" action="command" session="s1" useFieldsInCommand="false">
                                             <command>
                                                 <body>time.sleep(1)</body>
                                             </command>
@@ -319,9 +331,9 @@
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="e1c36f9b-8fbd-4841-a137-74deabf4c488" action="else" useFieldsInCommand="false">
+                                <item guid="4ba870cf-a5e5-44b1-8830-60f929335941" action="else" useFieldsInCommand="false">
                                     <nestedSteps>
-                                        <item guid="18b008c1-5cd9-4c9c-b289-cc3d1ecd3457" action="message" useFieldsInCommand="false">
+                                        <item guid="d6ef6a78-8fc4-4949-9049-3139492b7c39" action="message" useFieldsInCommand="false">
                                             <command>
                                                 <body>Error:Timed out waiting for the video loading</body>
                                             </command>
@@ -361,12 +373,12 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="f78a01da-e9ee-4c68-95a3-5e044eba5edc" action="comment" useFieldsInCommand="false">
+                <item guid="79316808-bfd1-4623-a46a-5bebc61d53b2" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Extract video&apos;s stats data</body>
                     </command>
                     <nestedSteps>
-                        <item guid="aeda8762-d86e-4f24-8f5d-dc8fa93af3e6" action="call" useFieldsInCommand="false">
+                        <item guid="e3358816-f78c-4eeb-9af1-95ca7d2d717c" action="call" useFieldsInCommand="false">
                             <command>
                                 <body>get_video_stats(video_url=video_url, fresh_start=fresh_start)</body>
                             </command>
@@ -379,12 +391,12 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="3abef3cc-22cc-4698-a765-ea9a71f5baf1" action="comment" useFieldsInCommand="false">
+                <item guid="aeaf338a-0aab-40f9-ad59-a0d2080bafde" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Cleanup</body>
                     </command>
                     <nestedSteps>
-                        <item guid="7e7f48d3-6fa9-466d-97f2-b9f1ca5a867a" action="call" useFieldsInCommand="false">
+                        <item guid="f6f26cf8-c2c0-44aa-9797-a20b6da269fb" action="call" useFieldsInCommand="false">
                             <command>
                                 <body>clean_up(need_screenshot=&apos;false&apos;)</body>
                             </command>
@@ -412,7 +424,7 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="243ea30f-e779-46b6-8045-478640f7594b" action="return">
+                <item guid="78412bcb-e95b-437d-9280-2ed158342f1b" action="return">
                     <command>
                         <body>[response]</body>
                     </command>
@@ -422,29 +434,29 @@
         </item>
         <item name="enable_stats_for_nerds" isPublic="true">
             <steps>
-                <item guid="a0b0c898-2ad6-485d-aedd-8185b91847ed" action="if" useFieldsInCommand="false">
+                <item guid="0b4ca46b-f279-41a2-b830-f77e06d68126" action="if" useFieldsInCommand="false">
                     <command>
                         <body>fresh_start:</body>
                     </command>
                     <nestedSteps>
-                        <item guid="2e6466ae-b512-491c-80d9-970307ad1fa4" action="comment" useFieldsInCommand="false">
+                        <item guid="89c12144-e6ff-4458-bc15-67e7d139bcda" action="comment" useFieldsInCommand="false">
                             <command>
                                 <body>Click &apos;Account&apos; avatar on the top-right corner if have. This layout appears after clearing the app&apos;s data</body>
                             </command>
                             <nestedSteps>
-                                <item guid="c444628d-3377-4385-9bf1-92187155a8d3" action="eval" useFieldsInCommand="false">
+                                <item guid="b61db791-0703-47fd-907e-b703d48a0e9f" action="eval" useFieldsInCommand="false">
                                     <command>
                                         <body>xpath_to_account = &apos;//android.widget.ImageView[@content-desc=&quot;Account&quot;]&apos;</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="1de1a6cb-f98f-4582-9d40-bcff48a119ef" action="command" session="s1" useFieldsInCommand="false">
+                                <item guid="a8223ad9-db08-46de-bdbf-067865d967a4" action="command" session="s1" useFieldsInCommand="false">
                                     <command>
                                         <body>time.sleep(1.5)</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="5bd68566-4ac5-4402-b59b-933f575e80cd" action="wait_until" session="s1" useFieldsInCommand="false">
+                                <item guid="cff6e6ef-9b16-46b2-b778-c0060654edf4" action="wait_until" session="s1" useFieldsInCommand="false">
                                     <command>
                                         <body>condition=&apos;visibility_of_element_located&apos;, xpath=&apos;[xpath_to_account]&apos;, timeout=10.0</body>
                                     </command>
@@ -454,7 +466,7 @@
                                         <timeout>10.0</timeout>
                                     </applicationProperties>
                                 </item>
-                                <item guid="65950946-c02c-41e7-b5ba-dc605d71e27e" action="command" session="s1">
+                                <item guid="d68f9ea2-399f-4fdf-bcd2-40e23b0bd39c" action="command" session="s1">
                                     <command>
                                         <body>driver.find_element(By.XPATH, &apos;[xpath_to_account]&apos;).click()</body>
                                     </command>
@@ -495,27 +507,27 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="8cd0ede0-f7d5-4ced-98a1-5218e2d673b1" action="else" useFieldsInCommand="false">
+                <item guid="3bc02007-66eb-43bd-812d-909d2ba66165" action="else" useFieldsInCommand="false">
                     <nestedSteps>
-                        <item guid="5e0561eb-b001-40e8-8f09-b879d39bd13e" action="comment" useFieldsInCommand="false">
+                        <item guid="a11dcd81-6774-491f-8f07-512fb72a0932" action="comment" useFieldsInCommand="false">
                             <command>
                                 <body>Check &quot;You&quot; tab</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="e8d82165-38bb-4534-abaa-e4800e65d8bf" action="eval" useFieldsInCommand="false">
+                        <item guid="e7b4127e-d27d-44a8-b210-fc47e85e72a1" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>xpath_to_you_tab = &apos;//android.widget.Button[@content-desc=&quot;You&quot;]&apos;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="1e05ea48-f237-4068-9a57-2048a068d998" action="command" session="s1" useFieldsInCommand="false">
+                        <item guid="275031dc-4fcc-4476-baa9-6a7a161c8ce1" action="command" session="s1" useFieldsInCommand="false">
                             <command>
                                 <body>time.sleep(1.5)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="03472754-5fa8-4182-a8ba-435250418399" action="wait_until" session="s1" useFieldsInCommand="false">
+                        <item guid="56b9cd9c-e5df-4e13-b1da-51ea725326d9" action="wait_until" session="s1" useFieldsInCommand="false">
                             <command>
                                 <body>condition=&apos;visibility_of_element_located&apos;, xpath=&apos;[xpath_to_you_tab]&apos;, timeout=10.0</body>
                             </command>
@@ -525,7 +537,7 @@
                                 <timeout>10.0</timeout>
                             </applicationProperties>
                         </item>
-                        <item guid="4e3d2e55-5988-4a04-b270-84949d9e80a1" action="command" session="s1">
+                        <item guid="3424ef8a-f7e3-4169-851a-a1ddb013d30a" action="command" session="s1">
                             <command>
                                 <body>driver.find_element(By.XPATH, &apos;[xpath_to_you_tab]&apos;).click()</body>
                             </command>
@@ -563,18 +575,18 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="9b3ef776-9b76-4ba5-919d-22ce8e909665" action="comment" useFieldsInCommand="false">
+                <item guid="04b82e01-a587-4e24-8b5b-75d1038a41ff" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Check if it&apos;s already logged in not</body>
                     </command>
                     <nestedSteps>
-                        <item guid="2d44b90f-0e06-47e3-ae44-6238220feb63" action="eval" useFieldsInCommand="false">
+                        <item guid="34d6aead-02e1-40f8-8c1a-db6ba2c47e1c" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>xpath_to_signin_button = &apos;//android.widget.Button[lower-case(@text)=&quot;sign in&quot;]&apos;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="f4196cbb-d481-4c01-80cf-772a7523d6d2" action="command" session="s1">
+                        <item guid="40db284d-7843-4e5e-9914-001a7c5e0254" action="command" session="s1">
                             <command>
                                 <body>driver.find_element(By.XPATH, &apos;[xpath_to_signin_button]&apos;)</body>
                             </command>
@@ -612,29 +624,29 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="7aa5e413-bd67-4843-9c25-25a4a00a8560" action="comment" useFieldsInCommand="false">
+                <item guid="86b55d86-ff27-4788-a173-9886bf4c7598" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Find and click &quot;Settings&quot; icon</body>
                     </command>
                     <nestedSteps>
-                        <item guid="381caf52-cef4-4b83-9428-75db433cb45e" action="if" useFieldsInCommand="false">
+                        <item guid="a76f6844-49ec-4d08-b623-20b91786f660" action="if" useFieldsInCommand="false">
                             <command>
                                 <body>fresh_start:</body>
                             </command>
                             <nestedSteps>
-                                <item guid="0c5f3d20-4088-4130-85dc-6747ea2fb300" action="eval" useFieldsInCommand="false">
+                                <item guid="2b8dd093-22d4-4cae-abca-2f3f4f5ea4f2" action="eval" useFieldsInCommand="false">
                                     <command>
                                         <body>xpath_to_settings = &apos;//android.widget.TextView[@text=&quot;Settings&quot;]&apos;</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="c3445de1-4413-4b0a-ab06-1beda497c5f4" action="call" useFieldsInCommand="false">
+                                <item guid="4df92447-620e-4845-bace-3ee8d8fdbd0b" action="call" useFieldsInCommand="false">
                                     <command>
                                         <body>scroll_to_option(option=xpath_to_settings)</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="7548b88f-697e-4364-89c3-ad5fd131a4ad" action="command" session="s1" useFieldsInCommand="false">
+                                <item guid="ef9591cf-0d99-4e24-93cb-f5386cf7eea3" action="command" session="s1" useFieldsInCommand="false">
                                     <command>
                                         <body>found.click()</body>
                                     </command>
@@ -643,21 +655,21 @@
                             </nestedSteps>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="c47b2ecc-0c84-4992-9e28-0326c90fdf8a" action="else" useFieldsInCommand="false">
+                        <item guid="1ec9bb2a-c60b-4c52-9277-099bba485fc8" action="else" useFieldsInCommand="false">
                             <nestedSteps>
-                                <item guid="e8d82165-38bb-4534-abaa-e4800e65d8bf" action="eval" useFieldsInCommand="false">
+                                <item guid="2b50c51d-1451-4b1d-9660-9d851532186c" action="eval" useFieldsInCommand="false">
                                     <command>
                                         <body>xpath_to_settings = &apos;//android.widget.ImageView[@content-desc=&quot;Settings&quot;]&apos;</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="05829dcc-e6e6-4a6c-b762-13e687ebf1eb" action="command" session="s1" useFieldsInCommand="false">
+                                <item guid="73affb29-0870-4944-b560-69fb730bc55f" action="command" session="s1" useFieldsInCommand="false">
                                     <command>
                                         <body>time.sleep(1.5)</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="03472754-5fa8-4182-a8ba-435250418399" action="wait_until" session="s1" useFieldsInCommand="false">
+                                <item guid="ec39c9b6-6088-4f8f-ae30-990ce1dbce64" action="wait_until" session="s1" useFieldsInCommand="false">
                                     <command>
                                         <body>condition=&apos;visibility_of_element_located&apos;, xpath=&apos;[xpath_to_settings]&apos;, timeout=5.0</body>
                                     </command>
@@ -666,7 +678,7 @@
                                         <target sub="true">[xpath_to_settings]</target>
                                     </applicationProperties>
                                 </item>
-                                <item guid="3b20ca75-d776-4f40-88cc-b30815813b4a" action="command" session="s1" estimatedStepExecutionTime="1.662">
+                                <item guid="1f3235ed-4523-43f4-98c0-6ba805d414f9" action="command" session="s1" estimatedStepExecutionTime="1.662">
                                     <command>
                                         <body>driver.find_element(By.XPATH, &apos;[xpath_to_settings]&apos;).click()</body>
                                     </command>
@@ -678,24 +690,24 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="ea203aa6-a370-4ed6-bb60-532b8c484992" action="comment" useFieldsInCommand="false">
+                <item guid="34a41187-e9b3-404b-83a8-811ae6922d4c" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Click &quot;General&quot; item</body>
                     </command>
                     <nestedSteps>
-                        <item guid="e8d82165-38bb-4534-abaa-e4800e65d8bf" action="eval" useFieldsInCommand="false">
+                        <item guid="528d3609-e641-449b-9dfb-54b2750b0aef" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>xpath_to_general = &apos;//android.widget.TextView[@text=&quot;General&quot;]&apos;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="f037b28d-c143-4c9d-98bb-8e55a2700b1b" action="command" session="s1" useFieldsInCommand="false">
+                        <item guid="8cd25fb3-3ad2-4956-953d-16c20d09313b" action="command" session="s1" useFieldsInCommand="false">
                             <command>
                                 <body>time.sleep(1.5)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="03472754-5fa8-4182-a8ba-435250418399" action="wait_until" session="s1" useFieldsInCommand="false">
+                        <item guid="9b975062-c9a8-4c94-9432-b559bdb98559" action="wait_until" session="s1" useFieldsInCommand="false">
                             <command>
                                 <body>condition=&apos;visibility_of_element_located&apos;, xpath=&apos;[xpath_to_general]&apos;, timeout=5.0</body>
                             </command>
@@ -704,7 +716,7 @@
                                 <target sub="true">[xpath_to_general]</target>
                             </applicationProperties>
                         </item>
-                        <item guid="3b20ca75-d776-4f40-88cc-b30815813b4a" action="command" session="s1" estimatedStepExecutionTime="1.662">
+                        <item guid="81850aa0-6d32-409a-af95-0cde69b8677d" action="command" session="s1" estimatedStepExecutionTime="1.662">
                             <command>
                                 <body>driver.find_element(By.XPATH, &apos;[xpath_to_general]&apos;).click()</body>
                             </command>
@@ -713,34 +725,34 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="0c604d1e-3aee-4d5c-9cb5-238e30559328" action="comment" useFieldsInCommand="false">
+                <item guid="5b7876c0-5b9f-42c5-ae75-59b800c7b56a" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Click &quot;Enable stats for nerds&quot;</body>
                     </command>
                     <nestedSteps>
-                        <item guid="d3d45171-a677-4c63-8979-836625604506" action="comment" useFieldsInCommand="false">
+                        <item guid="87809de7-d6b2-4ae8-9b2e-0f8e6ab0aa8c" action="comment" useFieldsInCommand="false">
                             <command>
                                 <body>Scroll to find the option</body>
                             </command>
                             <nestedSteps>
-                                <item guid="3abf4f41-fd09-4008-ac9d-baa3da1b8330" action="eval" useFieldsInCommand="false">
+                                <item guid="6bdef587-bca7-4f1a-913c-ac1589a7777b" action="eval" useFieldsInCommand="false">
                                     <command>
                                         <body>xpath_to_stats_for_nerds_switch = &apos;(//android.widget.TextView[@text=&quot;Enable stats for nerds&quot;]/../..//android.widget.Switch)&apos;</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="033eddb3-b4f7-4002-a212-0d538140d2a5" action="call" useFieldsInCommand="false">
+                                <item guid="badf8d3c-82b5-496d-b9d9-ab4f27acd1c2" action="call" useFieldsInCommand="false">
                                     <command>
                                         <body>scroll_to_option(option=xpath_to_stats_for_nerds_switch, store_to_variable=&apos;stats_for_nerds_switch&apos;)</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="91e0d111-297d-42f8-8e9a-a1b9e07500f5" action="comment" useFieldsInCommand="false">
+                                <item guid="cadee3fe-8772-454e-845d-fb3bf22a5ed9" action="comment" useFieldsInCommand="false">
                                     <command>
                                         <body>Check if it&apos;s enabled or not</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="aee033fb-ad7d-4882-beaa-c851bf6fafe7" action="get_attribute" session="s1" normalOffset="9.97" useFieldsInCommand="false">
+                                        <item guid="8337975c-0fbd-4779-a233-47cca1e7590e" action="get_attribute" session="s1" normalOffset="9.97" useFieldsInCommand="false">
                                             <command>
                                                 <body>xpath=&apos;[xpath_to_stats_for_nerds_switch]&apos;, attribute=&apos;checked&apos;</body>
                                             </command>
@@ -768,17 +780,17 @@
                                                 <attribute>checked</attribute>
                                             </applicationProperties>
                                         </item>
-                                        <item guid="d907e75d-92ec-4072-ae03-1ff5f23d8985" action="if" useFieldsInCommand="false">
+                                        <item guid="171b4529-e717-48d3-9122-fba0bfa0674a" action="if" useFieldsInCommand="false">
                                             <command>
                                                 <body>is_enabled != &quot;true&quot;:</body>
                                             </command>
                                             <nestedSteps>
-                                                <item guid="b43f84ff-bba1-4a2e-8117-66557fdf08ef" action="comment" useFieldsInCommand="false">
+                                                <item guid="5328e57b-a472-49c2-b3ed-21b91cf12e53" action="comment" useFieldsInCommand="false">
                                                     <command>
                                                         <body>Tap the switch to enable this option</body>
                                                     </command>
                                                     <nestedSteps>
-                                                        <item guid="5f0b596b-b7cf-48b9-9ee4-5fc4db0733ca" action="command" session="s1" useFieldsInCommand="false">
+                                                        <item guid="09f6852b-dd28-4f52-9398-166b32c12a56" action="command" session="s1" useFieldsInCommand="false">
                                                             <command>
                                                                 <body>stats_for_nerds_switch.click()</body>
                                                             </command>
@@ -787,12 +799,12 @@
                                                     </nestedSteps>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
-                                                <item guid="d190e9a7-cb16-41e9-b2f8-cf1ee7146a9a" action="comment" useFieldsInCommand="false">
+                                                <item guid="ac0709f9-153a-4982-9d18-6e26ff844fa2" action="comment" useFieldsInCommand="false">
                                                     <command>
                                                         <body>Double check</body>
                                                     </command>
                                                     <nestedSteps>
-                                                        <item guid="46df9a42-fde4-4b41-a895-75cfceae9043" action="get_attribute" session="s1" normalOffset="9.97" useFieldsInCommand="false">
+                                                        <item guid="208520c7-e284-4f9a-b9af-d05b2c70f5d3" action="get_attribute" session="s1" normalOffset="9.97" useFieldsInCommand="false">
                                                             <command>
                                                                 <body>xpath=&apos;[xpath_to_stats_for_nerds_switch]&apos;, attribute=&apos;checked&apos;</body>
                                                             </command>
@@ -845,9 +857,9 @@
                                             </nestedSteps>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="076be54d-2afb-4142-883c-4478b37031e4" action="else" useFieldsInCommand="false">
+                                        <item guid="0a470044-844b-4c2d-a509-f80b618ee887" action="else" useFieldsInCommand="false">
                                             <nestedSteps>
-                                                <item guid="53770217-94e6-488c-a294-8aa151614769" action="message" useFieldsInCommand="false">
+                                                <item guid="71771d72-a440-4f2b-9e77-d6ea2c3f60f6" action="message" useFieldsInCommand="false">
                                                     <command>
                                                         <body>Information:Stats for nerds option is already enabled</body>
                                                     </command>
@@ -874,35 +886,35 @@
         </item>
         <item name="get_video_stats" isPublic="true">
             <steps>
-                <item guid="3723e25e-4f8b-4351-8523-e14db60c61c0" action="comment" useFieldsInCommand="false">
+                <item guid="e64fe2fb-5bdb-4ec2-9771-6654071a6ba3" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Pause the video while opening the &quot;stats for nerds&quot; option</body>
                     </command>
                     <nestedSteps>
-                        <item guid="5c5444ed-0a07-4cf3-aab1-24bb83873373" action="eval" useFieldsInCommand="false">
+                        <item guid="60c50575-22a0-4ff5-a7dd-b03d7eb9f22f" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>video_player_id = &apos;com.google.android.youtube:id/player_view&apos;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="fcff62b7-13ef-4a47-8582-222fe20de116" action="for" useFieldsInCommand="false">
+                        <item guid="397caae9-def0-426b-b287-f35e3d1c7328" action="for" useFieldsInCommand="false">
                             <command>
                                 <body>i in range(0, 10):</body>
                             </command>
                             <nestedSteps>
-                                <item guid="8c80f21d-3672-41c4-97f7-f6dd089a6536" action="call" useFieldsInCommand="false">
+                                <item guid="92ccceab-fe05-47c0-84aa-db2bf25d1349" action="call" useFieldsInCommand="false">
                                     <command>
                                         <body>handle_notification_ask()</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="11a84334-b4bc-450f-8eca-f7c54fd79208" action="command" session="s1" estimatedStepExecutionTime="1.662">
+                                <item guid="d7d55a34-a7a7-4e3b-a906-27aaee21ea36" action="command" session="s1" estimatedStepExecutionTime="1.662">
                                     <command>
                                         <body>driver.find_element(By.ID, &apos;[video_player_id]&apos;).click()</body>
                                     </command>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="5890cb14-7300-44e7-94a2-bd1c424b3330" action="command" session="s1" estimatedStepExecutionTime="1.662" useFieldsInCommand="false">
+                                <item guid="9e85c197-3067-4ae5-8af2-4229f26dc9dd" action="command" session="s1" estimatedStepExecutionTime="1.662" useFieldsInCommand="false">
                                     <command>
                                         <body>driver.find_element(By.XPATH, &apos;//android.widget.ImageView[@content-desc=&quot;Pause video&quot;]&apos;).click()</body>
                                     </command>
@@ -929,7 +941,7 @@
                                     </postProcessing>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="23d17f79-f98d-406b-a979-1fd3a3e28b61" action="command" session="s1" useFieldsInCommand="false">
+                                <item guid="e1e5d1f4-16af-4b86-a4a5-b98b11248a97" action="command" session="s1" useFieldsInCommand="false">
                                     <command>
                                         <body>time.sleep(1.0)</body>
                                     </command>
@@ -938,14 +950,14 @@
                             </nestedSteps>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="9cded529-293b-458a-a958-ee83c3ca9de9" action="else" useFieldsInCommand="false">
+                        <item guid="0ae61803-9cae-4258-99e6-9eef0081fcd6" action="else" useFieldsInCommand="false">
                             <nestedSteps>
-                                <item guid="17bb170a-1a1d-43f5-aca3-e8beb898c201" action="comment" useFieldsInCommand="false">
+                                <item guid="c74ab1b0-935b-45c0-98dd-69b2cc1b4915" action="comment" useFieldsInCommand="false">
                                     <command>
                                         <body>Check if the video&apos;s URL is valid</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="edd34a43-7cdf-4098-8d09-fd2daa5e4ccf" action="command" session="s1" useFieldsInCommand="false">
+                                        <item guid="6e369a85-49bd-4519-8c21-52b383c8d91f" action="command" session="s1" useFieldsInCommand="false">
                                             <command>
                                                 <body>driver.find_element(By.XPATH, &apos;//android.widget.TextView[contains(@text, &quot;This video is unavailable&quot;)]&apos;)</body>
                                             </command>
@@ -990,7 +1002,7 @@
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="73cbf134-b4df-4999-aefe-f8b67c762bd3" action="message" useFieldsInCommand="false">
+                                <item guid="b0061a0d-bbe4-4d51-8ea0-2676371ecb22" action="message" useFieldsInCommand="false">
                                     <command>
                                         <body>Error:Cannot click the player view to pause the video.</body>
                                     </command>
@@ -1027,18 +1039,18 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="32386594-31ce-4139-8838-52296020fb2b" action="comment" useFieldsInCommand="false">
+                <item guid="88e5ad50-b524-4ae3-8555-38a8223e6381" action="comment" skip="true" useFieldsInCommand="false">
                     <command>
                         <body>Uncheck &apos;Auto play&apos;</body>
                     </command>
                     <nestedSteps>
-                        <item guid="8f36de2b-fb81-4692-8d78-2fafea9d3a57" action="eval" estimatedStepExecutionTime="1.662" useFieldsInCommand="false">
+                        <item guid="5b343209-9942-4783-a2a2-5f7027caf5fe" action="eval" estimatedStepExecutionTime="1.662" useFieldsInCommand="false">
                             <command>
                                 <body>xpath_to_auto_play = &apos;//android.widget.Switch[@resource-id=&quot;com.google.android.youtube:id/autonav_toggle_button&quot;]&apos;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="d604f6c3-f9e6-4448-ab7d-d89d72c0d97c" action="wait_until" session="s1" useFieldsInCommand="false">
+                        <item guid="9498589c-4c2d-4105-8b48-e5e58f9b2f63" action="wait_until" session="s1" useFieldsInCommand="false">
                             <command>
                                 <body>condition=&apos;visibility_of_element_located&apos;, xpath=&apos;[xpath_to_auto_play]&apos;, timeout=20.0</body>
                             </command>
@@ -1048,7 +1060,7 @@
                                 <timeout>20.0</timeout>
                             </applicationProperties>
                         </item>
-                        <item guid="5ba2c6d5-ad1b-4658-b3b9-47a1860ddc4f" action="get_attribute" session="s1" normalOffset="9.97" useFieldsInCommand="false">
+                        <item guid="394bf82f-5d18-4b30-b78d-31079ea1245e" action="get_attribute" session="s1" normalOffset="9.97" useFieldsInCommand="false">
                             <command>
                                 <body>xpath=&apos;[xpath_to_auto_play]&apos;, attribute=&apos;checked&apos;</body>
                             </command>
@@ -1076,17 +1088,17 @@
                                 <attribute>checked</attribute>
                             </applicationProperties>
                         </item>
-                        <item guid="b8c03043-aa50-46a1-bd0d-02789052335a" action="if" useFieldsInCommand="false">
+                        <item guid="36e2e7c7-3c6f-42cb-b673-f678a51e7fac" action="if" useFieldsInCommand="false">
                             <command>
                                 <body>is_checked == &quot;true&quot;:</body>
                             </command>
                             <nestedSteps>
-                                <item guid="ec2021ce-45bf-4b05-91bd-b298f41605b0" action="comment" useFieldsInCommand="false">
+                                <item guid="6409fc82-0730-459f-b8cf-57dd697749e0" action="comment" useFieldsInCommand="false">
                                     <command>
                                         <body>Tap the switch to enable this option</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="84ed8490-33f1-4d70-8571-5f8e609701f6" action="command" session="s1" estimatedStepExecutionTime="1.662">
+                                        <item guid="3dfcf3a0-1bab-48eb-8765-9acd13537126" action="command" session="s1" estimatedStepExecutionTime="1.662">
                                             <command>
                                                 <body>driver.find_element(By.XPATH, &apos;[xpath_to_auto_play]&apos;).click()</body>
                                             </command>
@@ -1101,18 +1113,18 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="7901decc-cdb4-44ca-abf4-5c21eb9365c2" action="comment" useFieldsInCommand="false">
+                <item guid="a9038fdd-7194-4d70-9114-a9237303bf42" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Click the &quot;More options&quot; icon</body>
                     </command>
                     <nestedSteps>
-                        <item guid="9a955d87-60f7-412d-ba3c-21d66e4f3c4f" action="eval" useFieldsInCommand="false">
+                        <item guid="c30d800e-0ad5-4ba5-84cd-533b7ec906ae" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>xpath_to_more_options = &apos;//android.widget.ImageView[@content-desc=&quot;More options&quot;]&apos;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="9a011c06-2461-4da6-9a2e-5df6ed660900" action="command" session="s1" estimatedStepExecutionTime="1.662">
+                        <item guid="390b6586-9a9a-4189-b1cc-7dd8ed888e72" action="command" session="s1" estimatedStepExecutionTime="1.662">
                             <command>
                                 <body>driver.find_element(By.XPATH, &apos;[xpath_to_more_options]&apos;).click()</body>
                             </command>
@@ -1150,33 +1162,103 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="066eef26-9a51-460c-9797-a15088f3da5f" action="comment" useFieldsInCommand="false">
+                <item guid="29a10767-2e9a-4ff3-bcd0-c665bdfb6d59" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Click &quot;Additional Settings&quot; option</body>
                     </command>
                     <nestedSteps>
-                        <item guid="52b39858-15d7-4490-adeb-242d89955100" action="eval" useFieldsInCommand="false">
+                        <item guid="60926588-0eab-410b-8106-80a7ef590989" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>xpath_to_additional_settings = &apos;//android.view.ViewGroup[contains(@content-desc, &quot;Additional settings&quot;)]&apos;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="79114ae6-c6d3-4cab-9fa4-4129dec92b37" action="command" session="s1" useFieldsInCommand="false">
+                        <item guid="5191a50f-a491-4cc1-bca1-8c6acef17899" action="command" session="s1" useFieldsInCommand="false">
                             <command>
                                 <body>time.sleep(1.5)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="8dfbd697-8ccc-4144-9021-f83ea99f162c" action="wait_until" session="s1" useFieldsInCommand="false">
+                        <item guid="5a22d0a7-4ff3-4a35-9f85-253e549264bd" action="wait_until" session="s1" useFieldsInCommand="false">
                             <command>
                                 <body>condition=&apos;visibility_of_element_located&apos;, xpath=&apos;[xpath_to_additional_settings]&apos;, timeout=5.0</body>
                             </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>Traceback (most recent call last):</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 0</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>found_additional_settings = True</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>found_additional_settings = False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                            </postProcessing>
+                            <eventHandlers>
+                                <item name="OnAppiumCommandFailed"/>
+                            </eventHandlers>
                             <applicationProperties type="com.spirent.itest.applications.appium.properties.WaitUntilStepProperties">
                                 <condition>visibility_of_element_located</condition>
                                 <target sub="true">[xpath_to_additional_settings]</target>
                             </applicationProperties>
                         </item>
-                        <item guid="b28907be-e928-4049-810a-5b451a1849a5" action="command" session="s1" estimatedStepExecutionTime="1.662">
+                        <item guid="90546599-4236-46de-bd21-6ae02f35f17a" action="if" useFieldsInCommand="false">
+                            <command>
+                                <body>not found_additional_settings:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="0289ba5a-77dd-4dbf-8c29-c1b63352e298" action="comment" useFieldsInCommand="false">
+                                    <command>
+                                        <body>Some app version may use the TextView instead of ViewGroup</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="06586bad-e361-4b90-8f19-a6f412cc6ac7" action="eval" useFieldsInCommand="false">
+                                    <command>
+                                        <body>xpath_to_additional_settings = &apos;//android.widget.TextView[contains(@text, &quot;Additional Settings&quot;)]&apos;</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                                <item guid="37341236-1a33-4cf0-8eda-7b08740e093a" action="eval" useFieldsInCommand="false">
+                                    <command>
+                                        <body>xpath_to_nerds_stats = &apos;//android.widget.TextView[contains(@text, &quot;Stats for nerds&quot;)]&apos;</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="a3c388df-3de7-4223-9aba-c53406e1ef1b" action="else" useFieldsInCommand="false">
+                            <nestedSteps>
+                                <item guid="66ab04d5-bf28-44e4-848f-f87e2f99e70c" action="eval" useFieldsInCommand="false">
+                                    <command>
+                                        <body>xpath_to_nerds_stats = &apos;//android.view.ViewGroup[contains(@content-desc, &quot;Stats for nerds&quot;)]&apos;</body>
+                                    </command>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="ce42f915-65c5-448b-8bab-376685d35fb4" action="command" session="s1" estimatedStepExecutionTime="1.662">
                             <command>
                                 <body>driver.find_element(By.XPATH, &apos;[xpath_to_additional_settings]&apos;).click()</body>
                             </command>
@@ -1185,18 +1267,12 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="08d519fc-ebd1-493a-8a91-097f3487e0fd" action="comment" useFieldsInCommand="false">
+                <item guid="067a4188-dafb-4378-a783-6e58945eda46" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Click &quot;Stats for nerds&quot; option</body>
                     </command>
                     <nestedSteps>
-                        <item guid="52b39858-15d7-4490-adeb-242d89955100" action="eval" useFieldsInCommand="false">
-                            <command>
-                                <body>xpath_to_nerds_stats = &apos;//android.view.ViewGroup[contains(@content-desc, &quot;Stats for nerds&quot;)]&apos;</body>
-                            </command>
-                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                        </item>
-                        <item guid="8dfbd697-8ccc-4144-9021-f83ea99f162c" action="wait_until" session="s1" useFieldsInCommand="false">
+                        <item guid="9eacdd1a-85d1-4721-9742-0e44d5477505" action="wait_until" session="s1" useFieldsInCommand="false">
                             <command>
                                 <body>condition=&apos;visibility_of_element_located&apos;, xpath=&apos;[xpath_to_nerds_stats]&apos;, timeout=5.0</body>
                             </command>
@@ -1205,7 +1281,7 @@
                                 <target sub="true">[xpath_to_nerds_stats]</target>
                             </applicationProperties>
                         </item>
-                        <item guid="b28907be-e928-4049-810a-5b451a1849a5" action="command" session="s1" estimatedStepExecutionTime="1.662">
+                        <item guid="a9094db9-551a-4769-8ec9-46870b664c3c" action="command" session="s1" estimatedStepExecutionTime="1.662">
                             <command>
                                 <body>driver.find_element(By.XPATH, &apos;[xpath_to_nerds_stats]&apos;).click()</body>
                             </command>
@@ -1250,18 +1326,18 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="f1ee291b-0a09-4300-b446-454ee7e3b96f" action="comment" useFieldsInCommand="false">
+                <item guid="dffb67d7-6c77-4665-8d40-7aefb064336e" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Extract video&apos;s stats data</body>
                     </command>
                     <nestedSteps>
-                        <item guid="52b39858-15d7-4490-adeb-242d89955100" action="eval" useFieldsInCommand="false">
+                        <item guid="f9859606-a489-47b2-96f4-ca2ed8af5b8b" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>nerds_stats_layout_id = &apos;com.google.android.youtube:id/nerd_stats_layout&apos;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="8dfbd697-8ccc-4144-9021-f83ea99f162c" action="wait_until" session="s1" useFieldsInCommand="false">
+                        <item guid="01a49370-18f7-4fcb-a239-ea8e62fc699d" action="wait_until" session="s1" useFieldsInCommand="false">
                             <command>
                                 <body>condition=&apos;visibility_of_element_located&apos;, id=&apos;[nerds_stats_layout_id]&apos;, timeout=5.0</body>
                             </command>
@@ -1271,17 +1347,17 @@
                                 <target sub="true">[nerds_stats_layout_id]</target>
                             </applicationProperties>
                         </item>
-                        <item guid="91bbe42b-26a6-40eb-b583-7798015ea11b" action="comment" useFieldsInCommand="false">
+                        <item guid="3d53a930-f0d7-41b3-adab-5dd5425ae68f" action="comment" useFieldsInCommand="false">
                             <command>
                                 <body>Check the bandwidth field</body>
                             </command>
                             <nestedSteps>
-                                <item guid="4610c590-227f-4e19-89fa-4c1163e9b351" action="comment" useFieldsInCommand="false">
+                                <item guid="09d7f5b8-bf66-4d7a-aaf3-c406a1dd5b6c" action="comment" useFieldsInCommand="false">
                                     <command>
                                         <body>The bandwidth only increases during the download of the readahead so we need to check if the script should wait some time for the bandwidth based on the current readhead</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="39e2d6a5-95ee-4b96-90ca-95ea4c573cd9" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
+                                        <item guid="8a6df2ee-3778-465b-af5e-c19df77a60db" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
                                             <command>
                                                 <body>xpath=&apos;//android.widget.TextView[@resource-id=&quot;com.google.android.youtube:id/time_bar_total_time&quot;]&apos;, attribute=&apos;text&apos;</body>
                                             </command>
@@ -1310,7 +1386,7 @@
                                                 <attribute>text</attribute>
                                             </applicationProperties>
                                         </item>
-                                        <item guid="e21d19c9-75a0-4849-b5f6-2c1d22dce0e4" action="get_attribute" session="s1" normalOffset="181.301" useFieldsInCommand="false">
+                                        <item guid="c6d02f69-cf2a-46ad-9247-33cca9fc7580" action="get_attribute" session="s1" normalOffset="181.301" useFieldsInCommand="false">
                                             <command>
                                                 <body>xpath=&apos;//android.widget.TextView[@resource-id=&quot;com.google.android.youtube:id/time_bar_current_time&quot;]&apos;, attribute=&apos;text&apos;</body>
                                             </command>
@@ -1342,12 +1418,12 @@
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="c6a6ea0e-eccd-43fd-8074-8012160c6133" action="comment" useFieldsInCommand="false">
+                                <item guid="1fd483b7-515a-400e-9f96-0eb204c9f44e" action="comment" useFieldsInCommand="false">
                                     <command>
                                         <body>Unpause the video and calculate the wait time for bandwidth</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="dea3aba8-785d-4c18-8573-e9eb77584f54" action="command" session="s1" estimatedStepExecutionTime="1.662" useFieldsInCommand="false">
+                                        <item guid="6820fb6e-a617-4ef4-a85a-1751675a862a" action="command" session="s1" estimatedStepExecutionTime="1.662" useFieldsInCommand="false">
                                             <command>
                                                 <body>driver.find_element(By.XPATH, &apos;//android.widget.ImageView[@content-desc=&quot;Play video&quot;]&apos;).click()</body>
                                             </command>
@@ -1382,7 +1458,7 @@
                                             </postProcessing>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="77b9197c-e000-451f-9e79-36e341cc6dac" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
+                                        <item guid="7d129882-d040-44f2-8c90-9ab3253bb92d" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
                                             <command>
                                                 <body>xpath=&apos;//android.widget.TextView[@resource-id=&quot;com.google.android.youtube:id/readahead&quot;]&apos;, attribute=&apos;text&apos;</body>
                                             </command>
@@ -1411,7 +1487,7 @@
                                                 <attribute>text</attribute>
                                             </applicationProperties>
                                         </item>
-                                        <item guid="d1f5ca89-8d48-46c0-a33a-2b4851119310" action="call" useFieldsInCommand="false">
+                                        <item guid="380bc026-29b4-4f4c-ab28-abb095eb6319" action="call" useFieldsInCommand="false">
                                             <command>
                                                 <body>get_wait_time_for_bandwidth(actual_played_duration=actual_played_duration_info, total_duration=total_expected_duration_info, readahead=readahead_info)</body>
                                             </command>
@@ -1421,12 +1497,12 @@
                                             </postProcessing>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="5d158376-8268-4262-a6e2-751083f62bf7" action="if" useFieldsInCommand="false">
+                                        <item guid="6f7fc1b8-8518-4fb3-b57e-15c3251a5f71" action="if" useFieldsInCommand="false">
                                             <command>
                                                 <body>wait_buffering_time &gt; 0:</body>
                                             </command>
                                             <nestedSteps>
-                                                <item guid="bddc2902-e4f4-4301-b838-3b348db71392" action="message" skip="true" useFieldsInCommand="false">
+                                                <item guid="ba8b24fb-9807-470e-a1b1-c58cfc75c7ac" action="message" skip="true" useFieldsInCommand="false">
                                                     <command>
                                                         <body>Information:Waiting for bandwidth (up to [wait_buffering_time]s)...</body>
                                                     </command>
@@ -1437,9 +1513,9 @@
                                             </nestedSteps>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="539d39c1-72c7-459b-935f-98b8be83cb04" action="else" useFieldsInCommand="false">
+                                        <item guid="7f26a79b-d379-4b50-90c7-859200f7e07d" action="else" useFieldsInCommand="false">
                                             <nestedSteps>
-                                                <item guid="17e51b4a-cd8c-419e-ac35-b40cb20f3743" action="message" useFieldsInCommand="false">
+                                                <item guid="7428594b-21b2-462c-9722-fb01d45637f2" action="message" useFieldsInCommand="false">
                                                     <command>
                                                         <body>Information:Video is already buffered with all data. Bandwidth will be reported as 0.00 kbps</body>
                                                     </command>
@@ -1453,32 +1529,38 @@
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="2962aab3-d362-4a28-ba0b-5604b7de76bd" action="comment" useFieldsInCommand="false">
+                                <item guid="ac61ff5e-6219-4d16-9bed-af8616bc9662" action="comment" useFieldsInCommand="false">
                                     <command>
                                         <body>Query to get the bandwidth which is not &quot;0.00 kbps&quot;</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="b3cbf78b-fa26-43a9-bc15-1efd74ad7653" action="comment" useFieldsInCommand="false">
+                                        <item guid="f79b4652-84f9-4c2d-9753-01fb93decd1f" action="comment" useFieldsInCommand="false">
                                             <command>
                                                 <body>Start timer, used to calculate how much wait time was for retrieving the bandwidth</body>
                                             </command>
                                             <nestedSteps>
-                                                <item guid="49d3c67c-b7c0-4b39-bdf3-75862ecd91fe" action="eval" useFieldsInCommand="false">
+                                                <item guid="19746acd-de76-4e09-a222-cfaf20d7fea9" action="eval" useFieldsInCommand="false">
                                                     <command>
                                                         <body>from datetime import datetime, timedelta</body>
                                                     </command>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
-                                                <item guid="f356e8b5-09ab-43f8-8357-0f7d4e9bbcb1" action="eval" useFieldsInCommand="false">
+                                                <item guid="6dab42ac-2c75-4509-bf6f-a53efd58096d" action="eval" useFieldsInCommand="false">
                                                     <command>
                                                         <body>started = datetime.now()</body>
+                                                    </command>
+                                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                </item>
+                                                <item guid="4a28caed-0eb5-47d2-b3e1-4c3a0778ca80" action="eval" useFieldsInCommand="false">
+                                                    <command>
+                                                        <body>elapsed = 0</body>
                                                     </command>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
                                             </nestedSteps>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="ce4a1ab0-0d23-4d50-918d-35f895ed6cb2" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
+                                        <item guid="6286e8db-77ee-4498-9e16-4af2f81fe570" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
                                             <command>
                                                 <body>xpath=&apos;//android.widget.TextView[@resource-id=&quot;com.google.android.youtube:id/bandwidth_estimate&quot;]&apos;, attribute=&apos;text&apos;</body>
                                             </command>
@@ -1492,10 +1574,15 @@
                                                         </extractorInfo>
                                                         <processorInfo ruleType="assert">
                                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
-                                                                <expression>str(value).strip() == &quot;0.00 kbps&quot;</expression>
+                                                                <expression>str(value).strip() == &quot;0.00 kbps&quot; and elapsed &lt; wait_buffering_time</expression>
                                                                 <actionsWhenTrue>
                                                                     <item actionId="RepeatStep">
                                                                         <actionProperties type="com.fnfr.svt.execution.builtin.actions.RepeatStepPropertyGroup" maxRepeatCount="[wait_buffering_time]" maxRepeatCount.sub="true" delayBetweenRepeats="0.5"/>
+                                                                    </item>
+                                                                    <item actionId="Eval">
+                                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                                            <statement>elapsed = (datetime.now() - started).total_seconds();print(elapsed)</statement>
+                                                                        </actionProperties>
                                                                     </item>
                                                                 </actionsWhenTrue>
                                                             </ruleProperties>
@@ -1527,7 +1614,7 @@
                                                 <attribute>text</attribute>
                                             </applicationProperties>
                                         </item>
-                                        <item guid="3cc68f58-d5e4-4666-bd66-7e0a97fe2633" action="message" useFieldsInCommand="false">
+                                        <item guid="3fa8219c-4c52-41b7-b2a9-65f87f4e4084" action="message" useFieldsInCommand="false">
                                             <command>
                                                 <body>OK:Bandwidth retrieved with value &quot;[bandwidth_info]&quot;</body>
                                             </command>
@@ -1542,29 +1629,29 @@
                             </nestedSteps>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="a2475108-e888-45d5-ab98-eaa5fb893e7e" action="comment" useFieldsInCommand="false">
+                        <item guid="ebd3ca8f-907d-4ef0-b112-0c461614ee39" action="comment" useFieldsInCommand="false">
                             <command>
                                 <body>Check and wait to play for the full duration of the video</body>
                             </command>
                             <nestedSteps>
-                                <item guid="222ddc00-61c2-4ef1-9a04-5153962986e1" action="comment" useFieldsInCommand="false">
+                                <item guid="0d625717-d751-4f93-b75b-2785f3ae09f9" action="comment" useFieldsInCommand="false">
                                     <command>
                                         <body>Get the latest value of actual played duration</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="0a731dda-340a-4425-b719-8bb820c04c7c" action="eval" useFieldsInCommand="false">
+                                        <item guid="9781d5b4-077f-479e-96f2-52c4788b7f5a" action="eval" useFieldsInCommand="false">
                                             <command>
                                                 <body>next_video_close_btn_id = &apos;com.google.android.youtube:id/close_button&apos;</body>
                                             </command>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="707b70f7-78c5-4b9d-ac08-82992808532a" action="eval" useFieldsInCommand="false">
+                                        <item guid="6b8efd28-323d-4bfe-8322-c8992eef7660" action="eval" useFieldsInCommand="false">
                                             <command>
                                                 <body>current_time_id = &apos;com.google.android.youtube:id/time_bar_current_time&apos;</body>
                                             </command>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="a7a77435-2f42-4ebb-aa39-955d9aaa2681" action="command" session="s1">
+                                        <item guid="8a82e376-f85e-4d84-ab9f-e22cf35379cb" action="command" session="s1">
                                             <command>
                                                 <body>driver.find_element(By.ID, &apos;[next_video_close_btn_id]&apos;)</body>
                                             </command>
@@ -1600,24 +1687,24 @@
                                             </postProcessing>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="ac437e75-53e0-41f5-a29c-7267ed41d866" action="eval" useFieldsInCommand="false">
+                                        <item guid="72ffa5d0-ebdd-4cf1-a7f9-b142da1ad02e" action="eval" useFieldsInCommand="false">
                                             <command>
                                                 <body>ended = datetime.now()</body>
                                             </command>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="0b15e7c6-4d0f-48d3-8c00-94d72294ae1a" action="if" useFieldsInCommand="false">
+                                        <item guid="0bcac4af-88f3-4a34-89ba-244d97675d9e" action="if" useFieldsInCommand="false">
                                             <command>
                                                 <body>video_ends:</body>
                                             </command>
                                             <nestedSteps>
-                                                <item guid="4cc4f98d-0b61-47d1-8815-43b64697dddc" action="comment" useFieldsInCommand="false">
+                                                <item guid="7a9f0a14-540a-4717-aa76-77a53c77dfc7" action="comment" useFieldsInCommand="false">
                                                     <command>
                                                         <body>Already played full duration of the video. Click Close button on the top-right to close the &quot;Suggested next video&quot; view.</body>
                                                     </command>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
-                                                <item guid="23f74bba-1198-480d-8a04-a19b05c2a3b7" action="command" session="s1" estimatedStepExecutionTime="1.662">
+                                                <item guid="e8d2b708-4fc2-4909-8477-c889f62db983" action="command" session="s1" estimatedStepExecutionTime="1.662">
                                                     <command>
                                                         <body>driver.find_element(By.ID, &apos;[next_video_close_btn_id]&apos;).click()</body>
                                                     </command>
@@ -1626,14 +1713,14 @@
                                             </nestedSteps>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="1281e2ed-0a1d-4b0b-b86d-c1b6bbb60ce1" action="else" useFieldsInCommand="false">
+                                        <item guid="28889fc8-bf73-4beb-8708-788903f66b07" action="else" useFieldsInCommand="false">
                                             <nestedSteps>
-                                                <item guid="1e922fc3-d92b-4a32-a712-695b480b8401" action="comment" useFieldsInCommand="false">
+                                                <item guid="a7fef7d9-b5b9-452d-adb0-43b9f88c23bb" action="comment" useFieldsInCommand="false">
                                                     <command>
                                                         <body>Check the remaining time of the video and wait for that long</body>
                                                     </command>
                                                     <nestedSteps>
-                                                        <item guid="26d61cad-fe29-461a-9a56-76b5f72c56ab" action="call" useFieldsInCommand="false">
+                                                        <item guid="ec00b2d1-d6f8-4d60-9503-b32f778e10a1" action="call" useFieldsInCommand="false">
                                                             <command>
                                                                 <body>convert_to_datetime_object(time_str=total_expected_duration_info)</body>
                                                             </command>
@@ -1643,7 +1730,7 @@
                                                             </postProcessing>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
-                                                        <item guid="db092960-0b6f-4e2f-8c33-ae84579b9f1c" action="call" useFieldsInCommand="false">
+                                                        <item guid="e4bfe676-01b1-48d9-b260-168524383c13" action="call" useFieldsInCommand="false">
                                                             <command>
                                                                 <body>convert_to_datetime_object(time_str=actual_played_duration_info)</body>
                                                             </command>
@@ -1653,30 +1740,30 @@
                                                             </postProcessing>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
-                                                        <item guid="6f7b5b20-884f-4978-85cc-ad3fa486de17" action="eval" useFieldsInCommand="false">
+                                                        <item guid="c4fabd52-d003-4f0e-aa56-c6b1b97b8734" action="eval" useFieldsInCommand="false">
                                                             <command>
                                                                 <body>elapsed_time = (ended - started).total_seconds();print(elapsed_time)</body>
                                                             </command>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
-                                                        <item guid="e51e877f-39fa-4b97-aef2-4f4847c8254e" action="eval" useFieldsInCommand="false">
+                                                        <item guid="79e61a17-b7d3-4fd1-aa4d-0ac5efe34849" action="eval" useFieldsInCommand="false">
                                                             <command>
                                                                 <body>sleep_time = math.ceil((total_time_obj - actual_time_obj - timedelta(seconds=elapsed_time)).total_seconds())</body>
                                                             </command>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
-                                                        <item guid="55d53730-889d-4530-adf4-f4f5930d51b1" action="eval" useFieldsInCommand="false">
+                                                        <item guid="8c1d0723-702c-445a-aca2-7daaeca72efb" action="eval" useFieldsInCommand="false">
                                                             <command>
                                                                 <body>video_ends = True</body>
                                                             </command>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
-                                                        <item guid="091eb74b-52ce-46ed-8eaf-1a75969dd9ed" action="if" useFieldsInCommand="false">
+                                                        <item guid="12c53194-5d66-4376-a350-e2aae0cfcf81" action="if" useFieldsInCommand="false">
                                                             <command>
                                                                 <body>sleep_time &gt; 0:</body>
                                                             </command>
                                                             <nestedSteps>
-                                                                <item guid="fd5ed37e-0a51-4f3f-b199-88d8cafa9a64" action="message" useFieldsInCommand="false">
+                                                                <item guid="e4cbfd42-f67b-4795-af41-b49920081105" action="message" useFieldsInCommand="false">
                                                                     <command>
                                                                         <body>Information:Waiting [sleep_time]s for the video to play for the full duration...</body>
                                                                     </command>
@@ -1684,18 +1771,18 @@
                                                                         <message inherit="false">Waiting [sleep_time]s for the video to play for the full duration...</message>
                                                                     </applicationProperties>
                                                                 </item>
-                                                                <item guid="96622407-7845-45e4-ae97-d2ae04c9f3cc" action="sleep">
+                                                                <item guid="dfeb2a0c-5205-4b0f-bd4a-3eaae4489ed8" action="sleep">
                                                                     <command>
                                                                         <body>[sleep_time]</body>
                                                                     </command>
                                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                 </item>
-                                                                <item guid="63f5e9cb-b835-4ab7-9064-be31be56defe" action="comment" useFieldsInCommand="false">
+                                                                <item guid="a8b3f34b-28b0-4221-8940-79403f8627bb" action="comment" useFieldsInCommand="false">
                                                                     <command>
                                                                         <body>Expect the &quot;suggested next video&quot; view to display when the video is played to an end. Find the close button on the top-right corner</body>
                                                                     </command>
                                                                     <nestedSteps>
-                                                                        <item guid="2e0f382b-02c7-4fa0-86a9-324008b4f5e2" action="wait_until" session="s1" useFieldsInCommand="false">
+                                                                        <item guid="fd8b7bac-3be9-44be-85ba-8c230f537e3b" action="wait_until" session="s1" useFieldsInCommand="false">
                                                                             <command>
                                                                                 <body>condition=&apos;visibility_of_element_located&apos;, id=&apos;[next_video_close_btn_id]&apos;, timeout=5.0</body>
                                                                             </command>
@@ -1720,9 +1807,9 @@
                                                             </nestedSteps>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
-                                                        <item guid="41fdbda2-ad4d-44e8-9365-57766c2722f4" action="else" useFieldsInCommand="false">
+                                                        <item guid="00041ea7-f917-4a91-927d-f3d35b0e765f" action="else" useFieldsInCommand="false">
                                                             <nestedSteps>
-                                                                <item guid="d422ff1d-d64b-4730-a1a5-63d65f0cd3b5" action="eval" useFieldsInCommand="false">
+                                                                <item guid="740a4688-83d8-4642-a3d5-94502cc01458" action="eval" useFieldsInCommand="false">
                                                                     <command>
                                                                         <body>video_ends = False</body>
                                                                     </command>
@@ -1731,12 +1818,12 @@
                                                             </nestedSteps>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
-                                                        <item guid="616b1d56-e2e2-4a85-82fc-a5445c925a5b" action="if" useFieldsInCommand="false">
+                                                        <item guid="9fdb2c44-c318-4525-a417-0721c222c820" action="if" useFieldsInCommand="false">
                                                             <command>
                                                                 <body>video_ends:</body>
                                                             </command>
                                                             <nestedSteps>
-                                                                <item guid="9513a6cd-1af2-400a-9dab-0df602071b7b" action="command" session="s1" estimatedStepExecutionTime="1.662">
+                                                                <item guid="9cc180a8-7260-4814-8743-b51d5fd5cb18" action="command" session="s1" estimatedStepExecutionTime="1.662">
                                                                     <command>
                                                                         <body>driver.find_element(By.ID, &apos;[next_video_close_btn_id]&apos;).click()</body>
                                                                     </command>
@@ -1745,21 +1832,21 @@
                                                             </nestedSteps>
                                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                         </item>
-                                                        <item guid="02aef7f9-23ab-4e5a-90ec-b936ad487496" action="else" useFieldsInCommand="false">
+                                                        <item guid="5e3fbd9d-78bb-4bf9-b8b4-9f8fa0eb478c" action="else" useFieldsInCommand="false">
                                                             <nestedSteps>
-                                                                <item guid="1208fde5-0a1c-4c20-b259-572787c44d38" action="comment" useFieldsInCommand="false">
+                                                                <item guid="7e96af11-414c-4625-a63f-4f806d9aabfc" action="comment" useFieldsInCommand="false">
                                                                     <command>
                                                                         <body>More chance the video is stucked if it gets here</body>
                                                                     </command>
                                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                 </item>
-                                                                <item guid="0e050e33-95fd-4c02-8bdb-76b9e83eeeea" action="command" session="s1" estimatedStepExecutionTime="1.662">
+                                                                <item guid="080b8df7-53e1-47c8-b286-5d953d16fa5b" action="command" session="s1" estimatedStepExecutionTime="1.662">
                                                                     <command>
                                                                         <body>driver.find_element(By.ID, &apos;[video_player_id]&apos;).click()</body>
                                                                     </command>
                                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                 </item>
-                                                                <item guid="5a129671-feae-4938-b73c-fbdeded13245" action="message" useFieldsInCommand="false">
+                                                                <item guid="61abc935-85c9-4d19-b7b7-1dec4223cbcb" action="message" useFieldsInCommand="false">
                                                                     <command>
                                                                         <body>Warning:The video may be interrupted and cannot play for full duration</body>
                                                                     </command>
@@ -1768,7 +1855,7 @@
                                                                         <message inherit="false">The video may be interrupted and cannot play for full duration</message>
                                                                     </applicationProperties>
                                                                 </item>
-                                                                <item guid="13aae060-40b5-43f5-b3d3-3f5710823ce3" action="screenshot" session="s1" useFieldsInCommand="false">
+                                                                <item guid="ac2d756b-63c2-49cc-bc21-af54cecafdc7" action="screenshot" session="s1" useFieldsInCommand="false">
                                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                 </item>
                                                             </nestedSteps>
@@ -1783,12 +1870,12 @@
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="5aaebd14-742c-4fb5-8ee7-cdf6b79da364" action="comment" useFieldsInCommand="false">
+                                <item guid="c16437e1-fbcc-424f-bccd-add3061a03e2" action="comment" useFieldsInCommand="false">
                                     <command>
                                         <body>Get the latest value of actual played duration/dropped frames</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="3f9156ff-4ce9-4ecb-ad3f-032b5c32cc6a" action="get_attribute" session="s1" normalOffset="181.301" useFieldsInCommand="false">
+                                        <item guid="bc150a5c-6d81-450b-9527-369408730a36" action="get_attribute" session="s1" normalOffset="181.301" useFieldsInCommand="false">
                                             <command>
                                                 <body>xpath=&apos;//android.widget.TextView\\\\[@resource-id=&quot;[current_time_id]&quot;]&apos;, attribute=&apos;text&apos;</body>
                                             </command>
@@ -1839,12 +1926,12 @@
                                                 <attribute>text</attribute>
                                             </applicationProperties>
                                         </item>
-                                        <item guid="ba3324d7-394d-4256-a5ed-4e53bc43d35a" action="comment" useFieldsInCommand="false">
+                                        <item guid="82ff402a-9e76-4e26-9372-20bc96ac8eba" action="comment" useFieldsInCommand="false">
                                             <command>
                                                 <body>Convert to seconds</body>
                                             </command>
                                             <nestedSteps>
-                                                <item guid="7457b2c0-f5c7-4e2d-b23f-773d02de59b7" action="call" useFieldsInCommand="false">
+                                                <item guid="794ad052-80b6-4899-9fbf-03f5e9646398" action="call" useFieldsInCommand="false">
                                                     <command>
                                                         <body>get_total_seconds(time_str=actual_played_time_info)</body>
                                                     </command>
@@ -1854,7 +1941,7 @@
                                                     </postProcessing>
                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                 </item>
-                                                <item guid="ce26c1e3-f281-45b7-8901-de1ffe3d87f0" action="call" useFieldsInCommand="false">
+                                                <item guid="e343265d-e41a-4edc-8d57-bad258a0d003" action="call" useFieldsInCommand="false">
                                                     <command>
                                                         <body>get_total_seconds(time_str=total_expected_duration_info)</body>
                                                     </command>
@@ -1867,7 +1954,7 @@
                                             </nestedSteps>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="719e0b56-1905-48ec-a1dd-10572228125f" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
+                                        <item guid="53808f4c-a627-432c-8847-e3d30b90d98a" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
                                             <command>
                                                 <body>xpath=&apos;//android.widget.TextView[@resource-id=&quot;com.google.android.youtube:id/dropped_frames&quot;]&apos;, attribute=&apos;text&apos;</body>
                                             </command>
@@ -1899,12 +1986,12 @@
                                     </nestedSteps>
                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                 </item>
-                                <item guid="eec229df-403d-401b-8020-811784769f19" action="comment" useFieldsInCommand="false">
+                                <item guid="fe5d9f73-e577-4ef0-93d8-307cc615aafa" action="comment" useFieldsInCommand="false">
                                     <command>
                                         <body>Retrieve the immutable stats for nerd data</body>
                                     </command>
                                     <nestedSteps>
-                                        <item guid="5eee9ccc-2196-4c7a-92ba-94a696fb1731" action="get_attribute" session="s1" normalOffset="181.301" useFieldsInCommand="false">
+                                        <item guid="7035e491-6cca-4d83-a935-4f2b977c3990" action="get_attribute" session="s1" normalOffset="181.301" useFieldsInCommand="false">
                                             <command>
                                                 <body>xpath=&apos;//android.widget.TextView[@resource-id=&quot;com.google.android.youtube:id/device_info&quot;]&apos;, attribute=&apos;text&apos;</body>
                                             </command>
@@ -1933,7 +2020,7 @@
                                                 <attribute>text</attribute>
                                             </applicationProperties>
                                         </item>
-                                        <item guid="48698957-7052-40fa-8882-81dcf0111f26" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
+                                        <item guid="5766134e-bab3-4b48-8912-c8747420e708" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
                                             <command>
                                                 <body>xpath=&apos;//android.widget.TextView[@resource-id=&quot;com.google.android.youtube:id/video_format&quot;]&apos;, attribute=&apos;text&apos;</body>
                                             </command>
@@ -1961,7 +2048,7 @@
                                                 <attribute>text</attribute>
                                             </applicationProperties>
                                         </item>
-                                        <item guid="da403e45-8294-4e99-8178-c3278a46b0a4" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
+                                        <item guid="7cb12541-f51c-43ef-986e-2963c956fcb9" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
                                             <command>
                                                 <body>xpath=&apos;//android.widget.TextView[@resource-id=&quot;com.google.android.youtube:id/audio_format&quot;]&apos;, attribute=&apos;text&apos;</body>
                                             </command>
@@ -1990,7 +2077,7 @@
                                                 <attribute>text</attribute>
                                             </applicationProperties>
                                         </item>
-                                        <item guid="b0a0d49a-7292-4994-8962-405a90d309aa" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
+                                        <item guid="642d78b9-d35f-4c03-a60d-57e2b6451f5e" action="get_attribute" session="s1" normalOffset="14.331" useFieldsInCommand="false">
                                             <command>
                                                 <body>xpath=&apos;//android.widget.TextView[@resource-id=&quot;com.google.android.youtube:id/viewport&quot;]&apos;, attribute=&apos;text&apos;</body>
                                             </command>
@@ -2028,12 +2115,12 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="54951e48-524c-4c94-8ffa-f6c889819c68" action="comment" useFieldsInCommand="false">
+                <item guid="fa8e4dd3-d2ad-4cd1-bd63-2c010927448c" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Add data to report</body>
                     </command>
                     <nestedSteps>
-                        <item guid="b590667b-523f-48e4-9420-73e5a1775aba" action="extractData" useFieldsInCommand="false">
+                        <item guid="733f3fc5-0b64-44a4-8f7d-65556f891822" action="extractData" useFieldsInCommand="false">
                             <command>
                                 <body>Device:[device_info]</body>
                             </command>
@@ -2042,7 +2129,7 @@
                                 <value inherit="false">[device_info]</value>
                             </applicationProperties>
                         </item>
-                        <item guid="9ad0c4f0-5a79-4ee4-b96b-a747878dd42c" action="extractData" useFieldsInCommand="false">
+                        <item guid="b7a3a309-e866-4323-956e-9003efe125c8" action="extractData" useFieldsInCommand="false">
                             <command>
                                 <body>Video_Format:[video_format_info]</body>
                             </command>
@@ -2051,7 +2138,7 @@
                                 <value inherit="false">[video_format_info]</value>
                             </applicationProperties>
                         </item>
-                        <item guid="5b8b47a8-77fd-442e-8cd8-f0cefc9fc19f" action="extractData" useFieldsInCommand="false">
+                        <item guid="74142cae-d76a-4722-a277-92b6a11602fd" action="extractData" useFieldsInCommand="false">
                             <command>
                                 <body>Audio_Format:[audio_format_info]</body>
                             </command>
@@ -2060,7 +2147,7 @@
                                 <value inherit="false">[audio_format_info]</value>
                             </applicationProperties>
                         </item>
-                        <item guid="371b8d61-2db9-4474-8688-8481aadcbf41" action="extractData" useFieldsInCommand="false">
+                        <item guid="8d1a82d4-9dfe-422b-9b61-84f884bc7475" action="extractData" useFieldsInCommand="false">
                             <command>
                                 <body>Bandwidth:[bandwidth_info]</body>
                             </command>
@@ -2069,7 +2156,7 @@
                                 <value inherit="false">[bandwidth_info]</value>
                             </applicationProperties>
                         </item>
-                        <item guid="d22bb18c-adfe-42d8-b942-e65df8de1bea" action="extractData" useFieldsInCommand="false">
+                        <item guid="3322cff8-7ce7-4449-be0c-9fc9299f1bc0" action="extractData" useFieldsInCommand="false">
                             <command>
                                 <body>View_Port:[view_port_info]</body>
                             </command>
@@ -2078,7 +2165,7 @@
                                 <value inherit="false">[view_port_info]</value>
                             </applicationProperties>
                         </item>
-                        <item guid="6b9d1a1f-30cf-483b-b307-db24baff6290" action="extractData" useFieldsInCommand="false">
+                        <item guid="123db6f6-28e1-4123-981d-c3a829c5dcd4" action="extractData" useFieldsInCommand="false">
                             <command>
                                 <body>Dropped_Frames:[dropped_frames_info]</body>
                             </command>
@@ -2087,7 +2174,7 @@
                                 <value inherit="false">[dropped_frames_info]</value>
                             </applicationProperties>
                         </item>
-                        <item guid="ee6ab35a-9f16-4426-bfff-3f6a8ccd3083" action="extractData" useFieldsInCommand="false">
+                        <item guid="2fa8b664-4f6d-412c-9540-7b6768624a02" action="extractData" useFieldsInCommand="false">
                             <command>
                                 <body>Actual_Played_Time:[actual_played_time_in_sec]</body>
                             </command>
@@ -2096,7 +2183,7 @@
                                 <value inherit="false">[actual_played_time_in_sec]</value>
                             </applicationProperties>
                         </item>
-                        <item guid="022967c8-9f63-49c0-b077-f9d01eeacefe" action="extractData" useFieldsInCommand="false">
+                        <item guid="10c549c4-6282-4c0e-9e53-78c2bb1354bc" action="extractData" useFieldsInCommand="false">
                             <command>
                                 <body>Video_Expected_Duration:[total_duration_in_sec]</body>
                             </command>
@@ -2108,12 +2195,12 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="2f071fce-1778-4820-b6f9-a87bb9066121" action="comment" useFieldsInCommand="false">
+                <item guid="4e77f445-d850-4649-9104-822c9621da37" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Add to json response</body>
                     </command>
                     <nestedSteps>
-                        <item guid="5ed464f5-36ee-4b5f-a6bd-46a625dcd50d" action="json" useFieldsInCommand="false">
+                        <item guid="281c2cf5-a34a-47ac-82e2-8f4c2acc3fbc" action="json" useFieldsInCommand="false">
                             <command>
                                 <body>action=&apos;createJson&apos;, documentName=&apos;response&apos;, fromFile=false, jsonString=&apos;{&quot;Video_URL&quot;:&quot;[video_url]&quot;,&quot;Dropped_Frames&quot;:&quot;[dropped_frames_info]&quot;,&quot;View_Port&quot;:&quot;[view_port_info]&quot;,&quot;Device&quot;:&quot;[device_info]&quot;,&quot;Bandwidth&quot;:&quot;[bandwidth_info]&quot;,&quot;Video_Format&quot;:&quot;[video_format_info]&quot;,&quot;Audio_Format&quot;:&quot;[audio_format_info]&quot;,&quot;Actual_Played_Time&quot;:&quot;[actual_played_time_in_sec]&quot;,&quot;Video_Expected_Duration&quot;:&quot;[total_duration_in_sec]&quot;}&apos;</body>
                             </command>
@@ -2123,7 +2210,7 @@
                                 <documentName inherit="false">response</documentName>
                             </applicationProperties>
                         </item>
-                        <item guid="cfccdbbd-8055-437d-a14c-59b9b7dbb20e" action="message" useFieldsInCommand="false">
+                        <item guid="a034c7df-016e-43a6-adc9-9c0b1f921894" action="message" useFieldsInCommand="false">
                             <command>
                                 <body>OK:Successfully grabbed the required data</body>
                             </command>
@@ -2132,7 +2219,7 @@
                                 <message inherit="false">Successfully grabbed the required data</message>
                             </applicationProperties>
                         </item>
-                        <item guid="86132711-d7ac-49ca-ab54-4764a833b78b" action="return">
+                        <item guid="d5f58242-d2db-4934-a579-942dc29e4712" action="return">
                             <command>
                                 <body>[response]</body>
                             </command>
@@ -2152,12 +2239,12 @@
         </item>
         <item name="scroll_to_option">
             <steps>
-                <item guid="58cfcd4e-a49e-43cc-b3ed-7f68c6bf87d9" action="for" useFieldsInCommand="false">
+                <item guid="7facdcf4-56df-4abb-af51-a88678dfb690" action="for" useFieldsInCommand="false">
                     <command>
                         <body>i in range(0, 10):</body>
                     </command>
                     <nestedSteps>
-                        <item guid="70534f83-cf59-4e7b-899d-e5da7323fb46" action="command" session="s1" estimatedStepExecutionTime="6.115">
+                        <item guid="d69ee29d-91ca-48be-88ec-eb2b365a8364" action="command" session="s1" estimatedStepExecutionTime="6.115">
                             <command>
                                 <body>driver.find_element(By.XPATH, &apos;[option]&apos;)</body>
                             </command>
@@ -2187,7 +2274,7 @@
                             </eventHandlers>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="4e76dddd-13bd-4e0d-9b45-c1dca40695e0" action="command" session="s1" estimatedStepExecutionTime="1.518" useFieldsInCommand="false">
+                        <item guid="a9d7ba0d-73e3-402d-8e91-eb58b78da9ae" action="command" session="s1" estimatedStepExecutionTime="1.518" useFieldsInCommand="false">
                             <command>
                                 <body>driver.find_element(By.ANDROID_UIAUTOMATOR, &apos;new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollToEnd(1)&apos;)</body>
                             </command>
@@ -2196,7 +2283,7 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="30765c26-796c-431e-b65d-b964028398dc" action="command" session="s1">
+                <item guid="f71b17c2-0b31-4c28-94bc-95982f501746" action="command" session="s1">
                     <command>
                         <body>[store_to_variable] = driver.find_element(By.XPATH, &apos;[option]&apos;)</body>
                     </command>
@@ -2244,13 +2331,13 @@
         </item>
         <item name="get_wait_time_for_bandwidth" isPublic="true">
             <steps>
-                <item guid="4e1c0b41-3971-4950-85d0-fa17a1552345" action="eval" useFieldsInCommand="false">
+                <item guid="09c275f6-e590-4ffd-bba5-4c243673dcc0" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>from datetime import datetime, timedelta</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="7c896d70-2c87-4b66-9065-84783f107c6b" action="call" useFieldsInCommand="false">
+                <item guid="4e44a062-a249-4791-80ca-f64b8623db52" action="call" useFieldsInCommand="false">
                     <command>
                         <body>convert_to_datetime_object(time_str=total_duration)</body>
                     </command>
@@ -2260,7 +2347,7 @@
                     </postProcessing>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="54d3fd79-a869-4cfa-98db-48183974087d" action="call" useFieldsInCommand="false">
+                <item guid="6f058d24-1189-4ea6-8509-6eb8b997631c" action="call" useFieldsInCommand="false">
                     <command>
                         <body>convert_to_datetime_object(time_str=actual_played_duration)</body>
                     </command>
@@ -2270,35 +2357,35 @@
                     </postProcessing>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="2e64b9c3-dbef-4723-b629-58687dffe08b" action="comment" useFieldsInCommand="false">
+                <item guid="f99a680d-094a-4def-b352-8b2543cfa0e1" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Check how much time the video has read ahead of time</body>
                     </command>
                     <nestedSteps>
-                        <item guid="792e07e4-22be-4e49-b4b0-a9a3b05bc113" action="eval" useFieldsInCommand="false">
+                        <item guid="02bab531-58c9-42e2-b66c-eb6e4aac7f5d" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>readahead_time = math.ceil(float(readahead.replace(&apos;s&apos;, &apos;&apos;).strip()));print(readahead_time)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="5c518d10-6311-4375-9527-e0fd54002f18" action="eval" useFieldsInCommand="false">
+                        <item guid="47ad1cd4-7d02-4e9d-89c9-9b334ead6f10" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>buffered_time_obj = actual_time_obj + timedelta(seconds=readahead_time)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="0a7009e1-f135-4bdc-a627-358ef66c0064" action="comment" useFieldsInCommand="false">
+                        <item guid="3fc9ef95-44a7-4584-abe8-68e6fa081a5a" action="comment" useFieldsInCommand="false">
                             <command>
                                 <body>If the readhead + actual played time &gt;= total duration, no need to wait since the device has been buffered with all the video&apos;s data</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="72089d47-bce5-480e-97b4-2fc756dab3a8" action="comment" useFieldsInCommand="false">
+                        <item guid="618e5400-3ed1-40dc-8aa3-8e002f7b0cdf" action="comment" useFieldsInCommand="false">
                             <command>
                                 <body>Otherwise, wait for the rest of the video&apos;s length</body>
                             </command>
                             <nestedSteps>
-                                <item guid="f92d97a6-a6f4-403a-b6e0-3db32945e45c" action="eval" useFieldsInCommand="false">
+                                <item guid="ed9ba775-ae29-4331-8a9b-74cebf6f0d26" action="eval" useFieldsInCommand="false">
                                     <command>
                                         <body>time_to_wait = 0</body>
                                     </command>
@@ -2307,12 +2394,12 @@
                             </nestedSteps>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="68184bc6-e61c-4c1e-b09a-564e5b386b8f" action="if" useFieldsInCommand="false">
+                        <item guid="ef6cb22f-9794-4930-9e49-3d8b2a46c388" action="if" useFieldsInCommand="false">
                             <command>
                                 <body>buffered_time_obj &lt; total_time_obj:</body>
                             </command>
                             <nestedSteps>
-                                <item guid="ae17e9b8-888c-465e-b500-b650988c8c18" action="eval" useFieldsInCommand="false">
+                                <item guid="c37b7979-fc30-4222-a102-4e49192dfa13" action="eval" useFieldsInCommand="false">
                                     <command>
                                         <body>time_to_wait = int((total_time_obj - actual_time_obj).total_seconds())</body>
                                     </command>
@@ -2321,7 +2408,7 @@
                             </nestedSteps>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="5b57d25d-05d7-4346-a662-330032578c02" action="return">
+                        <item guid="7031aec2-05a9-4605-9958-312b9208e35a" action="return">
                             <command>
                                 <body>[time_to_wait]</body>
                             </command>
@@ -2339,30 +2426,30 @@
         </item>
         <item name="convert_to_datetime_object" isPublic="true">
             <steps>
-                <item guid="614d8ebd-f7e8-4cb8-9d1a-c850aa86e599" action="eval" useFieldsInCommand="false">
+                <item guid="fd45efec-a911-4986-bc84-89c4f48e0b97" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>from datetime import datetime</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="22c15a9e-e3ee-4dc6-8804-56c62daee683" action="eval" useFieldsInCommand="false">
+                <item guid="fc4c1464-060e-4353-a31e-8387c0e89431" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>parts = time_str.strip().split(&quot;:&quot;)</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="094eba39-34f9-41cf-8b87-e0c5566c8f44" action="eval" useFieldsInCommand="false">
+                <item guid="b592836d-6174-4e2d-bbd4-2295a15d5e54" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>time_format = &quot;%M:%S&quot;</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="f755f08f-a5ba-412f-a235-44a120512169" action="if" useFieldsInCommand="false">
+                <item guid="f2d84042-2beb-4ae9-9bfa-498895d19322" action="if" useFieldsInCommand="false">
                     <command>
                         <body>len(parts) == 3:</body>
                     </command>
                     <nestedSteps>
-                        <item guid="25753509-b2a4-41dd-a1be-400ecadcd2be" action="eval" useFieldsInCommand="false">
+                        <item guid="7c107263-b990-4e74-b8f6-694ce44b665c" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>time_format = &quot;%H:%M:%S&quot;</body>
                             </command>
@@ -2371,13 +2458,13 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="cd21a4dd-0cb0-4098-85aa-10562f787949" action="eval" useFieldsInCommand="false">
+                <item guid="32f02620-e383-44d4-8f81-154842b52e94" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>time_obj = datetime.strptime(time_str, time_format);print(datetime.strftime(time_obj, time_format))</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="6e882b6f-dd81-43b1-bb13-2282b6f63eaf" action="return">
+                <item guid="f5d4386a-8f52-44a1-92f5-b2c2d0774c22" action="return">
                     <command>
                         <body>[time_obj]</body>
                     </command>
@@ -2390,13 +2477,13 @@
         </item>
         <item name="get_total_seconds" isPublic="true">
             <steps>
-                <item guid="10ae49af-f431-4b10-8e8d-63e36471bf0b" action="eval" useFieldsInCommand="false">
+                <item guid="adc2ec79-8546-43fa-a989-06c66c2873a1" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>from datetime import timedelta</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="ea7b843f-2c84-4d85-9294-49dbd7697854" action="call" useFieldsInCommand="false">
+                <item guid="51aab312-600a-4657-919c-6fc97ca5c118" action="call" useFieldsInCommand="false">
                     <command>
                         <body>convert_to_datetime_object(time_str=time_str)</body>
                     </command>
@@ -2406,13 +2493,13 @@
                     </postProcessing>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="7f0b769f-a06d-43da-b3d5-958070c719ad" action="eval" useFieldsInCommand="false">
+                <item guid="9237d1e0-32ba-45aa-b7c4-5386d02bd64a" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>total_seconds = timedelta(hours=datetime_obj.hour, minutes=datetime_obj.minute, seconds=datetime_obj.second).total_seconds()</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="5f1bb9f5-5fe1-41b2-8f7b-7005a487eea1" action="return">
+                <item guid="d437b2c9-de3b-4ca8-a7d6-4d9054f3c067" action="return">
                     <command>
                         <body>[total_seconds] s</body>
                     </command>
@@ -2425,13 +2512,13 @@
         </item>
         <item name="run_adb" isPublic="true">
             <steps>
-                <item guid="566c2414-75c0-44d4-9b4b-158572e51dfb" action="eval" useFieldsInCommand="false">
+                <item guid="75f87506-5e6a-4812-b3a4-61dc5734ba51" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>import subprocess, json</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="fc67975f-a2ad-4898-806d-f968b847e68f" action="eval" useFieldsInCommand="false">
+                <item guid="16fe6a5b-7171-4de8-a888-75266901e071" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>result = subprocess.check_output(f&apos;{param(&quot;ADBPath&quot;)} {command}&apos;, shell=True).decode()</body>
                     </command>
@@ -2451,7 +2538,7 @@
                     </eventHandlers>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="b9b41d7e-c1b6-44b9-8988-d25c0f1a8751" action="return">
+                <item guid="58649d7f-9800-45a9-b19c-8fc314baebd7" action="return">
                     <command>
                         <body>[result]</body>
                     </command>
@@ -2466,21 +2553,21 @@
         </item>
         <item name="clean_up" isPublic="true">
             <steps>
-                <item guid="fea46a83-8b07-40f4-accb-26516332af4c" action="comment" useFieldsInCommand="false">
+                <item guid="07334e2e-1d6d-4e9a-99b4-d503b38a22f7" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Do the screenshot, get page source for debugging and do the cleanup when there are errors in the middle of the execution</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="9a474195-04a6-4dd8-b656-048ea1ddba51" action="if" useFieldsInCommand="false">
+                <item guid="ec5f21cf-d065-49ec-8fe6-14a27864e5dc" action="if" useFieldsInCommand="false">
                     <command>
                         <body>need_screenshot == &quot;true&quot;:</body>
                     </command>
                     <nestedSteps>
-                        <item guid="8a592875-8761-4df5-9399-da482d8a9693" action="screenshot" session="s1" useFieldsInCommand="false">
+                        <item guid="da40b242-d751-4d56-acec-7e90a2c61f2a" action="screenshot" session="s1" useFieldsInCommand="false">
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="75c77eab-ecab-4b18-93ef-f753081a673f" action="command" session="s1" useFieldsInCommand="false">
+                        <item guid="faa4a714-9501-4d60-b246-eaf77ec58da1" action="command" session="s1" useFieldsInCommand="false">
                             <command>
                                 <body>print(driver.page_source)
 </body>
@@ -2490,15 +2577,13 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="f9651f82-4e52-433d-adce-f5c3eb3b7191" action="terminate" session="s1">
+                <item guid="af89cf0f-b1a4-4888-8a98-4fa652ff7a8f" action="call" useFieldsInCommand="false">
                     <command>
-                        <body>[gget(&apos;ytb_app_pkg&apos;)]</body>
+                        <body>terminate_youtube_app()</body>
                     </command>
-                    <applicationProperties type="com.spirent.itest.applications.appium.properties.AppIdStepProperties">
-                        <AppId>[gget(&apos;ytb_app_pkg&apos;)]</AppId>
-                    </applicationProperties>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="f0dba55c-e860-423a-a393-a38b88f04821" action="close" session="s1" useFieldsInCommand="false">
+                <item guid="b9c78e54-6f23-4be2-80d9-5f513e9399ce" action="close" session="s1" useFieldsInCommand="false">
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
             </steps>
@@ -2510,24 +2595,24 @@
         </item>
         <item name="clean_app_data" isPublic="true">
             <steps>
-                <item guid="cbb3d976-141d-404e-b8c1-56b43eb1840c" action="comment" useFieldsInCommand="false">
+                <item guid="6d601d63-d6dc-4644-830b-925f439b7b66" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Execute clean storage command to make the fresh start of the app</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="1dab30fc-742a-4149-88a9-dfba40429db9" action="eval" useFieldsInCommand="false">
+                <item guid="c0ff6b1c-1080-44cc-a30e-789212bf49eb" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>device_used = &apos;&apos;</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="3208582e-50db-42d8-aace-bbd9d84ef808" action="if" useFieldsInCommand="false">
+                <item guid="f44fc82f-308c-4c30-91af-a2b173c11259" action="if" useFieldsInCommand="false">
                     <command>
                         <body>param(&quot;DeviceAndroidID&quot;) != &apos;&apos;:</body>
                     </command>
                     <nestedSteps>
-                        <item guid="53d6f177-f6f1-443b-9454-87a02ac5a82f" action="eval" useFieldsInCommand="false">
+                        <item guid="c57ad41c-bfdc-44f8-8d86-0528628f9837" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>device_used = f&apos;-s {param(&quot;DeviceAndroidID&quot;)} &apos;</body>
                             </command>
@@ -2536,13 +2621,13 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="9154dba8-6f63-4e2d-9e7d-5a19010a7304" action="eval" useFieldsInCommand="false">
+                <item guid="9123baf9-583c-4b2f-8c5b-b2ee8df7f046" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>clear_storage_cmd = f&quot; {device_used} shell pm clear {gget(&apos;ytb_app_pkg&apos;)}&quot;</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="f4ea5035-9bbc-4da0-916a-dd96dde1953a" action="call" useFieldsInCommand="false">
+                <item guid="5fb9e992-7dcb-40c9-9d8c-80984a25a69c" action="call" useFieldsInCommand="false">
                     <command>
                         <body>run_adb(command=clear_storage_cmd)</body>
                     </command>
@@ -2552,7 +2637,7 @@
                     </postProcessing>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="4dd9018e-9670-44d9-97f6-55a3b7b66ac7" action="return">
+                <item guid="6e58bf6f-621a-42e6-8e5e-fa8b1495eb73" action="return">
                     <command>
                         <body>[result]</body>
                     </command>
@@ -2562,12 +2647,12 @@
         </item>
         <item name="launch_youtube_app" isPublic="true">
             <steps>
-                <item guid="a670fbce-a221-4a5f-aa8f-e1f3d02b5e2f" action="comment" useFieldsInCommand="false">
+                <item guid="2efa2412-ae6f-4309-87fd-c57664eab991" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Cannot use the Appium&apos;s &apos;activate&apos; command since the Android container needs the option &apos;pct-syskeys 0&apos; in the adb command to launch the app. So we need to use adb command directly as a workaround</body>
                     </command>
                     <nestedSteps>
-                        <item guid="faf8cdb6-345b-4263-a368-dd375838e6ab" action="activate" session="s1" skip="true">
+                        <item guid="eafda2ff-1cf6-4ef9-ae34-ce77c1bf53c5" action="activate" session="s1" skip="true">
                             <command>
                                 <body>[ytb_app_pkg]</body>
                             </command>
@@ -2607,12 +2692,12 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="54b8898f-3758-46b9-9b1d-96a06b112451" action="comment" useFieldsInCommand="false">
+                <item guid="55b37676-5021-49a4-9a18-4a10bc3ed0fa" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>If you want to use &apos;mobile shell&apos; instead of running adb command through subprocess, then the Appium server must be started with the option --relaxed-security or --allow-insecure=adb_shell</body>
                     </command>
                     <nestedSteps>
-                        <item guid="c29dee1b-fc59-46bd-84a1-cf4c6deca60a" action="command" session="s1" skip="true" useFieldsInCommand="false">
+                        <item guid="f9d3ace9-9079-47b9-816a-20675dcc2a49" action="command" session="s1" skip="true" useFieldsInCommand="false">
                             <command>
                                 <body>driver.execute_script(&apos;mobile:shell&apos;, {&apos;command&apos;: &apos;monkey --pct-syskeys 0  -p com.google.android.youtube -c android.intent.category.LAUNCHER 1&apos;})</body>
                             </command>
@@ -2621,23 +2706,23 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="e6f18f2f-5395-44fb-a50b-711c362916e2" action="comment" useFieldsInCommand="false">
+                <item guid="509bdb70-4a38-442a-b752-8ec47ede17ad" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Otherwise, use adb command</body>
                     </command>
                     <nestedSteps>
-                        <item guid="67ce5ca5-84ee-4038-a705-7c231e3be319" action="eval" useFieldsInCommand="false">
+                        <item guid="408972ed-4f68-4e44-9a55-7ee4312fb701" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>device_used = &apos;&apos;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="83fd6b64-698c-48ad-8275-78941d7b7b88" action="if" useFieldsInCommand="false">
+                        <item guid="ff5a2dc6-7af8-4845-8475-7a901b0293f2" action="if" useFieldsInCommand="false">
                             <command>
                                 <body>param(&quot;DeviceAndroidID&quot;) != &apos;&apos;:</body>
                             </command>
                             <nestedSteps>
-                                <item guid="53d6f177-f6f1-443b-9454-87a02ac5a82f" action="eval" useFieldsInCommand="false">
+                                <item guid="7a7fab71-d1de-4bf7-b6cc-4f31b41bf7fd" action="eval" useFieldsInCommand="false">
                                     <command>
                                         <body>device_used = f&apos;-s {param(&quot;DeviceAndroidID&quot;)}&apos;</body>
                                     </command>
@@ -2646,13 +2731,13 @@
                             </nestedSteps>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="4dedf8ed-955d-4725-9083-d23beeebec96" action="eval" useFieldsInCommand="false">
+                        <item guid="c945387d-3253-4eb2-a7f3-f9f82f19180b" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>cmd = f&apos; {device_used} shell monkey --pct-syskeys 0 -p {gget(&quot;ytb_app_pkg&quot;)} -c android.intent.category.LAUNCHER 1&apos;</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="020afb21-f572-4faf-ae76-022ca2a411ae" action="call" useFieldsInCommand="false">
+                        <item guid="7d8ecaea-4e92-4f81-8044-89d36f4d6b14" action="call" useFieldsInCommand="false">
                             <command>
                                 <body>run_adb(command = cmd)</body>
                             </command>
@@ -2690,12 +2775,12 @@
                     </nestedSteps>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="a4c47ab8-a6b2-4295-814b-97c81912206d" action="comment" useFieldsInCommand="false">
+                <item guid="5b07d623-41dd-4363-94a8-59fe7c4a84f6" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Wait until app is loaded</body>
                     </command>
                     <nestedSteps>
-                        <item guid="9d3674a2-e261-4ee5-842a-cc2235d109e7" action="command" session="s1" useFieldsInCommand="false">
+                        <item guid="3e8db838-a26c-4430-9ea8-8047cb38ab66" action="command" session="s1" useFieldsInCommand="false">
                             <command>
                                 <body>driver.current_activity</body>
                             </command>
@@ -2732,13 +2817,13 @@
                             </eventHandlers>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="bad23ed1-23da-402e-9a15-f1d6a5b7d6ef" action="command" session="s1" useFieldsInCommand="false">
+                        <item guid="715cd400-5fde-4aca-bb70-b554e6a865c9" action="command" session="s1" useFieldsInCommand="false">
                             <command>
                                 <body>time.sleep(3.0)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
-                        <item guid="bd4fcb96-4e90-46b6-8871-ff4374528e10" action="message" useFieldsInCommand="false">
+                        <item guid="7965624f-5b02-4df2-85c8-5cf4bb91e3f2" action="message" useFieldsInCommand="false">
                             <command>
                                 <body>OK:Successfully opened the Youtube application</body>
                             </command>
@@ -2754,13 +2839,13 @@
         </item>
         <item name="handle_notification_ask" isPublic="true">
             <steps>
-                <item guid="c032aaf5-af12-4c9d-939b-b347be03a53f" action="comment" useFieldsInCommand="false">
+                <item guid="9afc57aa-e2e6-43d2-90bf-5827518d0175" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>Youtube will be asking for sending notification sometimes, this taps the &quot;Allow&quot; button</body>
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="202a1590-faff-4c57-a32a-536efb6268b3" action="command" session="s1" useFieldsInCommand="false">
+                <item guid="3d5daa57-a586-4d84-9a81-304067c17871" action="command" session="s1" useFieldsInCommand="false">
                     <command>
                         <body>driver.current_activity</body>
                     </command>
@@ -2787,7 +2872,7 @@
                     </postProcessing>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="a9ec3b84-640a-4b26-b45e-17f210a243d1" action="command" session="s1" estimatedStepExecutionTime="1.662" useFieldsInCommand="false">
+                <item guid="e81a7671-8f94-481c-a3af-44410a6578bf" action="command" session="s1" estimatedStepExecutionTime="1.662" useFieldsInCommand="false">
                     <command>
                         <body>driver.find_element(By.ID, &apos;com.android.permissioncontroller:id/permission_allow_button&apos;).click()</body>
                     </command>
@@ -2829,12 +2914,12 @@
                     </postProcessing>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="729d7872-b71b-49d5-82a8-861edfce1924" action="comment" useFieldsInCommand="false">
+                <item guid="8add8e67-c776-4407-9c35-9bf23e946e71" action="comment" useFieldsInCommand="false">
                     <command>
                         <body>After allowing the notification, relaunch the app if it does not</body>
                     </command>
                     <nestedSteps>
-                        <item guid="076838de-84ce-47c6-b77b-221e06c80c1e" action="command" session="s1" useFieldsInCommand="false">
+                        <item guid="3d059bb3-72d4-4b24-8127-b6ae61fc52d3" action="command" session="s1" useFieldsInCommand="false">
                             <command>
                                 <body>driver.current_package</body>
                             </command>
@@ -2865,6 +2950,42 @@
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+        </item>
+        <item name="terminate_youtube_app" isPublic="true">
+            <steps>
+                <item guid="01fafb71-f5ac-4049-9255-bb7d3e2110de" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>device_used = &apos;&apos;</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="284086d4-1fb5-4386-ad2e-ce099344662e" action="if" useFieldsInCommand="false">
+                    <command>
+                        <body>param(&quot;DeviceAndroidID&quot;) != &apos;&apos;:</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="7a7fab71-d1de-4bf7-b6cc-4f31b41bf7fd" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>device_used = f&apos;-s {param(&quot;DeviceAndroidID&quot;)}&apos;</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="415bba8a-03e5-4344-a3d3-5af445c7586c" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>cmd = f&quot; {device_used} shell am force-stop {gget(&apos;ytb_app_pkg&apos;)}&quot;</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="7196130c-178d-4386-9393-09c00d79cb17" action="call" useFieldsInCommand="false">
+                    <command>
+                        <body>run_adb(command=cmd)</body>
+                    </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
             </steps>
