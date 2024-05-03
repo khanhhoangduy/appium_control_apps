@@ -1269,7 +1269,7 @@
                                                         <processorInfo ruleType="assert">
                                                             <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
                                                                 <expression>True</expression>
-                                                                <actionsWhenFalse>
+                                                                <actionsWhenTrue>
                                                                     <item actionId="FailTest">
                                                                         <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                     </item>
@@ -1278,7 +1278,7 @@
                                                                             <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
                                                                         </actionProperties>
                                                                     </item>
-                                                                </actionsWhenFalse>
+                                                                </actionsWhenTrue>
                                                             </ruleProperties>
                                                         </processorInfo>
                                                     </item>
@@ -1489,7 +1489,7 @@
                                                                                 <processorInfo ruleType="assert">
                                                                                     <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
                                                                                         <expression>True</expression>
-                                                                                        <actionsWhenFalse>
+                                                                                        <actionsWhenTrue>
                                                                                             <item actionId="FailTest">
                                                                                                 <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                                             </item>
@@ -1498,7 +1498,7 @@
                                                                                                     <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
                                                                                                 </actionProperties>
                                                                                             </item>
-                                                                                        </actionsWhenFalse>
+                                                                                        </actionsWhenTrue>
                                                                                     </ruleProperties>
                                                                                 </processorInfo>
                                                                             </item>
@@ -1662,7 +1662,7 @@
                                                                                 <processorInfo ruleType="assert">
                                                                                     <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
                                                                                         <expression>True</expression>
-                                                                                        <actionsWhenFalse>
+                                                                                        <actionsWhenTrue>
                                                                                             <item actionId="FailTest">
                                                                                                 <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                                             </item>
@@ -1671,7 +1671,7 @@
                                                                                                     <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
                                                                                                 </actionProperties>
                                                                                             </item>
-                                                                                        </actionsWhenFalse>
+                                                                                        </actionsWhenTrue>
                                                                                     </ruleProperties>
                                                                                 </processorInfo>
                                                                             </item>
@@ -1839,7 +1839,7 @@
                                                                 <processorInfo ruleType="assert">
                                                                     <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
                                                                         <expression>True</expression>
-                                                                        <actionsWhenFalse>
+                                                                        <actionsWhenTrue>
                                                                             <item actionId="FailTest">
                                                                                 <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                             </item>
@@ -1848,7 +1848,7 @@
                                                                                     <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
                                                                                 </actionProperties>
                                                                             </item>
-                                                                        </actionsWhenFalse>
+                                                                        </actionsWhenTrue>
                                                                     </ruleProperties>
                                                                 </processorInfo>
                                                             </item>
