@@ -115,7 +115,7 @@
                     <nestedSteps>
                         <item guid="550f8743-aea2-4d82-bd39-f45788d1f41e" action="command" session="t1" useFieldsInCommand="false">
                             <command>
-                                <body>driver.execute(webdriver.mobilecommand.MobileCommand.UPDATE_SETTINGS, { &apos;settings&apos;: { &apos;waitForIdleTimeout&apos;: 5, &apos;waitForSelectorTimeout&apos;: 5 } })</body>
+                                <body>driver.execute(webdriver.mobilecommand.MobileCommand.UPDATE_SETTINGS, { &apos;settings&apos;: { &apos;waitForIdleTimeout&apos;: 2, &apos;waitForSelectorTimeout&apos;: 2 } })</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
@@ -4986,16 +4986,10 @@
                                                                             </item>
                                                                         </actionsWhenTrue>
                                                                         <actionsWhenFalse>
-                                                                            <item actionId="FailTest">
-                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                            </item>
                                                                             <item actionId="DeclareExecutionIssue">
-                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="Warning">
                                                                                     <message> Can not find and click &quot;Got it&quot; button</message>
                                                                                 </actionProperties>
-                                                                            </item>
-                                                                            <item actionId="ExitProcedure">
-                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
                                                                             </item>
                                                                         </actionsWhenFalse>
                                                                     </ruleProperties>
@@ -5079,16 +5073,10 @@
                                                                             </item>
                                                                         </actionsWhenTrue>
                                                                         <actionsWhenFalse>
-                                                                            <item actionId="FailTest">
-                                                                                <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                                                            </item>
                                                                             <item actionId="DeclareExecutionIssue">
-                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup" severity="Warning">
                                                                                     <message> Can not find and click &quot;Later&quot; button</message>
                                                                                 </actionProperties>
-                                                                            </item>
-                                                                            <item actionId="ExitProcedure">
-                                                                                <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
                                                                             </item>
                                                                         </actionsWhenFalse>
                                                                     </ruleProperties>
@@ -5771,6 +5759,22 @@
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
             </steps>
+        </item>
+        <item name="_sleep" isPublic="true">
+            <steps>
+                <item guid="d37264a8-3bcc-4941-b3bf-0b3af59b18e7" action="command" session="t1" useFieldsInCommand="false">
+                    <command>
+                        <body>time.sleep([second])</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+            </steps>
+            <arguments>
+                <item name="second">
+                    <defaultValue>1</defaultValue>
+                    <isMandatory>true</isMandatory>
+                </item>
+            </arguments>
         </item>
     </procedures>
 </testCase>
