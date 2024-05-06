@@ -71,7 +71,7 @@
                         </item>
                         <item guid="7b1e9070-e992-40dd-bbf4-b88a66dc44e1" action="eval" useFieldsInCommand="false">
                             <command>
-                                <body>clearData = param(&apos;clearAppData&apos;, &apos;false&apos;)</body>
+                                <body>clearData = param(&apos;clearAppData&apos;, &apos;true&apos;)</body>
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
