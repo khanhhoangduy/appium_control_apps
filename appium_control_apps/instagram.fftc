@@ -1082,13 +1082,18 @@
                                                             <statement>is_successful=False</statement>
                                                         </actionProperties>
                                                     </item>
-                                                    <item actionId="CallProcedure">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                                            <command>open_home_page()</command>
+                                                    <item actionId="FailTest">
+                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    </item>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                            <message>Login page not found</message>
                                                         </actionProperties>
                                                     </item>
-                                                    <item actionId="RepeatStep">
-                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.RepeatStepPropertyGroup" maxRepeatCount="2" delayBetweenRepeats="5.0"/>
+                                                    <item actionId="CallProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                        </actionProperties>
                                                     </item>
                                                 </actionsWhenFalse>
                                             </ruleProperties>
@@ -1098,26 +1103,6 @@
                                 <storeResponseAt>is_successful</storeResponseAt>
                                 <storeResponseText>true</storeResponseText>
                             </postProcessing>
-                            <eventHandlers>
-                                <item name="OnRepeatStepMaxCountExceeded">
-                                    <item actionId="DeclareExecutionIssue">
-                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
-                                            <message>Unable to open the Login page.</message>
-                                        </actionProperties>
-                                    </item>
-                                    <item actionId="CallProcedure">
-                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
-                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
-                                        </actionProperties>
-                                    </item>
-                                    <item actionId="FailTest">
-                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
-                                    </item>
-                                    <item actionId="ExitProcedure">
-                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExitProcedurePropertyGroup"/>
-                                    </item>
-                                </item>
-                            </eventHandlers>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
                     </nestedSteps>
@@ -1130,7 +1115,7 @@
                     <nestedSteps>
                         <item guid="be1c4e76-2cca-4221-bdd0-a120890c145e" action="call" useFieldsInCommand="false">
                             <command>
-                                <body>driver_wait_until_with_action(element=xpath_username_textbox, By=&quot;XPATH&quot;,expected_action=&quot;clear_text&quot;)</body>
+                                <body>driver_find_with_action(element=xpath_username_textbox, By=&quot;XPATH&quot;,expected_action=&quot;clear_text&quot;)</body>
                             </command>
                             <postProcessing>
                                 <storeResponseAt>is_command_successful</storeResponseAt>
@@ -1143,6 +1128,47 @@
                                 <body>driver_find_with_action(element=xpath_username_textbox, By=&quot;XPATH&quot;,expected_action=&quot;send_keys&quot;,keys_input=username)</body>
                             </command>
                             <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>True</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 1</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_successful=True</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_successful=False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="FailTest">
+                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    </item>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                            <message>Login failed, unable to input Username</message>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="CallProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
                                 <storeResponseAt>is_command_successful</storeResponseAt>
                                 <storeResponseText>true</storeResponseText>
                             </postProcessing>
@@ -1150,7 +1176,7 @@
                         </item>
                         <item guid="e3721b9a-b759-4da1-ace2-f43523ead1b5" action="call" useFieldsInCommand="false">
                             <command>
-                                <body>driver_wait_until_with_action(element=xpath_password_textbox, By=&quot;XPATH&quot;,expected_action=&quot;clear_text&quot;)</body>
+                                <body>driver_find_with_action(element=xpath_password_textbox, By=&quot;XPATH&quot;,expected_action=&quot;clear_text&quot;)</body>
                             </command>
                             <postProcessing>
                                 <analysisRules>
@@ -1217,6 +1243,19 @@
                                                     <item actionId="Eval">
                                                         <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
                                                             <statement>is_successful=False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="FailTest">
+                                                        <actionProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                                    </item>
+                                                    <item actionId="DeclareExecutionIssue">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.ExecutionIssuePropertyGroup">
+                                                            <message>Login failed, unable to input Password</message>
+                                                        </actionProperties>
+                                                    </item>
+                                                    <item actionId="CallProcedure">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.CallProcedurePropertyGroup">
+                                                            <command>clean_up(is_screen_shot=&quot;true&quot;)</command>
                                                         </actionProperties>
                                                     </item>
                                                 </actionsWhenFalse>
