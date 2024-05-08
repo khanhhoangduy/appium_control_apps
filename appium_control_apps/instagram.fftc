@@ -507,9 +507,9 @@
                                             </command>
                                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                         </item>
-                                        <item guid="2483cf6a-9e8d-42db-aea3-c30731cb7350" action="call" useFieldsInCommand="false">
+                                        <item guid="a2873f02-f308-4135-bf5c-eaa6fba28032" action="call" useFieldsInCommand="false">
                                             <command>
-                                                <body>clean_and_assert_expected_page(expected_page_xpath=xpath_profile_page)</body>
+                                                <body>driver_find_with_action(element=xpath_profile_page,expected_action=&quot;is_displayed&quot;,By=&quot;XPATH&quot;)</body>
                                             </command>
                                             <postProcessing>
                                                 <analysisRules>
@@ -973,7 +973,77 @@
                     </command>
                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                 </item>
-                <item guid="a2939fa6-0461-4d22-93a9-bb9d225e1edf" action="eval" useFieldsInCommand="false">
+                <item guid="ed0d7726-0ba8-43f4-9744-97829489eb1b" action="eval" useFieldsInCommand="false">
+                    <command>
+                        <body>xpath_log_into_another_acc=&quot;//android.view.View[@content-desc=&apos;Log into another account&apos;]&quot;</body>
+                    </command>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="3b65054a-b2d7-4251-9b4b-cec91a89e85f" action="comment" useFieldsInCommand="false">
+                    <command>
+                        <body>Check is Login page appeared with &quot;Log into another account&quot; to move to the default login page</body>
+                    </command>
+                    <nestedSteps>
+                        <item guid="adce69eb-9080-42a1-a50c-6c2eda1afd5a" action="call" useFieldsInCommand="false">
+                            <command>
+                                <body>driver_find_with_action(element=xpath_log_into_another_acc,expected_action=&quot;is_displayed&quot;,By=&quot;XPATH&quot;)</body>
+                            </command>
+                            <postProcessing>
+                                <analysisRules>
+                                    <item>
+                                        <extractorInfo extractorType="contains">
+                                            <extractorProperties type="com.fnfr.svt.mapping.execution.extractors.ExtractorContainsPropertyGroup">
+                                                <searchString>True</searchString>
+                                            </extractorProperties>
+                                        </extractorInfo>
+                                        <processorInfo ruleType="assert">
+                                            <ruleProperties type="com.fnfr.svt.execution.builtin.processors.AssertionPropertyGroup">
+                                                <expression>value == 1</expression>
+                                                <actionsWhenTrue>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_successful=True</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenTrue>
+                                                <actionsWhenFalse>
+                                                    <item actionId="Eval">
+                                                        <actionProperties type="com.fnfr.svt.execution.builtin.actions.EvalActionPropertyGroup">
+                                                            <statement>is_successful=False</statement>
+                                                        </actionProperties>
+                                                    </item>
+                                                </actionsWhenFalse>
+                                            </ruleProperties>
+                                        </processorInfo>
+                                    </item>
+                                </analysisRules>
+                                <storeResponseAt>is_successful</storeResponseAt>
+                                <storeResponseText>true</storeResponseText>
+                            </postProcessing>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                        <item guid="a82cdec6-75cd-44d5-a01a-804447d3d831" action="if" useFieldsInCommand="false">
+                            <command>
+                                <body>is_successful:</body>
+                            </command>
+                            <nestedSteps>
+                                <item guid="619a38da-87e4-4cf5-b057-e33edd53b1f8" action="call" useFieldsInCommand="false">
+                                    <command>
+                                        <body>driver_find_with_action(element=xpath_log_into_another_acc, By=&quot;XPATH&quot;,expected_action=&quot;click&quot;)</body>
+                                    </command>
+                                    <postProcessing>
+                                        <storeResponseAt>is_command_successful</storeResponseAt>
+                                        <storeResponseText>true</storeResponseText>
+                                    </postProcessing>
+                                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                                </item>
+                            </nestedSteps>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
+                    </nestedSteps>
+                    <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                </item>
+                <item guid="400cf935-3d29-403f-b2da-988cb664db2e" action="eval" useFieldsInCommand="false">
                     <command>
                         <body>xpath_login=&quot;//android.view.View[@content-desc=&apos;Log in&apos;]&quot;</body>
                     </command>
@@ -981,7 +1051,7 @@
                 </item>
                 <item guid="a87ff581-fd3a-47ce-b870-697844f0450d" action="comment" useFieldsInCommand="false">
                     <command>
-                        <body>Check is Login page appeared elif re-open the login page 2 times, if reaches max retry attempt event show error and clean up</body>
+                        <body>Open the login, if reaches max retry attempt event then show error and clean up</body>
                     </command>
                     <nestedSteps>
                         <item guid="71f4de2f-71fb-4c50-9ff1-c1bcce534f93" action="call" useFieldsInCommand="false">
