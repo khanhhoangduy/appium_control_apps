@@ -38,6 +38,12 @@
                             </command>
                             <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                         </item>
+                        <item guid="086633d9-2658-4360-b8b1-fa621537f11d" action="eval" useFieldsInCommand="false">
+                            <command>
+                                <body>phone_number = &apos;&apos;.join([i for i in str(phone_number) if i.isdigit()])</body>
+                            </command>
+                            <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
+                        </item>
                         <item guid="ad38faec-a273-475b-8c52-4ca596efb32f" action="eval" useFieldsInCommand="false">
                             <command>
                                 <body>text_input = param(&quot;InputText&quot;,&quot;&quot;)</body>
@@ -1322,7 +1328,7 @@
                                                             <nestedSteps>
                                                                 <item guid="2814e1c7-fae2-4db6-92e2-3f25f343d66e" action="eval" useFieldsInCommand="false">
                                                                     <command>
-                                                                        <body>serverReceivedTime = float(sent_time.timestamp()) - float(send_time.timestamp())</body>
+                                                                        <body>serverReceivedTime = round(float(sent_time.timestamp()) - float(send_time.timestamp()), 2)</body>
                                                                     </command>
                                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                 </item>
@@ -1336,7 +1342,7 @@
                                                             <nestedSteps>
                                                                 <item guid="fa620d74-4392-4b54-a5a1-eecaedb7e0b3" action="eval" useFieldsInCommand="false">
                                                                     <command>
-                                                                        <body>recepientReceivedTime = float(read_time.timestamp()) - float(send_time.timestamp())</body>
+                                                                        <body>recepientReceivedTime = round(float(read_time.timestamp()) - float(send_time.timestamp()), 2)</body>
                                                                     </command>
                                                                     <applicationProperties type="com.fnfr.svt.documents.EmptyPropertyGroup"/>
                                                                 </item>
